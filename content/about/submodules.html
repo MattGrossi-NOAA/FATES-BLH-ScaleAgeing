@@ -531,12 +531,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Now that the template repo has been split apart and several new files added to the theme repo, the two repos need to be tied together in order for the website to work. This will be done using <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank">GitHub submodules</a> for the reasons discussed earlier.</p>
+<p>Now that the template repo has been split apart and several new files added to the theme repo, the two repos need to be tied together in order for the website to work. This will be done using <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">GitHub submodules</a> for the reasons discussed earlier.</p>
 <section id="step-8-creating-submodules" class="level3">
 <h3 class="anchored" data-anchor-id="step-8-creating-submodules">Step 8: Creating submodules</h3>
-<p>These steps take place in the <a href="../../content/about/template.html" target="_blank">template repo</a>.</p>
+<p>These steps take place in the <a href="../../content/about/template.html">template repo</a>.</p>
 <ol type="1">
-<li><p>Using a terminal or Command Prompt, navigate to the <a href="../../content/about/template.html#step-2-clone-this-new-repo-locally" target="_blank">home directory of the template repo</a>.</p></li>
+<li><p>Using a terminal or Command Prompt, navigate to the <a href="../../content/about/template.html#step-2-clone-this-new-repo-locally">home directory of the template repo</a>.</p></li>
 <li><p>Create a submodule for the navbar:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> submodule add <span class="at">--branch</span> navbars <span class="at">--force</span> <span class="at">--name</span> navbars_theme https://github.com/<span class="op">&lt;</span>GitHub-username<span class="op">&gt;</span>/<span class="op">&lt;</span>theme-repo<span class="op">&gt;</span> navbars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where <code>&lt;GitHub-username&gt;</code> is the owner of the GitHub repository <code>&lt;theme-repo&gt;</code>.</p></li>
@@ -595,7 +595,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">favicon</span><span class="kw">:</span><span class="at"> theme/images/favicon.png</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Commit the changes.</p></li>
 </ol>
-<p>With everything committed to GitHub, the template repo’s external website (the URL from <a href="../../content/about/template.html#creating-the-documentation-template" target="_blank">Step 1.8</a>) should render properly.</p>
+<p>With everything committed to GitHub, the template repo’s external website (the URL from <a href="../../content/about/template.html#creating-the-documentation-template">Step 1.8</a>) should render properly.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1048,8 +1048,8 @@ Tip
       &nbsp;
     <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/blob/docs/content/about/submodules.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p><a href="https://noaa.gov" target="_blank">NOAA</a> <br> <a href="https//fisheries.noaa.gov" target="_blank">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center" target="_blank">Southeast Fisheries Science Center</a></p>
-<p>This page is built with <a href="https://quarto.org/" target="_blank">Quarto</a>. © CC-1.0</p>
+<p><a href="https://noaa.gov">NOAA</a> <br> <a href="https//fisheries.noaa.gov">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center">Southeast Fisheries Science Center</a></p>
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>. © CC-1.0</p>
 </div>
   </div>
 </footer>

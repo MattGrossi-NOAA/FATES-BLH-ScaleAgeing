@@ -539,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Common horizontal navigation bar with IOOS-related links and resources</li>
 <li>“Behind the scenes” configurations that govern how the website works</li>
 </ul>
-<p>This theme is simply a GitHub repository containing the necessary configuration files, scripts, and visual branding to provide the underlying structure of a documentation web page. IOOS implements this theme in all documentation pages through the use of <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank">GitHub submodules</a>, the details of which are beyond the scope of this document but, in short, allow <em>theme files</em> to be contained in their own repository and then embedded into a separate repository that contains the <em>content files</em> for the web page. There are several advantages to this. First, it means that individuals seeking to write documentation do not need to worry about creating a website. The “guts” already exist. Second, the same theme repository can be embedded into an infinite number of documentation repositories, providing a consistent look and feel across all of them. Finally, the theme can be modified at any time by the owner (for example, the IOOS Program Office) and those changes can easily be propagated through to every other site that uses the theme by simply pulling the changes into each of the respective repositories.</p>
+<p>This theme is simply a GitHub repository containing the necessary configuration files, scripts, and visual branding to provide the underlying structure of a documentation web page. IOOS implements this theme in all documentation pages through the use of <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">GitHub submodules</a>, the details of which are beyond the scope of this document but, in short, allow <em>theme files</em> to be contained in their own repository and then embedded into a separate repository that contains the <em>content files</em> for the web page. There are several advantages to this. First, it means that individuals seeking to write documentation do not need to worry about creating a website. The “guts” already exist. Second, the same theme repository can be embedded into an infinite number of documentation repositories, providing a consistent look and feel across all of them. Finally, the theme can be modified at any time by the owner (for example, the IOOS Program Office) and those changes can easily be propagated through to every other site that uses the theme by simply pulling the changes into each of the respective repositories.</p>
 <section id="step-4-create-a-new-documentation-theme-quarto-repository" class="level3">
 <h3 class="anchored" data-anchor-id="step-4-create-a-new-documentation-theme-quarto-repository">Step 4: Create a new “documentation-theme-quarto” repository</h3>
 <p>This is done on the GitHub website and assumes the user already has a GitHub account and is signed in. These steps will duplicate the NOAA Open Science repo into that user’s account. This repo will contain the theme files and manage site appearances according to the needs of the SEFSC.</p>
@@ -556,7 +556,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Copy the HTTPS web URL shown in the popup.</p></li>
 <li><p>On your local computer, in a terminal window or Command Prompt, navigate to where the theme repo is to be downloaded, and type</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>where <code>&lt;URL&gt;</code> is the web URL from <a href="#step-4-clone-this-repository-locally" target="_blank">Step 4</a>.2 above.</p>
+<p>where <code>&lt;URL&gt;</code> is the web URL from <a href="#step-4-clone-this-repository-locally">Step 4</a>.2 above.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -571,7 +571,7 @@ Important
 </div>
 </div></li>
 <li><p>Press enter. The repo will now be downloaded to your local machine.</p>
-<p>Alternatively, after <a href="#step-4-clone-this-repository-locally" target="_blank">Step 4</a>.1, either use the “Open with GitHub Desktop” or the “Download ZIP” options shown above to download the repo. Be sure to unzip it if you retrieve it this way.</p></li>
+<p>Alternatively, after <a href="#step-4-clone-this-repository-locally">Step 4</a>.1, either use the “Open with GitHub Desktop” or the “Download ZIP” options shown above to download the repo. Be sure to unzip it if you retrieve it this way.</p></li>
 </ol>
 </section>
 <section id="step-6-populate-the-theme-repository" class="level3">
@@ -1048,8 +1048,8 @@ Note
       &nbsp;
     <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/blob/docs/content/about/theme.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p><a href="https://noaa.gov" target="_blank">NOAA</a> <br> <a href="https//fisheries.noaa.gov" target="_blank">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center" target="_blank">Southeast Fisheries Science Center</a></p>
-<p>This page is built with <a href="https://quarto.org/" target="_blank">Quarto</a>. © CC-1.0</p>
+<p><a href="https://noaa.gov">NOAA</a> <br> <a href="https//fisheries.noaa.gov">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center">Southeast Fisheries Science Center</a></p>
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>. © CC-1.0</p>
 </div>
   </div>
 </footer>

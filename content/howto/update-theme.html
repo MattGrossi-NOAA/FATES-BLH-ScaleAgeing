@@ -531,7 +531,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The <a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton" target="_blank">SEFSC-documentation-quarto-skeleton</a> repository uses the SEFSC <a href="https://github.com/SEFSC/documentation-theme-quarto" target="_blank">documentation-theme-quarto</a> repo to ensure consistent documentation format and functionality. This is accomplished using <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank">GitHub submodules</a> as described in <a href="../../content/about/submodules.html" target="_blank">Merging the Template and Theme</a>. When modifications are made by the SEFSC <strong>documentation-theme-quarto</strong> repo managers, the changes need to be manually pulled into each repo linking to it. Periodically checking for updates upstream will ensure consistency across all SEFSC documentation pages.</p>
+<p>The <a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton">SEFSC-documentation-quarto-skeleton</a> repository uses the SEFSC <a href="https://github.com/SEFSC/documentation-theme-quarto">documentation-theme-quarto</a> repo to ensure consistent documentation format and functionality. This is accomplished using <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">GitHub submodules</a> as described in <a href="../../content/about/submodules.html">Merging the Template and Theme</a>. When modifications are made by the SEFSC <strong>documentation-theme-quarto</strong> repo managers, the changes need to be manually pulled into each repo linking to it. Periodically checking for updates upstream will ensure consistency across all SEFSC documentation pages.</p>
 <p>The <code>theme</code> and <code>navbars</code> directories are both imported as submodules. Neither directory should be ever be manually modified within any cloned or forked documentation rep. Doing so would defeat the purpose of using submodules.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -543,7 +543,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>One way to know that <code>theme</code> and <code>navbars</code> are submodules is to look at the contents of the <code>docs</code> branch on the repo’s webpage (for example, <a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/tree/docs" target="_blank">here</a>.) Notice the icon for these two folders contain an arrow and the directory names are followed by an “@” and seven characters (e.g., <code>theme @ eea3d56</code>). The icon arrow can be interpretted as pointing to another external repository and the <code>@ eea3d56</code> indicates the specific commit of that repository that is being read in. Any upstream updates to the theme repo will result in a new commit code, but downsteam submodules need to be manually updated to retrieve the new commits.</p>
+<p>One way to know that <code>theme</code> and <code>navbars</code> are submodules is to look at the contents of the <code>docs</code> branch on the repo’s webpage (for example, <a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/tree/docs">here</a>.) Notice the icon for these two folders contain an arrow and the directory names are followed by an “@” and seven characters (e.g., <code>theme @ eea3d56</code>). The icon arrow can be interpretted as pointing to another external repository and the <code>@ eea3d56</code> indicates the specific commit of that repository that is being read in. Any upstream updates to the theme repo will result in a new commit code, but downsteam submodules need to be manually updated to retrieve the new commits.</p>
 </div>
 </div>
 <section id="updating-the-submodules" class="level2">
@@ -557,7 +557,7 @@ Tip
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> submodule update <span class="at">--init</span> <span class="at">--force</span> <span class="at">--remote</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will check both submodules and should print its status to the page. In the example below, the <code>theme</code> directory has been updated.</p>
 <p><img src="../../images/submodule-update.png" class="img-fluid" style="width:60.0%"></p>
-<p>As noted in <a href="../../content/about/submodules.html" target="_blank">Merging the Template and Theme</a>, the <code>theme</code> directory is linked to the <code>main</code> branch of the template repo. GitHub sees the new commit and returns both the existing commit and the new one (<code>eea3d56..84d91cd  main       -&gt; origin/main</code>).</p>
+<p>As noted in <a href="../../content/about/submodules.html">Merging the Template and Theme</a>, the <code>theme</code> directory is linked to the <code>main</code> branch of the template repo. GitHub sees the new commit and returns both the existing commit and the new one (<code>eea3d56..84d91cd  main       -&gt; origin/main</code>).</p>
 <p>Checking the status of the repo again will reveal that new commits were made to <code>theme</code> and also displays the message associated with the latest commit.</p>
 <p><img src="../../images/submodule-update-msg.png" class="img-fluid" style="width:60.0%"></p>
 <p>Commit and push these changes as usual.</p>
@@ -1025,8 +1025,8 @@ Tip
       &nbsp;
     <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/blob/docs/content/howto/update-theme.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/SEFSC/SEFSC-documentation-quarto-skeleton/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p><a href="https://noaa.gov" target="_blank">NOAA</a> <br> <a href="https//fisheries.noaa.gov" target="_blank">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center" target="_blank">Southeast Fisheries Science Center</a></p>
-<p>This page is built with <a href="https://quarto.org/" target="_blank">Quarto</a>. © CC-1.0</p>
+<p><a href="https://noaa.gov">NOAA</a> <br> <a href="https//fisheries.noaa.gov">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center">Southeast Fisheries Science Center</a></p>
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>. © CC-1.0</p>
 </div>
   </div>
 </footer>
