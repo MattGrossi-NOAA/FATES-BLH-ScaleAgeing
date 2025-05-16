@@ -391,6 +391,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#naming-conventions" id="toc-naming-conventions" class="nav-link active" data-scroll-target="#naming-conventions">Naming conventions</a></li>
+  <li><a href="#additional-scripts" id="toc-additional-scripts" class="nav-link" data-scroll-target="#additional-scripts">Additional scripts</a></li>
+  <li><a href="#demonstration-notebooks" id="toc-demonstration-notebooks" class="nav-link" data-scroll-target="#demonstration-notebooks">Demonstration notebooks</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/MattGrossi-NOAA/FATES-BLH-ScaleAgeing/blob/docs/content/docs/suggestions.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/MattGrossi-NOAA/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -418,12 +420,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="naming-conventions" class="level2">
-<h2 class="anchored" data-anchor-id="naming-conventions">Naming conventions</h2>
-<p>The <a href="../../content/docs/usage.html#an-example">example execution commands</a> illustrate the importance of giving careful consideration to file and folder names. For example, the script name – <code>Scale_Ageing_Inference_Script_Image_Only.py</code> – is difficult and time-consuming to type, both due its length and its use of capital letters and underscores, both of which require using two keys. While using the shift key may seem trivial, it can quickly become an annoyance when repeatedly tying commands.</p>
+<section id="naming-conventions" class="level3">
+<h3 class="anchored" data-anchor-id="naming-conventions">Naming conventions</h3>
+<p>The <a href="../../content/docs/usage.html#an-example">example execution commands</a> illustrate the importance of giving careful consideration to file and folder names. For example, the script name <code>Scale_Ageing_Inference_Script_Image_Only.py</code> is difficult and time-consuming to type, both due its length and its use of capital letters and underscores, both of which require using two keys. While using the shift key may seem trivial, it can quickly become an annoyance when repeatedly tying commands.</p>
 <p><strong>It is therefore recommended that the name of the script be shortened.</strong> An example might be <code>inference-images.py</code>.</p>
-<p>Similarly, long directory (folder) names are equally burdonsome to type. Even more annoying is having to handle special characters (including spaces), since different operating systems handle them differently. Notice, for example, that in the Bash command, all spaces must be “escaped” with a preceding backslash (“"). Special characters are even trickier because they would need to be handled properly in the code.</p>
-<p><strong>In general, best practice is to avoid spaces and special characters altogether in file and directory names.</strong> Consider using camelCase instead, where the first letter of each word (except the first word) is capitalized. Underscores and dashes are also commonly used in directory names. These are less frowned-upon than spaces because they do not need to be escaped.</p>
+<p>Similarly, long directory names are equally burdensome to type. Even more annoying is having to handle special characters (including spaces), since different operating systems handle them differently. Notice, for example, that in the Bash command, all spaces must be “escaped” with a preceding backslash (\). Special characters are even trickier because they would need to be handled properly in the code.</p>
+<p><strong>In general, best practice is to avoid spaces and special characters altogether in both file and directory names.</strong> Consider using camelCase instead, where the first letter of each word (except the first word) is capitalized. Underscores and dashes are also commonly used in directory names. These are less frowned-upon than spaces because they do not need to be escaped.</p>
+</section>
+<section id="additional-scripts" class="level3">
+<h3 class="anchored" data-anchor-id="additional-scripts">Additional scripts</h3>
+<p>Additional scripts, such as training scripts, should be added to the repo and this documentation once available.</p>
+</section>
+<section id="demonstration-notebooks" class="level3">
+<h3 class="anchored" data-anchor-id="demonstration-notebooks">Demonstration notebooks</h3>
+<p>Once complete, Jupyter notebooks demonstrating the model may be added to this documentation.</p>
 
 
 </section>
