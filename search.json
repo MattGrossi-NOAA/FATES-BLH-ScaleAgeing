@@ -1,98 +1,92 @@
 [
   {
-    "objectID": "content/howto/notebooks.html",
-    "href": "content/howto/notebooks.html",
-    "title": "Jupyter Notebook",
+    "objectID": "content/docs/setup.html",
+    "href": "content/docs/setup.html",
+    "title": "Getting Started",
     "section": "",
-    "text": "You can create content with Jupyter notebooks.\n\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(subplot_kw={'projection': 'polar'})\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nBelow we’ll display a map using folium. When your book is built, the code for creating the interactive map is retained.\n\nimport folium\nm = folium.Map(\n    location=[45.372, -121.6972],\n    zoom_start=12,\n    tiles='Stamen Terrain',\n    attr='&lt;a href=https://maps.stamen.com/terrain/Stamen Terrain&lt;/a&gt;'\n)\n\nfolium.Marker(\n    location=[45.3288, -121.6625],\n    popup='Mt. Hood Meadows',\n    icon=folium.Icon(icon='cloud')\n).add_to(m)\n\nfolium.Marker(\n    location=[45.3311, -121.7113],\n    popup='Timberline Lodge',\n    icon=folium.Icon(color='green')\n).add_to(m)\n\nfolium.Marker(\n    location=[45.3300, -121.6823],\n    popup='Some Other Location',\n    icon=folium.Icon(color='red', icon='info-sign')\n).add_to(m)\n\nm\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
+    "text": "Note\n\n\n\nThe instructions on this page only need to be carried out once. If you have aleady installed the required dependencies and created a virtual environment, skip ahead to Using the Model.\n\n\nMuch of the following is carried out using command line. In the instructions below, “command line terminal” or “terminal” refer to any command line application for the given operating system. For Windows, this is commonly Command Prompt or Windows Powershell. These use DOS commands. For UNIX users, Git Bash is a good alternative; it is included in Git for Windows and allows UNIX commands to be used instead of DOS.\n\nSoftware Installation\n\ngit\nIf the Git CLI is already installed, there should be a Git Bash program in your Applications. If so, open this program and verify everything is working by typing\ngit --version\nThis should display the version of git installed on the system.\n\n\n\n\n\n\nNote\n\n\n\nThis should already be installed for all users on the Advanced Technology GPU machine.\n\n\nIf needed, download and install the Git CLI before continuing. This does not need administrative priviledges to install at the user level. Confirm that it has been installed by opening a command line terminal and entering git --version.\n\n\nconda\nDownload and install Anaconda.\n\n\n\n\n\n\nNote\n\n\n\nThis is already installed on the Advanced Technology GPU machine, but it may need to be set up for each user. Keep reading to learn more.\n\n\nVerify installation and configuration of Anaconda using a command line terminal:\nconda --version\nIf Anaconda is configured properly, this should print the version of the installed software. If, instead, it returns a “command not found” error, and you know Anaconda has been installed, you most likely need to add Conda to your path variables so that your operating system knows where to find it. First, find where it was installed, and then, in Windows:\n\nIn the Windows taskbar, search for “environment” and select “Edit environmental variables for your account”\nIn the top panel of the window that opens, click the “Path” user variable, then select “Edit…”.\nYou need to add two new paths, one at a time. Click “New” and enter the full path (starting with “C:\") of the directory containing Anaconda. This may, for example, be C:\\Users\\user.name\\AppData\\Local\\anaconda3, if installed at the user level (where user.name is your user name), or C:\\ProgramData\\anaconda3 if installed for all users.\nRepeat step 3 with the same path but with \\Scripts\\ appended to the end. For example, C:\\ProgramData\\anaconda3\\Scripts\\.\nClick Ok (twice) to save and exit Settings.\n\nClose and reopen your commmand line terminal. Then type conda init to initialize Anaconda. Finally, try the conda --version command again. It should work now.\n\n\n\nClone the Repository\nThe model code is available on GitHub. To retrieve it:\n\nOpen a terminal window and change directories (cd) to wherever you want the code to reside. For example,\ncd Documents/ageing\n\n\n\n\n\n\nImportant\n\n\n\nMake sure the directory exists before trying to navigate into it. You cannot move into a non-existent folder.\n\n\nClone the repository into the desired directory\ngit clone https://github.com/&lt;repoName&gt;.git .\nif you want all of the repo contents in the current directory, or\ngit clone https://github.com/&lt;repoName&gt;.git\nif you want the repo contents to be downloaded into a new subdirectory called &lt;repoName&gt;, where &lt;repoName&gt; is the name of the repository. (Note the difference between the two commands is the dot . at the end.) This is just personal preference.\n\n\n\nCreate a Virtual Environment\nVirtual environments are used to manage Python packages. Create a virtual environment specifically for this model. In a terminal window, navigate into the directory containing the model code (from the previous step). Then:\nconda env create --name scaleageing --file=environment.yml\nThis command creates a virtual environment called scaleageing and downloads and installs all of the package dependencies listed in the environment.yml file contained in the repo.\nNote that this virtual environment can be named anything at all, but remember what you call it – and keep it simple – because it will be invoked by name each time you use the model.\nCongratulations! Now that your environment is set up – and this only needs to be done once, the first time – we are ready to start using the model.",
     "crumbs": [
       "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Jupyter Notebook"
+      "Menhaden Ageing Model",
+      "Getting Started"
     ]
   },
   {
-    "objectID": "content/howto/notebooks.html#a-plot",
-    "href": "content/howto/notebooks.html#a-plot",
-    "title": "Jupyter Notebook",
+    "objectID": "content/docs/usage.html",
+    "href": "content/docs/usage.html",
+    "title": "Using the Model",
     "section": "",
-    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(subplot_kw={'projection': 'polar'})\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()",
+    "text": "Running the Menhaden Ageing Model is straightforward and only requires one command. You will, however, need three things on hand:\n\nThe directory containing the scale images to process\nThe directory where you want the model output file to be written\nThe directory containing the trained model weights (i.e., the best_model.pth file). If you simply cloned the repo and have not moved anything around, this file will be alongside the model script in the scripts subdirectory in the cloned repository.\n\nFirst we need to activate the virtual environment we previously configured. In a terminal window, type:\nconda activate scaleageing\n\n\n\n\n\n\nTip\n\n\n\nIf you named your virtual environment something other than “scaleageing”, invoke that name instead.\n\n\nNavigate into the directory containing the Scale_Aging_Inference_Script_Image_Only.py script. If you simply cloned the repo and have not moved anything around, this will in the scripts subdirectory in the cloned repository.\nRun the model as described in the usage instructions:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere &lt;img_dir&gt; is the full path to the directory containing the scale images to process (#1 above), &lt;csv_dir&gt; is the full path to desired directory to which the CSV output will be written (#2 above), and &lt;model_dir&gt; is the full path to the directory containing the best_model.pth model weights (#3 above).\n\nAn Example\nDirectories are handled slightly differently in DOS (Windows Command Prompt, Powershell) than UNIX (Git Bash). For example, running on the Advanced Technology GPU machine might to process 2024 menhaden data might look like this:\n\nGit Bash\npython Scale_Aging_Inference_Script_Image_Only.py G:/Shared\\ drives/NMFS\\ SEFSC\\ FATES\\ Advanced\\ Technology/BIOLOGY_LIFE_HISTORY_DATA/Atlantic\\ menhaden\\ to\\ be\\ tested\\ w\\ active\\ learning/subset C:/Users/user.name/Documents/menhaden/2024 C:/Users/user.name/Documents/GitHubRepos/FATES-BLH-ScaleAgeing/scripts\n\n\nCommand Prompt\npython Scale_Aging_Inference_Script_Image_Only.py “G:\\Shared drives\\NMFS SEFSC FATES Advanced Technology\\BIOLOGY_LIFE_HISTORY_DATA\\Atlantic menhaden to be tested w active learning\\subset” “C:\\Users\\user.name\\Documents\\menhaden\\2024” “C:\\Users\\user.name\\Documents\\GitHubRepos\\FATES-BLH-ScaleAgeing\\scripts”",
     "crumbs": [
       "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Jupyter Notebook"
+      "Menhaden Ageing Model",
+      "Using the Model"
     ]
   },
   {
-    "objectID": "content/howto/notebooks.html#interactive-outputs",
-    "href": "content/howto/notebooks.html#interactive-outputs",
-    "title": "Jupyter Notebook",
+    "objectID": "content/docs/acknowledgements.html",
+    "href": "content/docs/acknowledgements.html",
+    "title": "Acknowledgments",
     "section": "",
-    "text": "Below we’ll display a map using folium. When your book is built, the code for creating the interactive map is retained.\n\nimport folium\nm = folium.Map(\n    location=[45.372, -121.6972],\n    zoom_start=12,\n    tiles='Stamen Terrain',\n    attr='&lt;a href=https://maps.stamen.com/terrain/Stamen Terrain&lt;/a&gt;'\n)\n\nfolium.Marker(\n    location=[45.3288, -121.6625],\n    popup='Mt. Hood Meadows',\n    icon=folium.Icon(icon='cloud')\n).add_to(m)\n\nfolium.Marker(\n    location=[45.3311, -121.7113],\n    popup='Timberline Lodge',\n    icon=folium.Icon(color='green')\n).add_to(m)\n\nfolium.Marker(\n    location=[45.3300, -121.6823],\n    popup='Some Other Location',\n    icon=folium.Icon(color='red', icon='info-sign')\n).add_to(m)\n\nm\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
+    "text": "This model was created by Aotian Zheng at the University of Washington Information Processing Lab in cooperation with and supported by the NOAA Southeast Fisheries Science Center Fisheries Assessment, Technology, and Engineering Support Division.",
     "crumbs": [
       "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Jupyter Notebook"
+      "Menhaden Ageing Model",
+      "Acknowledgments"
     ]
   },
   {
-    "objectID": "content/howto/update-theme.html",
-    "href": "content/howto/update-theme.html",
-    "title": "Updating the Theme",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Menhaden Ageing Model",
     "section": "",
-    "text": "The SEFSC-documentation-quarto-skeleton repository uses the SEFSC documentation-theme-quarto repo to ensure consistent documentation format and functionality. This is accomplished using GitHub submodules as described in Merging the Template and Theme. When modifications are made by the SEFSC documentation-theme-quarto repo managers, the changes need to be manually pulled into each repo linking to it. Periodically checking for updates upstream will ensure consistency across all SEFSC documentation pages.\nThe theme and navbars directories are both imported as submodules. Neither directory should be ever be manually modified within any cloned or forked documentation rep. Doing so would defeat the purpose of using submodules.",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Updating the Theme"
-    ]
+    "text": "This Menhaden Ageing Model provides an innovative method for automatically estimating Menhaden age using scale images. Built upon state-of-the-art deep learning algorithms, it enables rapid generation of fish age predictions by simply pointing to a directory containing magnified images of scale samples."
   },
   {
-    "objectID": "content/howto/update-theme.html#updating-the-submodules",
-    "href": "content/howto/update-theme.html#updating-the-submodules",
-    "title": "Updating the Theme",
-    "section": "Updating the submodules",
-    "text": "Updating the submodules\nAll of the following is done locally using a command line terminal.\nChange directories (cd) into the local repo’s parent directory. This is the directory that contains the theme and navbars folders. Change to the docs branch if needed. Check for any uncommitted changes on the branch and commit them now (not necessarily required but strongly recommended.)\ncd sefsc-documentation-quarto-skeleton\ngit checkout docs\ngit status\nPull the updates from the remote submodule repos:\ngit submodule update --init --force --remote\nThis will check both submodules and should print its status to the page. In the example below, the theme directory has been updated.\n\nAs noted in Merging the Template and Theme, the theme directory is linked to the main branch of the template repo. GitHub sees the new commit and returns both the existing commit and the new one (eea3d56..84d91cd  main       -&gt; origin/main).\nChecking the status of the repo again will reveal that new commits were made to theme and also displays the message associated with the latest commit.\n\nCommit and push these changes as usual.\ngit add theme\ngit commit -m \"Update theme\"\ngit push origin docs\n\n\n\n\n\n\nTip\n\n\n\nIt may be beneficial to use the same commit message here as was associated with the theme repo update. If the commit message is descriptive (and hopefully it is), this will keep track of what actually changed – which is the point of commit messages in the first place. Thus, in this example:\ngit add theme\ngit commit -m \"Change repo branch to docs and url behavior to new tab\"\ngit push origin docs\n\n\nIt should now be updated and good to go. Verify the new commit code shows up in the repo file list on the landing page. The new changes will take affect once the gh-pages site finishes rendering.",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Updating the Theme"
-    ]
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "Menhaden Ageing Model",
+    "section": "About",
+    "text": "About\nThe internal workflow is as follows:\n\nRaw images are first converted to grayscale such that every image pixel contains a value [0, 255]. These grayscale images are then processed using binary thresholding image processing techniques by which all pixels whose values are above a certain threshold are set to 1 while the rest are set to 0. This allows the scale itself to be distinguished from the image background. The threshold value used for menhaden, based on trail and error, is 100.\nImperfections in the new masked images are cleaned up using morphological opening and closing techniques to remove undesired background noise and capture any missed portions of the scale.\nThe contours of the masked shape are identified in order to extract the object of interest (i.e., the scale).\nThe scale is then cropped out of the original image and padded to make it square.\nThe new square image containing just the scale of interest is passed to a trained custom residual neural network (resnet) deep learning classification model. Model output is saved to a CSV file.\n\nImplementation instructions follow. Be sure to set up and configure a Python environment before the first use."
   },
   {
-    "objectID": "content/howto/update-theme.html#how-often-should-submodules-be-updated",
-    "href": "content/howto/update-theme.html#how-often-should-submodules-be-updated",
-    "title": "Updating the Theme",
-    "section": "How often should submodules be updated?",
-    "text": "How often should submodules be updated?\nTheme files should not change often, but unfortunately, when they do, there is currently no automatic way for forked or cloned repos downstream to know. Users are encouraged to check for changes using the git submodule update --init --force --remote command whenever they make modifications to their documentation site and, ideally, on some regular cadance, minimally once a year. If there are no new changes, this command will simply indicate that the submodules “checked out” with the latest commit code and no further action is needed.",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Updating the Theme"
-    ]
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "Menhaden Ageing Model",
+    "section": "Usage",
+    "text": "Usage\nThe full model is wrapped inside a single Python script called Scale_Aging_Inference_Script_Image_Only.py. To execute, run the following command in a command line terminal:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere\n\n\n\n\n\n\n\n&lt;img_dir&gt;\n(str) full path to the directory containing the scale images to process\n\n\n&lt;csv_dir&gt;\n(str) full path to desired directory to which the CSV output will be written\n\n\n&lt;model_dir&gt;\n(str) full path to the directory containing the trained model weights (i.e., the best_model.pth file)"
   },
   {
-    "objectID": "content/howto/code.html",
-    "href": "content/howto/code.html",
-    "title": "Rendering with Code",
+    "objectID": "index.html#options",
+    "href": "index.html#options",
+    "title": "Menhaden Ageing Model",
+    "section": "Options",
+    "text": "Options\nNo options are available at this time. All arguments above are currently required."
+  },
+  {
+    "objectID": "index.html#dependencies",
+    "href": "index.html#dependencies",
+    "title": "Menhaden Ageing Model",
+    "section": "Dependencies",
+    "text": "Dependencies\n\nAnaconda (for virtual environment implementation)\nGit CLI (for repository cloning)\nPython &gt;=3.9\ntorch ==1.12.1\ntorchvision == 0.13.1\ntorchaudio == 0.12.1\nopencv-python\npandas\ntqdm\n\n\nRecommendations\n\nmatplotlib (data plotting in Python)\njupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)\n\nSee Getting Started for installation and setup instructions."
+  },
+  {
+    "objectID": "index.html#release-notes",
+    "href": "index.html#release-notes",
+    "title": "Menhaden Ageing Model",
+    "section": "Release Notes",
+    "text": "Release Notes\n\n\n Version History \n\n\n\n2025.0.1 (BETA) (May 2025): Initial version for testing with the following functionality:\n\n\nRun via command line with image, output, and model directories passed as required arguments\n\n\n\n\n\n\n\n\n\n\n\nLicense\n\n\n\nSoftware code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.\n\n\n\n\n\n\n\n\nDisclaimer\n\n\n\nThis software is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA software and project code is provided on an “as is” basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this software will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government."
+  },
+  {
+    "objectID": "content/docs/mount.html",
+    "href": "content/docs/mount.html",
+    "title": "Mounting a Drive",
     "section": "",
-    "text": "Python code can be included in any qmd file. Note that code can only be rendered if the reader has Python (and package dependencies) installed locally.\n\nimport matplotlib.pyplot as plt\n\nx = [5,7,8,7,2,17,2,9,4,11,12,9,6]\ny = [99,86,87,88,111,86,103,87,94,78,77,85,86]\n\nplt.scatter(x, y)\nplt.show()\n\n\n\n\n\n\n\n\n\nPolar Axis\nFor a demonstration of a line plot on a polar axis, see Figure 1.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(subplot_kw={'projection': 'polar'})\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\n\n\nFigure 1\n\n\n\n\n\n\n\nModify the GitHub Action\nWhen you add Python modules, you will need to change the GitHub Action in .github/workflows to install these in order for GitHub to be able to render your webpage. The GitHub Action in this template installs Python; if another language (e.g., R or Julia) is needed instead, then the GitHub Action will need to be updated to install those.\nIf getting the GitHub Action to work is too much hassle (and that definitely happens), you can alway render locally and publish to the gh-pages branch. If you do this, make sure to delete or rename the GitHub Action to something like\nrender-and-publish.old_yml\nso GitHub does not keep trying to run it. Nothing bad will happen if you don’t do this, but if you are not using the action (because it keeps failing), then you don’t need GitHub to run it.\n\n\nRender locally and publish to gh-pages branch\nTo render locally and push up to the gh-pages branch, open a terminal window and then cd to the directory with the Quarto project. Type this in the terminal:\nquarto render gh-pages",
+    "text": "If the data to be processed are stored on a remote drive somewhere, such as in Google Shared Drive, that drive must first be “mounted” in order for it to be accessible via the operating system’s file system. The Google Drive application, which is already installed on the Advanced Technology GPU machine, makes accessing personal Google drives and Google shared drives easy. One must, however, log in to authenticate access.\nSimply double click the Google Drive icon on the desktop and log in as normal. When asked to authenticate with two factor authentication, plug your Yubikey into your local computer and authenticate as usual. The authentication will be passed to the remote machine. Once done, your Google drive will appear in File Explorer as the “G” drive.\nOther drives, such as each lab’s on-prem shared storage drives, are already mapped and are also accessible by their corresponding drive letters.\nThe example in Using the Model illustrates how to access data stored in a Google shared drive.",
     "crumbs": [
       "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Rendering with Code"
-    ]
-  },
-  {
-    "objectID": "content/howto/customizing.html",
-    "href": "content/howto/customizing.html",
-    "title": "Customization",
-    "section": "",
-    "text": "Step 2: Setting up your site for editing\nEditing content in your new fork of the documentation skeleton repository can be done in one of two ways: 1. Locally using a code editor and a Quarto installation, or 2. Online using the GitHub website\nThis repo includes a GitHub Action that will render (build) the website automatically when you make changes to the files. It will be pushed to the gh-pages branch. Editing locally is easier for making major changes to the site, including more complex changes to theme content. It requires a local installation of Quarto and a basic text editor for editing theme content and git client to push your changes back to GitHub. See the Editing locally with Quarto section for details.\nEditing in GitHub is easier for more minor content modifications such as editing text in individual markdowns file, one at a time. See the Editing online in GitHub section for details.\n\nEditing locally with Quarto\nThis approach allows instantaneous rendering of the site exactly as it will appear in GitHub Pages so you can more rapidly iterate changes. Once you are happy with your changes, you can then commit them to your git branch locally, and push them with git to GitHub to update the online GitHub Pages site (or follow the GitHub PR workflow, if you prefer). Using git is outside the scope of this HOWTO, but lots of documentation and tutorial are available onine to learn git.\nDownload and install Quarto and a code editor of choice. Follow the instructions for previewing the website within your chosen code editor (e.g., VS Code).\nNote that editing website content (i.e., Markdown files) requires reloading the preview page to see the changes, while editing a configuration file (i.e., yaml files) should trigger an automatic re-rendering of the website and updated preview.\n\n\nEditing online in GitHub\nWhen you are setting up a new documentation site initially, you will likely want to use the local Quarto approach described above to get your site configured. Once this has been accomplished and your site is running in GitHub Pages, you can make minor edits to your site directly on GitHub with your browser in three simple steps:\n\nNavigate to the file to be edited from the GitHub file browser (make sure you’re viewing the correct branch);\nOpen it for editing by clicking on the “pencil” icon at the right side above the file content;\nMake all changes, preview them to make sure that everything is okay, and commit them to the docs branch (make sure that the “Commit directly to the docs branch” option is checked)\n\n\n\nFirst publish to gh-pages\nThe first publish to gh-pages needs to be done locally.\n\nOn your local computer, open a terminal window and navigate to your repo directory.\nPublish to the gh-pages:\nquarto publish gh-pages\nThis is going to render the webpage and then push the _site contents to the gh-pages branch.\n\n\n\n\nStep 3: Configuring the site\nCurrently, all of the website-level metadata that need to be changed are found in _metadata.yml.\n\nProvide a website title. This will show up at the top left of the site and in the browser tab\nSpecifiy the site URL. This is for website itself. To find it, navigate to the rep landing page on GitHub, click “Settings”, then “Pages”. The site URL is the address at which the site is live.\nSpecify the repo URL, the URL of the GitHub repository itself.\n\nCommit the changes when done. That’s all there is to it.",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Customization"
+      "Menhaden Ageing Model",
+      "Mounting a Drive"
     ]
   },
   {
@@ -159,237 +153,6 @@
     "crumbs": [
       "Read the Docs",
       "Menhaden Ageing Model"
-    ]
-  },
-  {
-    "objectID": "content/docs/mount.html",
-    "href": "content/docs/mount.html",
-    "title": "Mounting a Drive",
-    "section": "",
-    "text": "If the data to be processed are stored on a remote drive somewhere, such as in Google Shared Drive, that drive must first be “mounted” in order for it to be accessible via the operating system’s file system. The Google Drive application, which is already installed on the Advanced Technology GPU machine, makes accessing personal Google drives and Google shared drives easy. One must, however, log in to authenticate access.\nSimply double click the Google Drive icon on the desktop and log in as normal. When asked to authenticate with two factor authentication, plug your Yubikey into your local computer and authenticate as usual. The authentication will be passed to the remote machine. Once done, your Google drive will appear in File Explorer as the “G” drive.\nOther drives, such as each lab’s on-prem shared storage drives, are already mapped and are also accessible by their corresponding drive letters.\nThe example in Using the Model illustrates how to access data stored in a Google shared drive.",
-    "crumbs": [
-      "Read the Docs",
-      "Menhaden Ageing Model",
-      "Mounting a Drive"
-    ]
-  },
-  {
-    "objectID": "content/about/quarto.html",
-    "href": "content/about/quarto.html",
-    "title": "About This Project",
-    "section": "",
-    "text": "Quarto is used widely across NOAA Fisheries because of its flexibility, alignment with open science principles, integration with the R programming language and RStudio, and its relative ease of use. A number of use cases, including several webpages, are demonstrated on the NMFS Open Science GitHub page. While most NOAA Fisheries staff use Quarto with R and RStudio, Quarto also supports Python, Jupyter, and Visual Studio (VS) Code, all of which are more common within the computer science and, in particular, the artifiicial intelligence and machine learning communities. One of the most compelling features of Quarto is its seamless integration with GitHub for version control and hosting websites.\nThe decision to use GitHub Pages (gh-pages) for SEFSC documentation was inspired by its widespread use within IOOS. Correspondence with an IOOS data management analyst revealed that all IOOS documentation pages are either already utilizing gh-pages or are in the process of migrating to it because of the strengths listed in Table 1. IOOS hosts a Documentation Portal within their organizational GitHub account to compile all products and projects documentation in one central location.\nAn existing NMFS Open Science template for a simple Quarto web book with Python support provided the starting point (see the repository’s acknowledgements for full credit.) This repository (repo) contains both website configuration files, such as yaml files and images, and content files in the form of Quarto Markdown files. It was pre-configured to build and deploy the web book (i.e., webpage) to a gh-pages branch while the configuration and content files resided in the main branch. More on this later. The steps taken to replicate and adapt this for SEFSC documentation pages follow.",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template",
-      "About This Project"
-    ]
-  },
-  {
-    "objectID": "content/about/index.html",
-    "href": "content/about/index.html",
-    "title": "ABOUT: Creating the SEFSC Quarto Theme and Template",
-    "section": "",
-    "text": "This section is for informational purposes only. It’s technical. It captures the process to create the GitHub Pages SEFSC-documentation-quarto-skeleton SEFSC-documentation-quarto-skeleton repository template for use within the NOAA Fisheries Southeast Fisheries Science Center.\nNothing herein needs to be repeated to create a specific documentation page in a GitHub repository. These steps are only necessary if one desires to create a new template of the same format and functionality – for example, if a different Financial Management Center (FMC) desires to create their own custom template.\nInstructions for creating an actual documentation page using the theme are provided in Getting started with SEFSC Quarto Documentation Theme Skeleton Getting started with SEFSC Quarto Documentation Theme Skeleton.",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template"
-    ]
-  },
-  {
-    "objectID": "content/about/template.html",
-    "href": "content/about/template.html",
-    "title": "Creating the Documentation Template",
-    "section": "",
-    "text": "Step 1: Clone the NMFS Open Science repository\nThis is done on the GitHub website and assumes the user already has a GitHub account and is signed in. These steps will duplicate the NOAA Open Science repo into that user’s account.\n\nNavigate to the nmfs-opensci/NOAA-quarto-simple-python in a web browser.\nClick the green “Use this template” button and select “Create a new repository”.\n\n\n\nSelect the “Include all branches” box. This is important to ensure everything works without any additional manual configuration.\nSelect a repo owner and provide a name for the new repo being created. We will refer to this repo as the template repo throughout these instructions. Enter a description, if desired. (This can be changed or added later.) Select “Public”.\nClick “Create repository”.\n\nIn the newly created template repo, click “Settings” at the top of the page.\nSelect “Pages” on the side menu.\nEnable GitHub Pages, if not already enabled, and note the URL at which the site is live. You can verify that everything worked by navigating to the site in a web browser. It should exactly like the original web book. Keep other settings unchanged and save any changes.\n\n\n\n\nStep 2: Clone this new repo locally\n\nOne the main page of the new repo, click the green “&lt; &gt; Code” button.\nCopy the HTTPS web URL shown in the popup.\nOn your local computer, in a terminal window or Command Prompt, navigate to where the repo is to be downloaded, and type\ngit clone &lt;URL&gt;\nwhere &lt;URL&gt; is the web URL from Step 2.2 above.\nPress enter. The repo will now be downloaded to your local machine.\nAlternatively, after Step 2.1, either use the “Open with GitHub Desktop” or the “Download ZIP” options shown above to download the repo. Be sure to unzip it if you retrieve it this way.\n\n\n\nStep 3: Add a new docs branch\nThe repo is currently configured to render the Quarto project on the main branch and publish the website to the gh-pages branch. To make this more suitable for code repositories, we will reserve the main branch for code and other project files and use a dedicated docs branch to host the Quarto website files.\n\nUsing a terminal or Command Prompt on your local computer, navigate to the new template repo directory.\nCreate a new docs branch and push to GitHub:\ngit checkout -b docs\ngit push origin docs\nClear out the main branch and return to docs:\n```bash git checkout main rm -r . git commit -m “Remove all files from branch” git push origin main git checkout docs\n\nFrom this point on, all template repo activity will refer to the docs branch unless otherwise noted. Next we’ll a second repo for the theme itself.",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template",
-      "Creating the Documentation Template"
-    ]
-  },
-  {
-    "objectID": "content/about/submodules.html",
-    "href": "content/about/submodules.html",
-    "title": "Merging the Template and Theme",
-    "section": "",
-    "text": "Now that the template repo has been split apart and several new files added to the theme repo, the two repos need to be tied together in order for the website to work. This will be done using GitHub submodules for the reasons discussed earlier.\n\nStep 8: Creating submodules\nThese steps take place in the template repo.\n\nUsing a terminal or Command Prompt, navigate to the home directory of the template repo.\nCreate a submodule for the navbar:\ngit submodule add --branch navbars --force --name navbars_theme https://github.com/&lt;GitHub-username&gt;/&lt;theme-repo&gt; navbars\nwhere &lt;GitHub-username&gt; is the owner of the GitHub repository &lt;theme-repo&gt;.\nCreate a submodule to import the theme itself:\ngit submodule add --force --name documentation-theme-quarto https://github.com/&lt;GitHub-username&gt;/&lt;theme-repo&gt; theme\n\nSteps 2 and 3 will create two new directories in the template repo: navbars and theme (the last argument in the command line calls).\n\nCommit the changes as usual, for example:\ngit add .\ngit commit -m \"Add navbar and theme files from theme repo\"\ngit push origin docs\nOn the template repo GitHub page, these new directories will show up with an appended commit ID (e.g., theme @ a1b2c3d). These commit IDs indicate the version of these two theme repo branches that are currently loaded into the template repo.\nIn the .github/workflows directory, edit the `render-and-publish.yml’ file as follows:\n\nChange the push branch from main to docs:\nname: Render and deploy quarto files\non:\n  push:\n    branches: docs\nAppend to the quarto-render-and-deploy checkout step as follows to checkout the submodules before rendering the project:\njobs:\n  quarto-render-and-deploy:\n    runs-on: ubuntu-latest\n    defaults:\n      run:\n        shell: bash -l {0}\n    steps:\n      - uses: actions/checkout@v3\n        with:\n          submodules: recursive\n\n\n\n\nStep 9: Finish the metadata files\n\nIn the template repo _quarto.yml:\n\nAppend the directory theme/ to the theme.scss and theme-dark.scss files so that Quarto knows where to find them:\nformat:\n  html:\n    theme:\n      light: [cosmo, theme/theme.scss] \n      dark: [cosmo, theme/theme-dark.scss]\nAdd the following block:\nmetadata-files:\n  - theme/_website.yml\n  - navbars/_topnav_sefsc.yml\n  - _metadata.yml\n\nCommit the changes.\nIn the theme repo _website.yml, append the directory theme/ to the favicon call so that Quarto knows where to find it:\nwebsite: \n  ...\n  favicon: theme/images/favicon.png\nCommit the changes.\n\nWith everything committed to GitHub, the template repo’s external website (the URL from Step 1.8) should render properly.\n\n\n\n\n\n\nTip\n\n\n\nThe repo is configured to use GitHub Actions to automatically render and publish to the gh-pages branch whenever new changes are pushed to the main branch. It does, however, take a short period of time for the various processes to run behind the scenes, so updates may not appear immediately. On the GitHub repo homepage, a brown dot will appear next to username and latest commit message after a change is pushed, indicating that the page is being rebuilt. This dot will become a green check mark once successfully finished. The website can be refreshed once that happens.",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template",
-      "Merging the Template and Theme"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Menhaden Ageing Model",
-    "section": "",
-    "text": "This Menhaden Ageing Model provides an innovative method for automatically estimating Menhaden age using scale images. Built upon state-of-the-art deep learning algorithms, it enables rapid generation of fish age predictions by simply pointing to a directory containing magnified images of scale samples."
-  },
-  {
-    "objectID": "index.html#about",
-    "href": "index.html#about",
-    "title": "Menhaden Ageing Model",
-    "section": "About",
-    "text": "About\nThe internal workflow is as follows:\n\nRaw images are first converted to grayscale such that every image pixel contains a value [0, 255]. These grayscale images are then processed using binary thresholding image processing techniques by which all pixels whose values are above a certain threshold are set to 1 while the rest are set to 0. This allows the scale itself to be distinguished from the image background. The threshold value used for menhaden, based on trail and error, is 100.\nImperfections in the new masked images are cleaned up using morphological opening and closing techniques to remove undesired background noise and capture any missed portions of the scale.\nThe contours of the masked shape are identified in order to extract the object of interest (i.e., the scale).\nThe scale is then cropped out of the original image and padded to make it square.\nThe new square image containing just the scale of interest is passed to a trained custom residual neural network (resnet) deep learning classification model. Model output is saved to a CSV file.\n\nImplementation instructions follow. Be sure to set up and configure a Python environment before the first use."
-  },
-  {
-    "objectID": "index.html#usage",
-    "href": "index.html#usage",
-    "title": "Menhaden Ageing Model",
-    "section": "Usage",
-    "text": "Usage\nThe full model is wrapped inside a single Python script called Scale_Aging_Inference_Script_Image_Only.py. To execute, run the following command in a command line terminal:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere\n\n\n\n\n\n\n\n&lt;img_dir&gt;\n(str) full path to the directory containing the scale images to process\n\n\n&lt;csv_dir&gt;\n(str) full path to desired directory to which the CSV output will be written\n\n\n&lt;model_dir&gt;\n(str) full path to the directory containing the trained model weights (i.e., the best_model.pth file)"
-  },
-  {
-    "objectID": "index.html#options",
-    "href": "index.html#options",
-    "title": "Menhaden Ageing Model",
-    "section": "Options",
-    "text": "Options\nNo options are available at this time. All arguments above are currently required."
-  },
-  {
-    "objectID": "index.html#dependencies",
-    "href": "index.html#dependencies",
-    "title": "Menhaden Ageing Model",
-    "section": "Dependencies",
-    "text": "Dependencies\n\nAnaconda (for virtual environment implementation)\nGit CLI (for repository cloning)\nPython &gt;=3.9\ntorch ==1.12.1\ntorchvision == 0.13.1\ntorchaudio == 0.12.1\nopencv-python\npandas\ntqdm\n\n\nRecommendations\n\nmatplotlib (data plotting in Python)\njupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)\n\nSee Getting Started for installation and setup instructions."
-  },
-  {
-    "objectID": "index.html#release-notes",
-    "href": "index.html#release-notes",
-    "title": "Menhaden Ageing Model",
-    "section": "Release Notes",
-    "text": "Release Notes\n\n\n Version History \n\n\n\n2025.0.1 (BETA) (May 2025): Initial version for testing with the following functionality:\n\n\nRun via command line with image, output, and model directories passed as required arguments\n\n\n\n\n\n\n\n\n\n\n\nLicense\n\n\n\nSoftware code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.\n\n\n\n\n\n\n\n\nDisclaimer\n\n\n\nThis software is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA software and project code is provided on an “as is” basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this software will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government."
-  },
-  {
-    "objectID": "content/about/about.html",
-    "href": "content/about/about.html",
-    "title": "Overview",
-    "section": "",
-    "text": "The NOAA Fisheries Southeast Fisheries Science Center (SEFSC) is actively developing a suite of new, innovative machine learning models designed to increase data processing efficiencies across the Center’s mission portfolio. These projects include, but are not limited to, automating the processing of Gulf and South Atlantic video survey data to derive species counts, automating aging of Gulf and Atlantic menhaden and red snapper, and automating the derivation of fish lengths from stereo video. These models were developed in Python using open-source libraries (e.g., PyTorch, cudatoolkit, Torchvision, and scikit-learn) by partners through the NOAA Northern Gulf Institute (NGI) and the University of Washington and are or will be maintained on the SEFSC Organization GitHub account.\nIntroducing new computer models into the Center’s data processing procedures necessitates adequate documentation so that the end users will know how to install and execute the models in operational use. Indeed, all computer models and software should be documented by the developers before being released to the intended end user. In the absence of a universally accepted documentation template for use within the SEFSC, NOAA Fisheries, or even NOAA at large, staff across NOAA have established their own approaches and templates of varying degrees of complexity based on their immediate needs. Some examples of these solutions are summarized in Table 1 along with notable strengths and weaknesses of each.\nSeveral features were prioritized when selecting a platform for SEFSC documentation:\n\nContent version control\nDocumentation existing alongside the model source code\nMinimal learning curve for populating and maintaining content\nLayout and formatting customization to align with agency visual branding requirements\n\n\n\n\nTable 1: A variety of resources have been used across NOAA for documenting procedures or applications, each having its own advantages and disadvantages. In the absence of guidance or directives, users currently select the approach best suited to their needs. This non-exhaustive list provides some examples of documentation solutions.\n\n\n\n\nDOCUMENTATION SOLUTION\n\n\nADVANTAGES\n\n\nDISADVANTAGES\n\n\n\n\nMicrosoft Word or Google Doc\n\n\n\n\nCreation is straightforward\n\n\nEasily converted to PDF\n\n\nSoftware readily available to NOAA staff\n\n\n\n\n\n\nNot co-located with software\n\n\nDocument owner often retains ownership\n\n\nDifficult to share publicly\n\n\nNo version control\n\n\n\n\n\n\nGitHub respository Wiki  Example: NOAA IOOS National Glider Data Assembly Center (NGDAC) Documentation (archived)\n\n\n\n\nConsistent formatting across all GitHub repositories (repos)\n\n\nConnected to the repo in which application is hosted\n\n\nPublic accessibility follows repo settings\n\n\nNo local software requirements\n\n\n\n\n\n\nLimited functionality\n\n\nNo ability to customize appearances, layouts, etc.\n\n\nLimited version control\n\n\nLearning curve with Markdown and HTML to populate content\n\n\n\n\n\n\nQuarto webpage made with R  Example: Quarto webpage with book layout made in RStudio\n\n\n\n\nConsistent formatting across implementations\n\n\nHosted on GitHub Pages (gh-pages) alongside the software itself\n\n\nGitHub version controlled\n\n\nTemplate and setup guidance available via NOAA Fisheries Open Science initiative\n\n\n\n\n\n\nLearning curve with Markdown and HTML to populate content\n\n\nLearning curve with R and RStudio to develop content locally\n\n\nLearning curve with GitHub Pages and GitHub Actions if customization is needed\n\n\n\n\n\n\nQuarto webpage made with Python  Example: Quarto webpage with book layout made with Python\n\n\n\n\nConsistent formatting across implementations\n\n\nCan be customized for the organization with optional centralized format control\n\n\nEasily templated to minimize learning curves\n\n\nHosted on gh-pages within the repo in which the application is hosted\n\n\nFull GitHub version control\n\n\nTemplate and setup guidance available via NOAA Fisheries Open Science initiative\n\n\n\n\n\n\nLearning curve with Markdown and HTML (optional) to populate content\n\n\nLearning curve with GitHub Pages and GitHub Actions if customization is needed\n\n\n\n\n\n\nGitHub Pages webpage with Jekyll theme  Example: NOAA IOOS Documentation Portal\n\n\n\n\nConsistent formatting across implementations\n\n\nCan be customized for the organization with optional centralized format control\n\n\nEasily templated to minimize learning curves\n\n\nHosted on gh-pages within the repo in which the application is hosted\n\n\nFull GitHub version control\n\n\nTemplate and setup guidance created by IOOS\n\n\n\n\n\n\nLearning curve with Markdown and HTML to populate content\n\n\nAdvanced customization requires knowledge of gh-pages, GitHub Actions, CSS, and other languages\n\n\nInitial setup can be challenging\n\n\n\n\n\n\nGoogle Docs, though straightforward to create and widely used across NOAA, present too many challenges. File ownership is a perpetual problem, with the original author often retaining ownership and files getting lost in staffing changes. Without preserving documents’ URLs, sharing access permissions, and transferring ownership when needed, these files often get lost or are not known to exist by new staff. There is also a tendency for documents to perpetually stay in “draft” version, which casts doubt on the accuracy of the content and whether or not a final version exists. A far better solution is one that is connected to GitHub where the model code itself is hosted and maintained. One option is GitHub Wikis, which can be created for any repository and have been widely used by NOAA Integrated Ocean Observing System (IOOS) programs, such as the original National Glider Data Assembly Center documentation page. Yet these Wikis offer limited version control and customization aside from the actual content. GitHub Pages, a service that allows a project website to be freely hosted for any repository, offers a more comprehensive assortment of options and flexibilities including customizable themes that can be tailored to agency visual branding, the ability to control this theme in one repository and use it across any number of documents, full version control, and the option of creating a template repository that can be easily duplicated and integrated into new projects. This project uses the simplicity of Quarto, an open-source scientific and technical publishing system, to create a documentation website and utilizes GitHub Pages for hosting with full version control. (For an alternative solution using Jekyll and GitHub Pages, see SEFSC Jekyll Documentation Theme.)",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template",
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "content/about/customization.html",
-    "href": "content/about/customization.html",
-    "title": "Customizing the Theme",
-    "section": "",
-    "text": "Step 7: Customize the theme\nThese steps take place primarily in the theme repo created on the previous page but also reference (and modify) the template repo created earlier.\nQuarto projects are configured using a _quarto.yml file; see the docs for more info. The new template repo contains this file already. The metadata sharing feature of Quarto allows that _quarto.yml file up to be split into multiple files. Quarto will combine them together again when the project is rendered. We will take advantage of this feature here.\n\n\n\n\n\n\nGitHub Tip\n\n\n\n\n\nCommitting all changes at the end of each step below is strongly recommended, keeping in mind that some steps modify both the template and theme repos.\n\n\n\n\nFirst, create a new file in the theme repo called _website.yml and populate it with any website configuration settings from the template repo _quarto.yml that should be consistent across all documentation pages. These settings include:\n\nWebsite page navaigation\nRepo actions\nFormat settings\nFilter\n\nDelete the relevant lines from the template repo _quarto.yml and insert them into the theme repo _website.yml file.\n\n\n\n\n\n\nCaution\n\n\n\nFor any section that gets split up, be sure to replicate the section header in the new yaml file so that Quarto knows how to merge them. See the example that follows.\n\n\nFor example, the original template repo _quarto.yml file contains:\nwebsite: \n  page-navigation: true\n  title: \"NOAA quarto simple\" \n  site-url: \"https://nmfs-opensci.github.io/NOAA-quarto-simple-python\" \n  repo-url: \"https://github.com/nmfs-opensci/NOAA-quarto-simple-python\"\n  repo-actions: [edit, source, issue]\n  favicon: images/favicon.ico\nAfter completing this step, the new theme _website.yml file should contain:\nwebsite: \n  page-navigation: true\n  repo-actions: [edit, source, issue]\n  favicon: images/favicon.ico\nleaving the following in _quarto.yml:\n  website: \n    title: \"NOAA quarto simple\" \n    site-url: \"https://nmfs-opensci.github.io/NOAA-quarto-simple-python\" \n    repo-url: \"https://github.com/nmfs-opensci/NOAA-quarto-simple-python\"\nNote that both files contain a website: section header.\nTake this a step further by creating a second file, _metadata.yml, in the theme repo to contain the only site information that a user will need to set when creating a new documentation site. For now, the four website elements above (title, site-url, and repo-url) are the only elements that need to be set for each project (this is the beauty of using Quarto for this application!) Remove this section from the template _quarto.yml file and insert them into the new theme repo _metadata.yml file.\nAt this point, _quarto.yml should no longer contain a website section: it has been entirely distributed between _website.yml and _metadata.yml.\nBack in the theme repo _website.yml file:\n\nAdd and configure a page-footer to contain NOAA, Fisheries, and SEFSC contact information.\nConfigure the sidebar with NOAA and SEFSC information.\n\n\n\n\n\n\n\nNote\n\n\n\nSetting contents: auto allows the sidebar to be automatically generated, eliminating the need for manual construction or configuration. Users should therefore follow the instructions in the docs for facilitating this feature.\n\n\nIn the theme repo theme.scss and theme-dark.scss files:\n\nAssign NOAA-specific colors to variable names for easy use later. These colors were taken from the NOAA Fisheries Brand Standards and include NOAA primary colors, grays, and secondary colors for each region. For example:\n// NOAA Fisheries Primary Palette\n$noaa-light-blue: #0093D0;\n$noaa-dark-blue: #0055A4;\n$navy-blue-pantone: #00467F;\nSet font colors:\n// Font colors\n$headings-color: $navy-blue-pantone !default;\n$link-color: #216f9b !default;\n\nUpload a new favicon image to the images directory, if desired. If a different file name is used, modify _website.yml accordingly:\nwebsite:\n  ...\n  favicon: path/to/new-favicon.ico\nCreate a new branch on the theme repo called navbars to be used for the top navigation bar of the documentation site.\nCommand line:\ngit -b checkout navbars\nOr on the repo’s GitHub website (be sure to run git fetch locally to retreive it)\nCreate a new file on this branch, _topnav_sefsc.yml.\nAdd and configure a navbar for the website containing relevant resources and links. For example:\nwebsite:\nnavbar:\n   background: $navy-blue-pantone\n   search: true\n   right:\n     - text: \"SEFSC Resources\"\n       menu:\n         - href: https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center\n           text: SEFSC Homepage\n         - href: https://nmfs-opensci.github.io/\n           text: NOAA Fisheries Open Science\n     - text: \"Software & Documentation\"\n       menu:\n         - href: https://github.com/sefsc\n           text: SEFSC GitHub Organization\n         - href: https://noaa-fisheries-integrated-toolbox.github.io/\n           text: NOAA Fisheries Integrated Toolbox\nCommit the changes to this branch, for example:\ngit add .\ngit commit -m \"Initial commit\"\ngit push origin navbars\n\nNext we will tie all of this together.",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template",
-      "Customizing the Theme"
-    ]
-  },
-  {
-    "objectID": "content/about/theme.html",
-    "href": "content/about/theme.html",
-    "title": "Creating the Custom Theme",
-    "section": "",
-    "text": "IOOS uses a custom website theme to maintain consistent formatting, appearance, and functionality across all documentation sites. Some of the most noticable thematic features include:\n\nIOOS header logo added and colors changed in accordance with branding guidelines\nPage footer with appropriate links and contact information\nCommon horizontal navigation bar with IOOS-related links and resources\n“Behind the scenes” configurations that govern how the website works\n\nThis theme is simply a GitHub repository containing the necessary configuration files, scripts, and visual branding to provide the underlying structure of a documentation web page. IOOS implements this theme in all documentation pages through the use of GitHub submodules, the details of which are beyond the scope of this document but, in short, allow theme files to be contained in their own repository and then embedded into a separate repository that contains the content files for the web page. There are several advantages to this. First, it means that individuals seeking to write documentation do not need to worry about creating a website. The “guts” already exist. Second, the same theme repository can be embedded into an infinite number of documentation repositories, providing a consistent look and feel across all of them. Finally, the theme can be modified at any time by the owner (for example, the IOOS Program Office) and those changes can easily be propagated through to every other site that uses the theme by simply pulling the changes into each of the respective repositories.\n\nStep 4: Create a new “documentation-theme-quarto” repository\nThis is done on the GitHub website and assumes the user already has a GitHub account and is signed in. These steps will duplicate the NOAA Open Science repo into that user’s account. This repo will contain the theme files and manage site appearances according to the needs of the SEFSC.\n\nOn the “Repositories” tab, click the green “New” button to create a new repo.\nDo not select a template. Select a repository ower, provide a name (e.g., “documentation-theme-quarto”), and type a description, if desired.\nClick “Create repository”. We will refer to this repo as the theme repo throughout these instructions.\n\n\n\nStep 5: Clone this repository locally\n\nOne the main page of the new repo, click the green “&lt; &gt; Code” button.\nCopy the HTTPS web URL shown in the popup.\nOn your local computer, in a terminal window or Command Prompt, navigate to where the theme repo is to be downloaded, and type\ngit clone &lt;URL&gt;\nwhere &lt;URL&gt; is the web URL from Step 4.2 above.\n\n\n\n\n\n\nImportant\n\n\n\nThis theme repo can be located in the same parent directory as the template repo created earlier, but it should not be located within that repo.\n\n\nPress enter. The repo will now be downloaded to your local machine.\nAlternatively, after Step 4.1, either use the “Open with GitHub Desktop” or the “Download ZIP” options shown above to download the repo. Be sure to unzip it if you retrieve it this way.\n\n\n\nStep 6: Populate the theme repository\n\nMove the following from the template repo to this new theme repo:\n\ntheme-dark.scss\ntheme.scss\nLICENSE\nimages (directory and content)\n\nIf using a terminal or Command Prompt (Git Bash is recommended on Windows):\nmv -r path/to/template-repo/filename path/to/theme-repo\nIf you are in the template repo directory, you can use:\nmv filename path/to/theme-repo\nOr, if you are in the theme repo directory:\nmv -r path/to/template-repo .\nCommit these changes to each repo. You can use the same commit message for each if you want, for example:\ngit add *\ngit commit -m \"Move theme files from template repo to theme repo\"\ngit push origin main\n\n\n\n\n\n\nNote\n\n\n\nThis will have to be done separately in each repo.\n\n\n\nNow we have a theme repo, we can customize it for the SEFSC.",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template",
-      "Creating the Custom Theme"
-    ]
-  },
-  {
-    "objectID": "content/about/conclusion.html",
-    "href": "content/about/conclusion.html",
-    "title": "Final Remarks",
-    "section": "",
-    "text": "This page walked through the creation of two new GitHub repositories: a documentation skeleton template repository using Quarto, which can be duplicated and populated with headers and text to create document a model, source code, or any other project; and a second theme repository that contains the behind-the-scenes configurations, branding, etc. to control the look and functionality of the site. These two repositories were linked together using GitHub submodules allowing the theme repo to be managed separately from all documentation repos while ensuring that all documentation repos share the same look and feel. This is particularly important for adhering to organizational branding requirements.\nSeparating the website theme files from the content repository also minimizes the learning curve to creating a new site because there is no need to re-create or configure any back-end settings. This means there is no need to know or learn HTML, JavaScript, or any other languages used to generate the site itself. And by templating the Markdown files containing the actual content of the documentation site, next to no knowledge of Markdown is needed either: the user can essentially replace the placeholder text with the appropriate narrative. Instructions on how to proceed in creating a new repo using the template are contained in the HowTo pages. This template can also be easily added to an existing repo containing, for example, source code, allowing the documentation to live in a docs branch alongside the code itself in the main. Importantly, because all of this is done in GitHub, every component is completely version controlled.\nWe hope this page provides guidance for others within NOAA interested in creating their own Quarto website template. These can either be forked from NMNFS Open Science directly, as the steps describe, or from the SEFSC repos created herein. The latter may be particularly beneficial for other FMCs within NOAA Fisheries, as this SEFSC template may be closer to what such a user would want.",
-    "crumbs": [
-      "Read the Docs",
-      "ABOUT: Creating the SEFSC Quarto Theme and Template",
-      "Final Remarks"
-    ]
-  },
-  {
-    "objectID": "content/docs/acknowledgements.html",
-    "href": "content/docs/acknowledgements.html",
-    "title": "Acknowledgments",
-    "section": "",
-    "text": "This model was created by Aotian Zheng at the University of Washington Information Processing Lab in cooperation with and supported by the NOAA Southeast Fisheries Science Center Fisheries Assessment, Technology, and Engineering Support Division.",
-    "crumbs": [
-      "Read the Docs",
-      "Menhaden Ageing Model",
-      "Acknowledgments"
-    ]
-  },
-  {
-    "objectID": "content/docs/usage.html",
-    "href": "content/docs/usage.html",
-    "title": "Using the Model",
-    "section": "",
-    "text": "Running the Menhaden Ageing Model is straightforward and only requires one command. You will, however, need three things on hand:\n\nThe directory containing the scale images to process\nThe directory where you want the model output file to be written\nThe directory containing the trained model weights (i.e., the best_model.pth file). If you simply cloned the repo and have not moved anything around, this file will be alongside the model script in the scripts subdirectory in the cloned repository.\n\nFirst we need to activate the virtual environment we previously configured. In a terminal window, type:\nconda activate scaleageing\n\n\n\n\n\n\nTip\n\n\n\nIf you named your virtual environment something other than “scaleageing”, invoke that name instead.\n\n\nNavigate into the directory containing the Scale_Aging_Inference_Script_Image_Only.py script. If you simply cloned the repo and have not moved anything around, this will in the scripts subdirectory in the cloned repository.\nRun the model as described in the usage instructions:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere &lt;img_dir&gt; is the full path to the directory containing the scale images to process (#1 above), &lt;csv_dir&gt; is the full path to desired directory to which the CSV output will be written (#2 above), and &lt;model_dir&gt; is the full path to the directory containing the best_model.pth model weights (#3 above).\n\nAn Example\nDirectories are handled slightly differently in DOS (Windows Command Prompt, Powershell) than UNIX (Git Bash). For example, running on the Advanced Technology GPU machine might to process 2024 menhaden data might look like this:\n\nGit Bash\npython Scale_Aging_Inference_Script_Image_Only.py G:/Shared\\ drives/NMFS\\ SEFSC\\ FATES\\ Advanced\\ Technology/BIOLOGY_LIFE_HISTORY_DATA/Atlantic\\ menhaden\\ to\\ be\\ tested\\ w\\ active\\ learning/subset C:/Users/user.name/Documents/menhaden/2024 C:/Users/user.name/Documents/GitHubRepos/FATES-BLH-ScaleAgeing/scripts\n\n\nCommand Prompt\npython Scale_Aging_Inference_Script_Image_Only.py “G:\\Shared drives\\NMFS SEFSC FATES Advanced Technology\\BIOLOGY_LIFE_HISTORY_DATA\\Atlantic menhaden to be tested w active learning\\subset” “C:\\Users\\user.name\\Documents\\menhaden\\2024” “C:\\Users\\user.name\\Documents\\GitHubRepos\\FATES-BLH-ScaleAgeing\\scripts”",
-    "crumbs": [
-      "Read the Docs",
-      "Menhaden Ageing Model",
-      "Using the Model"
-    ]
-  },
-  {
-    "objectID": "content/docs/setup.html",
-    "href": "content/docs/setup.html",
-    "title": "Getting Started",
-    "section": "",
-    "text": "Note\n\n\n\nThe instructions on this page only need to be carried out once. If you have aleady installed the required dependencies and created a virtual environment, skip ahead to Using the Model.\n\n\nMuch of the following is carried out using command line. In the instructions below, “command line terminal” or “terminal” refer to any command line application for the given operating system. For Windows, this is commonly Command Prompt or Windows Powershell. These use DOS commands. For UNIX users, Git Bash is a good alternative; it is included in Git for Windows and allows UNIX commands to be used instead of DOS.\n\nSoftware Installation\n\ngit\nIf the Git CLI is already installed, there should be a Git Bash program in your Applications. If so, open this program and verify everything is working by typing\ngit --version\nThis should display the version of git installed on the system.\n\n\n\n\n\n\nNote\n\n\n\nThis should already be installed for all users on the Advanced Technology GPU machine.\n\n\nIf needed, download and install the Git CLI before continuing. This does not need administrative priviledges to install at the user level. Confirm that it has been installed by opening a command line terminal and entering git --version.\n\n\nconda\nDownload and install Anaconda.\n\n\n\n\n\n\nNote\n\n\n\nThis is already installed on the Advanced Technology GPU machine, but it may need to be set up for each user. Keep reading to learn more.\n\n\nVerify installation and configuration of Anaconda using a command line terminal:\nconda --version\nIf Anaconda is configured properly, this should print the version of the installed software. If, instead, it returns a “command not found” error, and you know Anaconda has been installed, you most likely need to add Conda to your path variables so that your operating system knows where to find it. First, find where it was installed, and then, in Windows:\n\nIn the Windows taskbar, search for “environment” and select “Edit environmental variables for your account”\nIn the top panel of the window that opens, click the “Path” user variable, then select “Edit…”.\nYou need to add two new paths, one at a time. Click “New” and enter the full path (starting with “C:\") of the directory containing Anaconda. This may, for example, be C:\\Users\\user.name\\AppData\\Local\\anaconda3, if installed at the user level (where user.name is your user name), or C:\\ProgramData\\anaconda3 if installed for all users.\nRepeat step 3 with the same path but with \\Scripts\\ appended to the end. For example, C:\\ProgramData\\anaconda3\\Scripts\\.\nClick Ok (twice) to save and exit Settings.\n\nClose and reopen your commmand line terminal. Then type conda init to initialize Anaconda. Finally, try the conda --version command again. It should work now.\n\n\n\nClone the Repository\nThe model code is available on GitHub. To retrieve it:\n\nOpen a terminal window and change directories (cd) to wherever you want the code to reside. For example,\ncd Documents/ageing\n\n\n\n\n\n\nImportant\n\n\n\nMake sure the directory exists before trying to navigate into it. You cannot move into a non-existent folder.\n\n\nClone the repository into the desired directory\ngit clone https://github.com/&lt;repoName&gt;.git .\nif you want all of the repo contents in the current directory, or\ngit clone https://github.com/&lt;repoName&gt;.git\nif you want the repo contents to be downloaded into a new subdirectory called &lt;repoName&gt;, where &lt;repoName&gt; is the name of the repository. (Note the difference between the two commands is the dot . at the end.) This is just personal preference.\n\n\n\nCreate a Virtual Environment\nVirtual environments are used to manage Python packages. Create a virtual environment specifically for this model. In a terminal window, navigate into the directory containing the model code (from the previous step). Then:\nconda env create --name scaleageing --file=environment.yml\nThis command creates a virtual environment called scaleageing and downloads and installs all of the package dependencies listed in the environment.yml file contained in the repo.\nNote that this virtual environment can be named anything at all, but remember what you call it – and keep it simple – because it will be invoked by name each time you use the model.\nCongratulations! Now that your environment is set up – and this only needs to be done once, the first time – we are ready to start using the model.",
-    "crumbs": [
-      "Read the Docs",
-      "Menhaden Ageing Model",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/howto/publishing.html",
-    "href": "content/howto/publishing.html",
-    "title": "Publishing",
-    "section": "",
-    "text": "Caution\n\n\n\nThe following remains untested. Use with caution.\n\n\nIn some cases, you don’t want your website on the gh-pages branch. For example, if you are creating releases and you want the website pages archived in that release, then you won’t want your website pages on the gh-pages branch.\nHere are the changes you need to make if you to avoid gh-pages branch.\n\nAt the top of _quarto.yml add the following:\nproject: \n  type: website\n  output-dir: docs\nOn GitHub under “Settings” &gt; “Pages”, set pages to be made from the docs branch and the docs directory.\nMake sure docs is not listed in .gitignore\nPublish the site the first time locally using quarto publish from the terminal\nChange the GitHub Action because you can’t use quarto publish gh-pages. You’ll need to push to the ‘docs’ branch yourself (in the GitHub Action)\non:\n  push:\n    branches: docs\n\nname: Render and Publish\n\njobs:\n  build-deploy:\n    runs-on: ubuntu-latest\n    env:\n      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}\n\n    steps:\n      - name: Check out repository\n        uses: actions/checkout@v2\n        with:\n          submodules: recursive\n\n      - name: Set up R (needed for Rmd)\n        uses: r-lib/actions/setup-r@v2\n\n      - name: Install packages (needed for Rmd)\n        run: Rscript -e 'install.packages(c(\"rmarkdown\", \"knitr\", \"jsonlite\"))'\n\n      - name: Set up Quarto\n        uses: quarto-dev/quarto-actions/setup@v2\n        with:\n          # To install LaTeX to build PDF book \n          # tinytex: true \n          # uncomment below and fill to pin a version\n          # version: 0.9.600\n\n      - name: Render Quarto Project\n        uses: quarto-dev/quarto-actions/render@v2\n        with:\n          to: html\n\n      - name: Set up Git\n        run: |\n          git config --local user.email \"actions@github.com\"\n          git config --local user.name \"GitHub Actions\"\n\n      - name: Commit all changes and push\n        run: |\n          git add -A && git commit -m 'Build site' || echo \"No changes to commit\"\n          git push origin || echo \"No changes to commit\"",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Publishing"
-    ]
-  },
-  {
-    "objectID": "content/howto/index.html",
-    "href": "content/howto/index.html",
-    "title": "HOWTO: Using the SEFSC Quarto Theme",
-    "section": "",
-    "text": "The SEFSC-documentation-quarto-skeleton repository is a template, or “skeleton”, starting point to create a new GitHub-based documentation site that uses the NOAA Fisheries Southeast Fisheries Science Center (SEFSC) documentation-theme-quarto documentation format and functionality. This documentation theme is derived from the NOAA Fisheries Open Science NOAA-quarto-simple-python repository and is inspired by the Integrated Ocean Observing System (IOOS) documentation-theme-jekyll, which is used for all https://ioos.github.io sites.\nThe instructions below will allow you to create a new GitHub Pages site that follows the look and feel/functionality of the documentation theme used by the https://ioos.github.io site. You can then add/edit the template markdown documents with your own content.\nThe theme has many additional features that have are not demonstrated nor utilized in this preview repository. Check out the Quarto documentation to learn more.",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme"
-    ]
-  },
-  {
-    "objectID": "content/howto/index.html#preliminaries",
-    "href": "content/howto/index.html#preliminaries",
-    "title": "HOWTO: Using the SEFSC Quarto Theme",
-    "section": "Preliminaries",
-    "text": "Preliminaries\nThis Quarto website has Python code in the code.qmd file and has a Jupyter notebook. The GitHub Action will render those for you but note that you need some a special RAW block at the top of your ipynb file. Without this, the Jupyter notebook won’t render (code blocks won’t be computed). It looks like this\n---\ntitle: Jupyter Notebook\nexecute:\n  enabled: true\njupyter: python3\n---\nAlso you will need to add any modules that your code needs to the requirements.txt file so they are installed by the GitHub Action.",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme"
-    ]
-  },
-  {
-    "objectID": "content/howto/add-content.html",
-    "href": "content/howto/add-content.html",
-    "title": "Add Content",
-    "section": "",
-    "text": "All website content is provided in Quarto Markdown (qmd) files. This makes creating the documentation site itself easy.\n\nStep 4: Edit the homepage\nThe content of the homepage is found in index.qmd in the parent directory of the repository. Do not or rename this file. Simply replace the placeholder text with your own and commit changes when finished.\n\n\nStep 5: Edit and add pages\nEach page is its own qmd file found within the contents folder. The website’s sidebar is automatically generated from the files in this folder. Use subfolders to create sections, such as this “HOWTO: Using the SEFSC Quarto Theme” section. The index.qmd file in each subfolder is used to modify the subfolder name (otherwise, like with the pages, the name is set by the subdirectory name) and control the order in which the sections appear in the sidebar.\nEach qmd page should start with frontmatter:\n---\ntitle: your title\norder: 1\n---\nThe “order” variable here specifies the navigational order in which to render the files. For example, in this template, setup.qmd contains order: 1 and appears before customization.qmd, which contains order: 2, in the sidebar.\nThe “title” variable controls both the title of the page as it appears on the page itself and what the page is called in the sidebar. If omitted, Quarto will auto-generate the sidebar title from the filename. A “subtitle” can also be provided to be included at the top of the page. See the docs for more details.\nThe title is always rendered as an “H1” header, so the first header within the text should be the 2nd level (##). Be sure to maintain consistent header levels throughout the website.\nQuarto Markdown files can include code (R, Python, Julia) and lots of Quarto markdown bells and whistles (like call-outs, cross-references, auto-citations, and much more), only some of which are demonstrated throughout this template. Read the Quarto documentation to learn more.\nYou can simply repurpose the Markdown files and folders provided in this template, changing the filenames and/or subdirectory names as appropriate and modifying the Markdown frontmatter and content in each file to suit your needs. Delete any unused Markdown files or add new ones as needed.\nThe remaining pages are informational to demonstrate behaviors or features.",
-    "crumbs": [
-      "Read the Docs",
-      "HOWTO: Using the SEFSC Quarto Theme",
-      "Add Content"
     ]
   }
 ]

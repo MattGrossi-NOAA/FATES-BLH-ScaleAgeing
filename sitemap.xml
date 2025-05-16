@@ -1,87 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/howto/notebooks.html</loc>
-    <lastmod>2025-05-16T14:20:54.528Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/howto/update-theme.html</loc>
-    <lastmod>2025-05-16T14:19:41.407Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/howto/code.html</loc>
-    <lastmod>2025-05-16T14:19:41.406Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/howto/customizing.html</loc>
-    <lastmod>2025-05-16T14:19:41.406Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/index.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/mount.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/quarto.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/index.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/template.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/submodules.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/index.html</loc>
-    <lastmod>2025-05-16T14:19:41.410Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/about.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/customization.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/theme.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/about/conclusion.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/acknowledgements.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
+    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/setup.html</loc>
+    <lastmod>2025-05-16T15:59:06.204Z</lastmod>
   </url>
   <url>
     <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/usage.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
+    <lastmod>2025-05-16T15:59:06.204Z</lastmod>
   </url>
   <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/setup.html</loc>
-    <lastmod>2025-05-16T14:19:41.405Z</lastmod>
+    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/acknowledgements.html</loc>
+    <lastmod>2025-05-16T15:59:06.204Z</lastmod>
   </url>
   <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/howto/publishing.html</loc>
-    <lastmod>2025-05-16T14:19:41.407Z</lastmod>
+    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/index.html</loc>
+    <lastmod>2025-05-16T15:59:06.205Z</lastmod>
   </url>
   <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/howto/index.html</loc>
-    <lastmod>2025-05-16T14:19:41.406Z</lastmod>
+    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/mount.html</loc>
+    <lastmod>2025-05-16T15:59:06.204Z</lastmod>
   </url>
   <url>
-    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/howto/add-content.html</loc>
-    <lastmod>2025-05-16T14:19:41.406Z</lastmod>
+    <loc>https://MattGrossi-NOAA.github.io/FATES-BLH-ScaleAgeing/content/docs/index.html</loc>
+    <lastmod>2025-05-16T15:59:06.204Z</lastmod>
   </url>
 </urlset>
