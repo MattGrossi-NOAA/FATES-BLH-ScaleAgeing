@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../content/docs/acknowledgements.html" rel="next">
+<link href="../../content/docs/usage.html" rel="next">
 <link href="../../content/docs/index.html" rel="prev">
 <link href="../../theme/images/favicon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -389,14 +389,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/docs/acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acknowledgments</span></a>
+  <a href="../../content/docs/usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the Model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/docs/usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using the Model</span></a>
+  <a href="../../content/docs/acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acknowledgments</span></a>
   </div>
 </li>
       </ul>
@@ -543,12 +543,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Much of the following is carried out using command line. In the instructions below, “command line terminal” or “terminal” refer to any command line application for the given operating system. For Windows, this is commonly Command Prompt or Windows Powershell. These use DOS commands. For UNIX users,Git Bash is a good alternative; it is included in <a href="#git">Git for Windows</a> and allows UNIX commands to be used instead of DOS.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The instructions on this page only need to be carried out once. If you have aleady installed the required dependencies and created a virtual environment, skip ahead to <a href="../../content/docs/usage.html">Using the Model</a>.</p>
+</div>
+</div>
+<p>Much of the following is carried out using command line. In the instructions below, “command line terminal” or “terminal” refer to any command line application for the given operating system. For Windows, this is commonly Command Prompt or Windows Powershell. These use DOS commands. For UNIX users, Git Bash is a good alternative; it is included in <a href="#git">Git for Windows</a> and allows UNIX commands to be used instead of DOS.</p>
 <section id="software-installation" class="level3">
 <h3 class="anchored" data-anchor-id="software-installation">Software Installation</h3>
 <section id="git" class="level4">
 <h4 class="anchored" data-anchor-id="git">git</h4>
-<p>If the <a href="https://git-scm.com/downloads">Git CLI</a> is already installed, there should be a Git Bash program in your Applications. If so, open this program and verify everything is working by typing <code>git --version</code>. This should display the version of git installed on the system.</p>
+<p>If the <a href="https://git-scm.com/downloads">Git CLI</a> is already installed, there should be a Git Bash program in your Applications. If so, open this program and verify everything is working by typing</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This should display the version of git installed on the system.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -562,7 +577,7 @@ Note
 <p>This should already be installed for all users on the Advanced Technology GPU machine.</p>
 </div>
 </div>
-<p>If needed, download and install the Git CLI before continuing. This does not need administrative priviledges to install at the user level. Confirm that it has been installed by opening a command line terminal and entering <code>git --version</code>.</p>
+<p>If needed, download and install the <a href="https://git-scm.com/downloads">Git CLI</a> before continuing. This does not need administrative priviledges to install at the user level. Confirm that it has been installed by opening a command line terminal and entering <code>git --version</code>.</p>
 </section>
 <section id="conda" class="level4">
 <h4 class="anchored" data-anchor-id="conda">conda</h4>
@@ -580,8 +595,8 @@ Note
 <p>This is already installed on the Advanced Technology GPU machine, but it may need to be set up for each user. Keep reading to learn more.</p>
 </div>
 </div>
-<p>Verify installation and configuration of Anaconda using a command line terminal such as Windows Command Prompt or Git Bash (installed with the Git CLI above):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify installation and configuration of Anaconda using a command line terminal:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If Anaconda is configured properly, this should print the version of the installed software. If, instead, it returns a “command not found” error, and you know Anaconda has been installed, you most likely need to <a href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">add Conda to your path variables</a> so that your operating system knows where to find it. First, find where it was installed, and then, in Windows:</p>
 <ol type="1">
 <li>In the Windows taskbar, search for “environment” and select “Edit environmental variables for your account”</li>
@@ -597,7 +612,8 @@ Note
 <h3 class="anchored" data-anchor-id="clone-the-repository">Clone the Repository</h3>
 <p>The model code is <a href="https://github.com/MattGrossi-NOAA/FATES-BLH-ScaleAgeing">available on GitHub</a>. To retrieve it:</p>
 <ol type="1">
-<li><p>Open a terminal window and change directories (<code>cd</code>) to wherever you want the code to reside. For example, <code>cd Documents/ageing</code>.</p>
+<li><p>Open a terminal window and change directories (<code>cd</code>) to wherever you want the code to reside. For example,</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Documents/ageing</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -612,19 +628,19 @@ Important
 </div>
 </div></li>
 <li><p>Clone the repository into the desired directory</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>repoName<span class="op">&gt;</span>.git .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>repoName<span class="op">&gt;</span>.git .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>if you want all of the repo contents in the current directory, or</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>repoName<span class="op">&gt;</span>.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>repoName<span class="op">&gt;</span>.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>if you want the repo contents to be downloaded into a new subdirectory called <code>&lt;repoName&gt;</code>, where <code>&lt;repoName&gt;</code> is the name of the repository. (Note the difference between the two commands is the dot <code>.</code> at the end.) This is just personal preference.</p></li>
 </ol>
 </section>
 <section id="create-a-virtual-environment" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-virtual-environment">Create a Virtual Environment</h3>
 <p>Virtual environments are used to manage Python packages. Create a virtual environment specifically for this model. In a terminal window, navigate into the directory containing the model code (from the previous step). Then:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--name</span> scaleageing <span class="at">--file</span><span class="op">=</span>environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--name</span> scaleageing <span class="at">--file</span><span class="op">=</span>environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This command creates a virtual environment called <code>scaleageing</code> and downloads and installs all of the package dependencies listed in the <code>environment.yml</code> file contained in the repo.</p>
-<p>Note that this virtual environment can be named anything at all, but remember what you call it – and keep it simple – because it will be involked by name each time you use the model.</p>
-<p>Now that your environment is set up – and this only needs to be done once, the first time – we are ready to start using the model.</p>
+<p>Note that this virtual environment can be named anything at all, but remember what you call it – and keep it simple – because it will be invoked by name each time you use the model.</p>
+<p><strong>Congratulations! Now that your environment is set up – and this only needs to be done once, the first time – we are ready to start <a href="../../content/docs/usage.html">using the model</a>.</strong></p>
 
 
 </section>
@@ -1049,8 +1065,8 @@ Important
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../content/docs/acknowledgements.html" class="pagination-link" aria-label="Acknowledgments">
-        <span class="nav-page-text">Acknowledgments</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../content/docs/usage.html" class="pagination-link" aria-label="Using the Model">
+        <span class="nav-page-text">Using the Model</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
