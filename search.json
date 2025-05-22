@@ -38,7 +38,7 @@
     "href": "content/docs/index.html#usage",
     "title": "Menhaden Ageing Model",
     "section": "Usage",
-    "text": "Usage\nThe full model is wrapped inside a single Python script called Scale_Aging_Inference_Script_Image_Only.py. To execute, run the following command in a command line terminal:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere\n\n\n\n\n\n\n\n&lt;img_dir&gt;\n(str) full path to the directory containing the scale images to process\n\n\n&lt;csv_dir&gt;\n(str) full path to desired directory to which the CSV output will be written\n\n\n&lt;model_dir&gt;\n(str) full path to the directory containing the trained model weights (i.e., the best_model.pth file)",
+    "text": "Usage\nThe full model is wrapped inside a single Python script called Scale_Aging_Inference_Script_Image_Only.py. To execute, run the following command in a command line terminal:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere\n\n\n\n\n\n\n\n&lt;img_dir&gt;\n(str) full path to the directory containing the scale images to process\n\n\n&lt;csv_dir&gt;\n(str) full path to desired directory to which the CSV output will be written\n\n\n&lt;model_dir&gt;\n(str) full path to the directory containing the trained model weights (i.e., the best_model.pth file)\n\n\n\nFor more information, including an execution example, see Using the Model in the docs.",
     "crumbs": [
       "Read the Docs",
       "Menhaden Ageing Model"
@@ -108,7 +108,7 @@
     "href": "index.html#usage",
     "title": "Menhaden Ageing Model",
     "section": "Usage",
-    "text": "Usage\nThe full model is wrapped inside a single Python script called Scale_Aging_Inference_Script_Image_Only.py. To execute, run the following command in a command line terminal:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere\n\n\n\n\n\n\n\n&lt;img_dir&gt;\n(str) full path to the directory containing the scale images to process\n\n\n&lt;csv_dir&gt;\n(str) full path to desired directory to which the CSV output will be written\n\n\n&lt;model_dir&gt;\n(str) full path to the directory containing the trained model weights (i.e., the best_model.pth file)"
+    "text": "Usage\nThe full model is wrapped inside a single Python script called Scale_Aging_Inference_Script_Image_Only.py. To execute, run the following command in a command line terminal:\npython Scale_Aging_Inference_Script_Image_Only.py &lt;img_dir&gt; &lt;csv_dir&gt; &lt;model_dir&gt;\nwhere\n\n\n\n\n\n\n\n&lt;img_dir&gt;\n(str) full path to the directory containing the scale images to process\n\n\n&lt;csv_dir&gt;\n(str) full path to desired directory to which the CSV output will be written\n\n\n&lt;model_dir&gt;\n(str) full path to the directory containing the trained model weights (i.e., the best_model.pth file)\n\n\n\nFor more information, including an execution example, see Using the Model in the docs."
   },
   {
     "objectID": "index.html#options",
