@@ -22,13 +22,14 @@ def crop_and_pad(image, kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 
     gray_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     ret, thresh = cv.threshold(gray_image,threshold,255,cv.THRESH_BINARY)
     kernel = np.ones((kernel_size,kernel_size),np.uint8)
-    
+
     #Morphological operation
     opening = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel)
     closing = cv.morphologyEx(opening, cv.MORPH_CLOSE, kernel)
     
     #Find Contours
-    contours, hierarchy = cv.findContours(closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+    # contours, hierarchy = cv.findContours(closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+    contours, hierarchy = cv.findContours(np.invert(closing), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
     if(len(contours) > 0):
         maxidx = 0
         maxarea = 0
@@ -62,7 +63,7 @@ def crop_and_pad(image, kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 
         bottom = int(difference/2)
     crop_pad = cv.copyMakeBorder(crop, top, bottom, left, right, cv.BORDER_REPLICATE)
 
-    return crop
+    return crop_pad
 
 def preprocess_folder(image_dir, output_dir, extension = ".tif", kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 0.35):
     if(not os.path.exists(output_dir)):
@@ -107,7 +108,7 @@ parser.add_argument("out_dir", help="where to save the corresponding predictions
 parser.add_argument("model_path", help="where to find trained model weights")
 args = parser.parse_args()
 
-preprocess_folder(args.raw_dir, "cropped")
+preprocess_folder(args.raw_dir, "cropped", threshold=160, pad=0.15, bottom_pad=0.45)
 
 
 data_dir = 'cropped'
