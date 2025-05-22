@@ -1,9 +1,18 @@
 
-Menhaden Scales Aging/Chapter 1 - Data Preprocessing/Cropped/
-Menhaden Scales Aging/Chapter 3 - Train on Images/final_model.pth
-Menhaden Scales Aging/Chapter 3 - Train on Images/best_model.pth
+notebooks/Chapter1-DataPreprocessing/Cropped/
+notebooks/Chapter3-TrainOnImages/final_model.pth
+notebooks/Chapter3-TrainOnImages/best_model.pth
 
-Menhaden Scales Aging/Inference Script/Raw Image/
-Menhaden Scales Aging/Inference Script/Cropped/
-Menhaden Scales Aging/Inference Script/result.csv
-Menhaden Scales Aging/Inference Script/best_model.pth
+notebooks/.ipynb_checkpoints/
+notebooks/Chapter1-DataProcessing/.ipynb_checkpoints/
+notebooks/Chapter2-InferenceOnImages/.ipynb_checkpoints/
+notebooks/Chapter3-TrainOnImages/.ipynb_checkpoints/
+notebooks/Chapter4-MultimodalTrainAndInference/.ipynb_checkpoints/
+
+scripts/Cropped/
+scripts/result.csv
+scripts/best_model.pth
+
+.devcontainer/
+.quarto/
+_site/
