@@ -68,7 +68,7 @@
     "href": "index.html#dependencies",
     "title": "Menhaden Ageing Model",
     "section": "Dependencies",
-    "text": "Dependencies\n\nAnaconda (for virtual environment implementation)\nGit CLI (for repository cloning)\nPython &gt;=3.9\ntorch ==1.12.1\ntorchvision == 0.13.1\ntorchaudio == 0.12.1\nopencv-python\npandas\ntqdm\n\n\nRecommendations\n\nmatplotlib (data plotting in Python)\njupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)\n\nSee Getting Started for installation and setup instructions."
+    "text": "Dependencies\n\nAnaconda (for virtual environment implementation)\nGit CLI (for repository cloning)\nPython &gt;= 3.9\ntorch ==1.12.1\ntorchvision == 0.13.1\ntorchaudio == 0.12.1\nopencv-python\npandas\ntqdm\n\n\nRecommendations\n\nmatplotlib (data plotting in Python)\njupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)\n\nSee Getting Started for installation and setup instructions."
   },
   {
     "objectID": "index.html#release-notes",
@@ -138,7 +138,7 @@
     "href": "content/docs/index.html#dependencies",
     "title": "Menhaden Ageing Model",
     "section": "Dependencies",
-    "text": "Dependencies\n\nAnaconda (for virtual environment implementation)\nGit CLI (for repository cloning)\nPython &gt;=3.9\ntorch ==1.12.1\ntorchvision == 0.13.1\ntorchaudio == 0.12.1\nopencv-python\npandas\ntqdm\n\n\nRecommendations\n\nmatplotlib (data plotting in Python)\njupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)\n\nSee Getting Started for installation and setup instructions.",
+    "text": "Dependencies\n\nAnaconda (for virtual environment implementation)\nGit CLI (for repository cloning)\nPython &gt;= 3.9\ntorch ==1.12.1\ntorchvision == 0.13.1\ntorchaudio == 0.12.1\nopencv-python\npandas\ntqdm\n\n\nRecommendations\n\nmatplotlib (data plotting in Python)\njupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)\n\nSee Getting Started for installation and setup instructions.",
     "crumbs": [
       "Read the Docs",
       "Menhaden Ageing Model"
