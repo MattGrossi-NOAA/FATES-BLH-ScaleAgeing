@@ -69,9 +69,9 @@ def preprocess_folder(image_dir, output_dir, extension = ".tif", kernel_size = 1
         os.mkdir(output_dir)
     for file in os.listdir(image_dir):
         if file.endswith(extension):
-            image = cv.imread(image_dir+"/"+file)
+            image = cv.imread(os.path.join(image_dir, file))
             cropped_image = crop_and_pad(image, kernel_size, threshold, pad, bottom_pad)
-            cv.imwrite(output_dir+"/"+os.path.splitext(file)[0]+".jpg",cropped_image)
+            cv.imwrite(os.path.join(output_dir, os.path.splitext(file)[0]+".jpg"), cropped_image)
 
 
 class FishTestDataset(Dataset):
@@ -126,7 +126,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model = resnet18(num_classes = 5)
 
 # Load model - TODO
-model.load_state_dict(torch.load("best_model.pth"))
+model.load_state_dict(torch.load(args.model_path))
 
 model.eval()    
 model.to(device)
