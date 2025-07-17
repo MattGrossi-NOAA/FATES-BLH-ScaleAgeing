@@ -66,7 +66,7 @@ def crop_and_pad(image, kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 
 
 def preprocess_folder(image_dir, output_dir, extension = ".tif", kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 0.35):
     if(not os.path.exists(output_dir)):
-        os.mkdir(output_dir)
+        os.makedirs(output_dir)
     for file in os.listdir(image_dir):
         if file.endswith(extension):
             image = cv.imread(os.path.join(image_dir, file))
@@ -107,10 +107,9 @@ parser.add_argument("out_dir", help="where to save the corresponding predictions
 parser.add_argument("model_path", help="where to find trained model weights")
 args = parser.parse_args()
 
-preprocess_folder(args.raw_dir, "cropped")
+data_dir = os.path.join(args.out_dir, "cropped")
+preprocess_folder(args.raw_dir, data_dir)
 
-
-data_dir = 'cropped'
 data_transforms = transforms.Compose(
         [
             transforms.Resize(224),
@@ -123,6 +122,7 @@ test_dataset = FishTestDataset( data_dir, data_transforms)
 test_loader = DataLoader(test_dataset, batch_size=24, shuffle=False, drop_last=False)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(f"Running on {device}")
 model = resnet18(num_classes = 5)
 
 # Load model - TODO
