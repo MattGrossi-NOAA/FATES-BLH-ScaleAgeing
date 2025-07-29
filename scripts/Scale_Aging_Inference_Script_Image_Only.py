@@ -79,8 +79,10 @@ model.to(device)
 
 import torch
 
-output_path = "inference_results.csv"
-file = open(config["out_path"], 'w')
+if not os.path.exists(args.out_dir):
+    os.makedirs(args.out_dir)
+output_path = os.path.join(args.out_dir, "inference_results.csv")
+file = open(output_path, 'w')
 file.write("Image Name, Predicted Age\n")
 
 for images, img_path in tqdm(test_loader):
