@@ -1,3 +1,15 @@
+
+# -----
+# PyTorch machine learning tools
+from torchvision import transforms
+from torchvision.io import read_image
+from torch.utils.data.dataset import Dataset  # For custom datasets
+from torchvision import datasets
+from torchvision.transforms import ToTensor
+from torch.utils.data import DataLoader
+from torchvision.models import resnet18, ResNet18_Weights
+
+
 import argparse
 import cv2 as cv
 from matplotlib import pyplot as plt
@@ -7,17 +19,21 @@ from os import listdir
 from os.path import isfile, join
 import numpy as np
 from PIL import Image
-from torchvision import transforms
-from torchvision.io import read_image
-from torch.utils.data.dataset import Dataset  # For custom datasets
-from torchvision import datasets
-from torchvision.transforms import ToTensor
-from torch.utils.data import DataLoader
-from torchvision.models import resnet18, ResNet18_Weights
 from tqdm import tqdm
 import torch
 
 def crop_and_pad(image, kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 0.35):
+    """
+    Crops and pads an input image based on binary thresholding and contour detection.
+    Args:
+        image: Input image (numpy array).
+        kernel_size: Size of kernel for morphological operations.
+        threshold: Threshold value for binarization.
+        pad: Fractional padding for left/right/top.
+        bottom_pad: Fractional padding for bottom.
+    Returns:
+        Cropped and padded image (numpy array).
+    """
     #Binary threshold
     gray_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     ret, thresh = cv.threshold(gray_image,threshold,255,cv.THRESH_BINARY)
@@ -65,6 +81,14 @@ def crop_and_pad(image, kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 
     return crop
 
 def preprocess_folder(image_dir, output_dir, extension = ".tif", kernel_size = 10, threshold=100, pad=0.05, bottom_pad = 0.35):
+    """
+    Processes all images in a folder: crops and pads them, then saves as .jpg.
+    Args:
+        image_dir: Directory containing raw images.
+        output_dir: Directory to save processed images.
+        extension: File extension to filter images.
+        kernel_size, threshold, pad, bottom_pad: Parameters for crop_and_pad.
+    """
     if(not os.path.exists(output_dir)):
         os.makedirs(output_dir)
     for file in os.listdir(image_dir):
@@ -75,6 +99,12 @@ def preprocess_folder(image_dir, output_dir, extension = ".tif", kernel_size = 1
 
 
 class FishTestDataset(Dataset):
+    """
+    Custom PyTorch Dataset for loading test fish scale images.
+    Args:
+        image_dir: Directory containing images.
+        transform: Transformations to apply to images.
+    """
     def __init__(self, image_dir, transform=None):
 
         # Get the directory dataset images
@@ -89,9 +119,11 @@ class FishTestDataset(Dataset):
 
 
     def __len__(self):
+        # Return number of images in dataset
         return len(self.image_name)
 
     def __getitem__(self, index):
+        # Load image and apply transforms
         img_path = os.path.join(self.image_dir, str(self.image_name[index]))
         image = Image.open(img_path)
 
@@ -102,14 +134,17 @@ class FishTestDataset(Dataset):
         
 
 parser = argparse.ArgumentParser()
+ # Parse command line arguments for input/output/model paths
 parser.add_argument("raw_dir", help="directory of raw scale images to inference on")
 parser.add_argument("out_dir", help="where to save the corresponding predictions")
 parser.add_argument("model_path", help="where to find trained model weights")
 args = parser.parse_args()
 
+# Preprocess raw images: crop and pad, save to output directory
 data_dir = os.path.join(args.out_dir, "cropped")
 preprocess_folder(args.raw_dir, data_dir)
 
+# Define image transformations for inference
 data_transforms = transforms.Compose(
         [
             transforms.Resize(224),
@@ -118,9 +153,11 @@ data_transforms = transforms.Compose(
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ]
     )
+# Create test dataset and dataloader
 test_dataset = FishTestDataset( data_dir, data_transforms)
 test_loader = DataLoader(test_dataset, batch_size=24, shuffle=False, drop_last=False)
 
+# Set device for inference (GPU if available)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(f"Running on {device}")
 model = resnet18(num_classes = 5)
@@ -133,12 +170,14 @@ model.to(device)
 
 import torch
 
+# Prepare output directory and results file
 if not os.path.exists(args.out_dir):
     os.makedirs(args.out_dir)
 output_path = os.path.join(args.out_dir, "inference_results.csv")
 file = open(output_path, 'w')
 file.write("Image Name, Predicted Age\n")
 
+# Run inference on test images and write predictions to CSV
 for images, img_path in tqdm(test_loader):
     images = images.to(device)
     outputs = model(images)
