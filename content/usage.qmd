@@ -22,17 +22,17 @@ If you named your virtual environment something other than "scaleageing", invoke
 
 ### Running the model
 
-Navigate (`cd`) into the directory containing the `Scale_Aging_Inference_Script_Multimodal.py` script. If you simply cloned the repo and have not moved anything around, this will in the `/Menhaden Scales Aging/Inference Script` subdirectory in the cloned repository. For example:
+Navigate (`cd`) into the directory containing the `predict-ages-multimodal.py` script. If you simply cloned the repo and have not moved anything around, this will in the `/scripts` subdirectory in the cloned repository. For example:
 
 ```bash
-cd "c:/Users/user.name/Documents/ageing/FATES-BLH-OtolithAgeing/Menhaden Scales Aging/Inference Script"
+cd "c:/Users/user.name/Documents/ageing/{{< meta repo.name >}}/scripts"
 ```
 
 Run the model as described in the [usage instructions](index.qmd#usage):
 
 ```bash
-python Scale_Raw_Image_Preprocessing.py --config_path <config_dir>
-python Scale_Aging_Inference_Script_Multimodal.py --config_path <config_dir>
+python process-images.py --config_path <config_dir>
+python predict-ages-multimodal.py --config_path <config_dir>
 ```
 
 where `<config_dir>` is the path to the configuration file containing model settings presented [above](#configuration-file).
@@ -42,22 +42,22 @@ where `<config_dir>` is the path to the configuration file containing model sett
 If your `configurations.yml` file is [stored alongside your model script](configuration.qmd#option-1-alongside-the-model), your execution commands will simply be:
 
 ```bash
-python Scale_Raw_Image_Preprocessing.py --config_path configurations.yml
-python Scale_Aging_Inference_Script_Multimodal.py --config_path configurations.yml
+python process-images.py --config_path configurations.yml
+python predict-ages-multimodal.py --config_path configurations.yml
 ```
 
 Or, if you named your configuration file something unique such as `configuration-2024-atl.yml`, it might look like this:
 
 ```bash
-python Scale_Raw_Image_Preprocessing.py --config_path configuration-2024-atl.yml
-python Scale_Aging_Inference_Script_Multimodal.py --config_path configuration-2024-atl.yml
+python process-images.py --config_path configuration-2024-atl.yml
+python predict-ages-multimodal.py --config_path configuration-2024-atl.yml
 ```
 
 Alternatively, your `configurations.yml` file is [stored alongside your data](configuration.qmd#option-2-alongside-the-data), you will need to tell the script exactly where that file is located using its full directory path. Be sure to also include the correct file name, if applicable. For example:
 
 ```bash
-python Scale_Raw_Image_Preprocessing.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
-python Scale_Aging_Inference_Script_Image_Only.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
+python process-images.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
+python predict-ages-multimodal.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
 ```
 
 ::: {.callout-tip}
