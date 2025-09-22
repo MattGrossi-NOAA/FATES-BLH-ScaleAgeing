@@ -467,9 +467,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Imperfections in the new masked images are cleaned up using <a href="https://en.wikipedia.org/wiki/Opening_(morphology)">morphological opening</a> and <a href="https://en.wikipedia.org/wiki/Closing_(morphology)">closing</a> techniques to remove undesired background noise and capture any missed portions of the scale.</li>
 <li>The contours of the masked shape are identified in order to extract the object of interest (<em>i.e.</em>, the scale).</li>
 <li>The scale is then cropped out of the original image and padded to make it square.</li>
-<li>The new square image containing just the scale of interest is passed to a trained custom <a href="https://en.wikipedia.org/wiki/Residual_neural_network">residual neural network</a> (resnet) deep learning classification model along with a <a href="metadata.qmd">metadata CSV file</a> described later. Model output is saved to a CSV file.</li>
+<li>The new square image containing just the scale of interest is passed to a trained custom <a href="https://en.wikipedia.org/wiki/Residual_neural_network">residual neural network</a> (resnet) deep learning classification model along with a <a href="./content/metadata.html">metadata CSV file</a> described later. Model output is saved to a CSV file.</li>
 </ol>
-<p>Implementation instructions follow. Be sure to <a href="setup.qmd">set up and configure a Python environment</a> before the first use.</p>
+<p>Implementation instructions follow. Be sure to <a href="./content/setup.html">set up and configure a Python environment</a> before the first use.</p>
 </section>
 <section id="usage" class="level2">
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
@@ -481,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Multimodal.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>or</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Multimodal.py <span class="at">-c</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><br> For more information, including an execution example, see <a href="usage.qmd">Using the Model</a> in the docs.</p>
+<p><br> For more information, including an execution example, see <a href="./content/usage.html">Using the Model</a> in the docs.</p>
 </section>
 <section id="options" class="level2">
 <h2 class="anchored" data-anchor-id="options">Options</h2>
@@ -652,7 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The directory containing the scale images to process</li>
 <li>The directory containing the accompanying metadata</li>
 <li>The directory where you want the model output file to be written</li>
-<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>best_model_multi.pth</code> file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon <a href="setup.qmd#clone-the-repository">downloading them</a>.</li>
+<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>best_model_multi.pth</code> file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon <a href="./content/setup.html#clone-the-repository">downloading them</a>.</li>
 </ol>
 </div>
 </div>
@@ -690,7 +690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>matplotlib (data plotting in Python)</li>
 <li>jupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)</li>
 </ul>
-<p>See <a href="setup.qmd">Getting Started</a> for installation and setup instructions.</p>
+<p>See <a href="./content/setup.html">Getting Started</a> for installation and setup instructions.</p>
 </section>
 </section>
 <section id="release-notes" class="level2">
