@@ -2,7 +2,7 @@
 title: Configuring the Model
 subtitle: "Using the `configurations.yml` file"
 metadata-files:
-  - ./_metadata.yml
+  - ../_metadata.yml
 order: 3
 ---
 

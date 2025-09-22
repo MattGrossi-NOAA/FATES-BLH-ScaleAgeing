@@ -2,7 +2,7 @@
 title: Fish Metadata
 subtitle: A note on the metadata CSV file
 metadata-files:
-  - ./_metadata.yml
+  - ../_metadata.yml
 order: 4
 ---
 
