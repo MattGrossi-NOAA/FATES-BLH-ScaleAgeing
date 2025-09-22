@@ -1,6 +1,8 @@
 ---
 title: Mounting a Drive
 subtitle: Accessing data stored on a remote drive
+metadata-files:
+  - ./_metadata.yml
 order: 2
 ---
 

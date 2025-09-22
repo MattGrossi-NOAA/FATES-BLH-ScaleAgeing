@@ -1,6 +1,8 @@
 ---
 title: Next Steps
 subtitle: Recommended modifications and improvements
+metadata-files:
+  - ./_metadata.yml
 order: 4
 ---
 

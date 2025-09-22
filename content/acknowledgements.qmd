@@ -1,5 +1,7 @@
 ---
 title: Acknowledgments
+metadata-files:
+  - ./_metadata.yml
 order: 10
 ---
 
