@@ -28,7 +28,7 @@ Navigate (`cd`) into the directory containing the `Scale_Aging_Inference_Script_
 cd "c:/Users/user.name/Documents/ageing/FATES-BLH-OtolithAgeing/Menhaden Scales Aging/Inference Script"
 ```
 
-Run the model as described in the [usage instructions](../../index.qmd#usage):
+Run the model as described in the [usage instructions](index.qmd#usage):
 
 ```bash
 python Scale_Raw_Image_Preprocessing.py --config_path <config_dir>

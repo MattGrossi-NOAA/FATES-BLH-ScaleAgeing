@@ -11,7 +11,7 @@ A `configurations.yml` file is an easy way to control model performance. The mos
 1. The directory containing the scale images to process
 2. The directory containing the accompanying metadata
 3. The directory where you want the model output file to be written
-4. The directory containing the trained model weights (*i.e.*, the `best_model_multi.pth` file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the `scripts` subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon [downloading them](/content/docs/setup.qmd#clone-the-repository).
+4. The directory containing the trained model weights (*i.e.*, the `best_model_multi.pth` file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the `scripts` subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon [downloading them](setup.qmd#clone-the-repository).
 
 Absolute file paths are generally recommended to avoid unintended behavior but will vary from computer to computer.
 
