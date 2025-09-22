@@ -548,7 +548,7 @@ Important
 </section>
 <section id="download-segmentation-model" class="level3">
 <h3 class="anchored" data-anchor-id="download-segmentation-model">Download Segmentation Model</h3>
-<p>This model has the option of using a <a href="https://arxiv.org/abs/2408.00714">Segment Anything Model</a> (SAM) to find the scale within each image. To use this method, one must <a href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file#model-checkpoints">download a model checkpoint</a>. The <a href="https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth">ViT-B model</a> is recommended. For convenience, consider saving this file in the same directory as model script, for example <code>~/FATES-BLH-OtolithAgeing/Menhaden Scales Aging/Inference Script</code>.</p>
+<p>This model has the option of using a <a href="https://arxiv.org/abs/2408.00714">Segment Anything Model</a> (SAM) to find the scale within each image. To use this method, one must <a href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file#model-checkpoints">download a model checkpoint</a>. The <a href="https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth">ViT-B model</a> is recommended. For convenience, consider saving this file in the same directory as model script, for example <code>~/FATES-BLH-ScaleAgeing/scripts/weights</code>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -566,7 +566,7 @@ Important
 <section id="create-a-virtual-environment" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-virtual-environment">Create a Virtual Environment</h3>
 <p>Virtual environments are used to manage Python packages. Create a virtual environment specifically for this model. In a terminal window, navigate (<code>cd</code>) into the directory containing the <code>environment.yml</code> file. This should be the parent directory of the cloned repository. For example,</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"c:/Users/user.name/Documents/ageing/FATES-BLH-OtolithAgeing"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"c:/Users/user.name/Documents/ageing/FATES-BLH-ScaleAgeing"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>where <code>user.name</code> is your computer user name.</p>
 <p>Then:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--name</span> scaleageing <span class="at">--file</span><span class="op">=</span><span class="st">"environment.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

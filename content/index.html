@@ -431,7 +431,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#age-model-options" id="toc-age-model-options" class="nav-link" data-scroll-target="#age-model-options">Age Model Options</a></li>
   </ul></li>
   <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
-  <li><a href="#release-notes" id="toc-release-notes" class="nav-link" data-scroll-target="#release-notes">Release Notes</a></li>
+  <li><a href="#release-notes" id="toc-release-notes" class="nav-link" data-scroll-target="#release-notes">Release Notes</a>
+  <ul class="collapse">
+  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
+  <li><a href="#disclaimer" id="toc-disclaimer" class="nav-link" data-scroll-target="#disclaimer">Disclaimer</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/blob/docs/content/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -474,14 +478,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="usage" class="level2">
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<p>Running the model requires two steps. First, raw images must be pre-processed in order to crop out the scale of interest from the full image, pad the cropped image to ensure the full scale is captured, and (optionally) normalize the cropped image to facilitate ageing. This is all done using the <code>Scale_Raw_Image_Preprocessing.py</code> Python script. To execute, run the following command in a command line terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Raw_Image_Preprocessing.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Running the model requires two steps. First, raw images must be pre-processed in order to crop out the scale of interest from the full image, pad the cropped image to ensure the full scale is captured, and (optionally) normalize the cropped image to facilitate ageing. This is all done using the <code>process-images.py</code> Python script. To execute, run the following command in a command line terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>or</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Raw_Image_Preprocessing.py <span class="at">-c</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>where <code>&lt;config_dir&gt;</code> is the path to the configuration file containing model settings described <a href="#options">below</a>. The ageing model itself is wrapped inside a second Python script called <code>Scale_Aging_Inference_Script_Multimodal.py</code>. To execute, run the following command in a command line terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Multimodal.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Multimodal.py <span class="at">-c</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">-c</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>where <code>&lt;config_dir&gt;</code> is the path to the configuration file containing model settings described <a href="#options">below</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the command snippets above, <code>-c</code> is an abbreviation for the <code>--config_path</code> flag for convenience. For clarity, the full flag <code>--config_path</code> is used throughout these docs, but either option can be used for any of the commands that follow.</p>
+</div>
+</div>
+<p>The ageing model itself is wrapped inside a second Python script called <code>predict-ages-multimodal.py</code>. To execute, run the following command in a command line terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> predict-ages-multimodal.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><br> For more information, including an execution example, see <a href="../content/usage.html">Using the Model</a> in the docs.</p>
 </section>
 <section id="options" class="level2">
@@ -504,7 +520,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><code>raw_image_path</code></td>
-<td>Path to raw images. Best to include the full path in quotations. Example: “G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/age_testing/images”</td>
+<td>Path to raw images. Best to include the full path in quotations. Example: “G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/2020_Plant_10/Raw_Images”</td>
 </tr>
 <tr class="even">
 <td><code>preprocessed_image_path</code></td>
@@ -623,7 +639,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><code>image_path</code></td>
-<td>Path to preprocessed image folder. Best to include the full path in quotations. This should match <code>preprocessed_image_path</code> from the pre-processing step.</td>
+<td>Path to preprocessed image folder. Best to include the full path in quotations. This should generally match <code>preprocessed_image_path</code> from the pre-processing step unless you want to age a different set of cropped images.</td>
 </tr>
 <tr class="even">
 <td><code>metadata_path</code></td>
@@ -653,7 +669,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The directory containing the scale images to process</li>
 <li>The directory containing the accompanying metadata</li>
 <li>The directory where you want the model output file to be written</li>
-<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>best_model_multi.pth</code> file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon <a href="../content/setup.html#clone-the-repository">downloading them</a>.</li>
+<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>multimodal-model-v2025.pth</code> file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon <a href="../content/setup.html#clone-the-repository">downloading them</a>.</li>
 </ol>
 </div>
 </div>
@@ -735,34 +751,16 @@ Now describes the multimodal model (images plus metadata) and how to use it
 </li></ul>
 </details>
 <p><br></p>
-<div class="callout callout-style-default callout-important callout-titled" title="License">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>License
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<section id="license" class="level3">
+<h3 class="anchored" data-anchor-id="license">License</h3>
 <p>Software code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled" title="Disclaimer">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Disclaimer
-</div>
-</div>
-<div class="callout-body-container callout-body">
+</section>
+<section id="disclaimer" class="level3">
+<h3 class="anchored" data-anchor-id="disclaimer">Disclaimer</h3>
 <p>This software is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA software and project code is provided on an “as is” basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this software will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.</p>
-</div>
-</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
