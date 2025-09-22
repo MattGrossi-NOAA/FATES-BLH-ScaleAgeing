@@ -1,39 +1,30 @@
-# NOAA quarto simple website with Python in Quarto Markdown (qmd) or Jupyter Notebooks
+# Menhaden Ageing Model
 
-This is a template for [a simple Quarto website](https://nmfs-opensci.github.io/NOAA-quarto-simple-python/) that looks like a "book". This is a common format for documentation. It includes a GitHub Action that will build the website automatically when you make changes to the files. The webpage will use the `gh-pages` branch. Serving the website files from this branch is a common way to keep all the website files from cluttering your main branch. 
+This branch contains the [documentation for the Menhaden Ageing Model](https://sefsc.github.io/FATES-BLH-ScaleAgeing/), an innovative method for automatically estimating Menhaden age using scale images and fish length, weight, and month of catch (hereafter, “metadata”.) Built upon state-of-the-art deep learning algorithms, the model enables rapid generation of fish age predictions by simply pointing to a directory containing configuration file that instructs the model where to find the data and metadata, how to preprocess the images, and where to write the output.
 
-This Quarto website has Python code in the `code.qmd` file and has a Jupyter notebook. The GitHub Action will render those for you but note that you need some a special **RAW** block at the top of your ipynb file. Without this, the Jupyter notebook won't render (code blocks won't be computed). It looks like this
+## Prerequisites
+
+This model is built using Python 3.8. The recommended way to install the required packages is to use [Conda](https://docs.conda.io/en/latest/) to create a new environment from the provided `environment.yml` file. It also has the option to implement [Segment Anything Model](https://arxiv.org/abs/2408.00714) for image segmentation, which requires downloading a model checkpoint. See the [docs page](https://sefsc.github.io/FATES-BLH-ScaleAgeing/content/setup.html#download-segmentation-model) for more information.
+
+## Usage
+
+First, create a conda virtual environment using the provided `environment.yml` file, which will install all necessary dependencies, and activate it. Next, edit the `config.yaml` file to specify the paths to your data, metadata, and output directory. See the [docs](https://sefsc.github.io/FATES-BLH-ScaleAgeing/content/configuration.html) for details on each configuration option.
+
+Raw images need to be processed before passing them to the ageing model:
+
+```bash
+python process-images.py --config-path configurations.yml
 ```
----
-title: Jupyter Notebook
-execute:
-  enabled: true
-jupyter: python3
----
+
+This utility takes an image that may contain multiple scales, identifies the center-most scale, crops it out into a square, and resizes it to the dimensions expected by the model. The processed images are saved to a new directory specified in the configuration file.
+
+Finally, run the model to generate age predictions on the processed images:
+
+```bash
+python predict-ages-multimodal.py --config-path configurations.yml
 ```
-Also you will need to add any modules that your code needs to the `requirements.txt` file so they are installed by the GitHub Action. You can run this code from a terminal window:
-```
-python3 -m pip install -r requirements.txt
-```
-Note this assumes Python 3+.
 
-## GitHub Set-up
-
-* Click the green "Use This Template" button to make a repository with this content. Make sure to make your repo public (since GitHub Pages doesn't work on private repos unless you have a paid account) and check box to include all the branches (so that you get the gh-pages branch).
-<img width="637" alt="image" src="https://user-images.githubusercontent.com/2545978/197051535-c43c62de-17e8-40bf-a536-3eea8db250c4.png">
-
-* Turn on GitHub Pages under Settings > Pages . You will set pages to be made from the gh-pages branch and root directory.
-<img width="540" alt="image" src="https://user-images.githubusercontent.com/2545978/196808262-3d2262be-b9b5-4897-bba5-fc2f056dd335.png">
-
-* Turn on GitHub Actions under Settings > Actions > General
-<img width="719" alt="image" src="https://user-images.githubusercontent.com/2545978/196808404-0c075fcf-db03-4516-88dd-3143b9fca475.png">
-
-* Edit the repo description and Readme to add a link to the webpage. When you edit the description, you will see the link url in the url box or you can click on the Actions tab or the  Settings > Pages page to find the url to the Quarto website
-
-## Customize
-
-* Edit the qmd or md files in the `content` folder. qmd files can include code (R, Python, Julia) and lots of Quarto markdown bells and whistles (like call-outs, cross-references, auto-citations and much more).
-* Add the files to `_quarto.yml`
+Deactivate the conda environment when done.
 
 <hr>
 
