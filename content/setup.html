@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Using the Model – Menhaden Ageing Model</title>
+<title>Getting Started – Menhaden Ageing Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,29 +58,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../content/docs/suggestions.html" rel="next">
-<link href="../../content/docs/mount.html" rel="prev">
-<link href="../../theme/images/favicon.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-6221b5c51817e989309ffdd424e298b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-c49a14756366245c53d0d43ed76454a6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-6221b5c51817e989309ffdd424e298b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/mount.html" rel="next">
+<link href="../content/index.html" rel="prev">
+<link href="../theme/images/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2b0cd566d7486f1a9e892e08b667cf93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5390411c604747c3433c6d1613915d6d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-2b0cd566d7486f1a9e892e08b667cf93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -281,7 +282,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Menhaden Ageing Model</span>
     </a>
   </div>
@@ -333,7 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/docs/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../../content/docs/index.html">Menhaden Ageing Model</a></li><li class="breadcrumb-item"><a href="../../content/docs/usage.html">Using the Model</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/setup.html">Getting Started</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -347,8 +350,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="../../index.html" class="sidebar-logo-link">
-      <img src="../../theme/images/NOAA_FISHERIES_logoV.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../theme/images/NOAA_FISHERIES_logoV.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../theme/images/NOAA_FISHERIES_logoV.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://noaa.gov" title="NOAA Home" class="quarto-navigation-tool px-1" aria-label="NOAA Home"><i class="bi bi-house"></i></a>
@@ -365,54 +369,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a href="../content/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Read the Docs</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../content/docs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Menhaden Ageing Model</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/docs/setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../content/setup.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Getting Started</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/docs/mount.html" class="sidebar-item-text sidebar-link">
+  <a href="../content/mount.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mounting a Drive</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/docs/usage.html" class="sidebar-item-text sidebar-link active">
+  <a href="../content/configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuring the Model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fish Metadata</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the Model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/docs/suggestions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Next Steps</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../content/docs/acknowledgements.html" class="sidebar-item-text sidebar-link">
+  <a href="../content/acknowledgements.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acknowledgments</span></a>
   </div>
 </li>
-      </ul>
-  </li>
       </ul>
   </li>
     </ul>
@@ -425,18 +424,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#an-example" id="toc-an-example" class="nav-link active" data-scroll-target="#an-example">An Example</a></li>
+  <li><a href="#software-installation" id="toc-software-installation" class="nav-link active" data-scroll-target="#software-installation">Software Installation</a></li>
+  <li><a href="#clone-the-repository" id="toc-clone-the-repository" class="nav-link" data-scroll-target="#clone-the-repository">Clone the Repository</a></li>
+  <li><a href="#download-segmentation-model" id="toc-download-segmentation-model" class="nav-link" data-scroll-target="#download-segmentation-model">Download Segmentation Model</a></li>
+  <li><a href="#create-a-virtual-environment" id="toc-create-a-virtual-environment" class="nav-link" data-scroll-target="#create-a-virtual-environment">Create a Virtual Environment</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/MattGrossi-NOAA/FATES-BLH-ScaleAgeing/blob/docs/content/docs/usage.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/MattGrossi-NOAA/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/blob/docs/content/setup.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/docs/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../../content/docs/index.html">Menhaden Ageing Model</a></li><li class="breadcrumb-item"><a href="../../content/docs/usage.html">Using the Model</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/setup.html">Getting Started</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Using the Model</h1>
-<p class="subtitle lead">Predicting the ages of a set of menhaden scale images</p>
+<h1 class="title">Getting Started</h1>
+<p class="subtitle lead">Creating and configuration a Python virtual environment</p>
 </div>
 
 
@@ -453,44 +455,141 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Running the Menhaden Ageing Model is straightforward and only requires one command. You will, however, <a href="../../index.html#usage">need three things</a> on hand:</p>
-<ol type="1">
-<li>The directory containing the scale images to process</li>
-<li>The directory where you want the model output file to be written</li>
-<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>best_model.pth</code> file). If you simply cloned the repo and have not moved anything around, this file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository.</li>
-</ol>
-<p>First we need to activate the virtual environment we <a href="../../content/docs/setup.html#create-a-virtual-environment">previously configured</a>. In a terminal window, type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate scaleageing</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you named your virtual environment something other than “scaleageing”, invoke that name instead.</p>
+<p>The instructions on this page only need to be carried out once. If you have already installed the required dependencies and created a virtual environment, skip ahead to <a href="../content/usage.html">Using the Model</a>.</p>
 </div>
 </div>
-<p>Navigate into the directory containing the <code>Scale_Aging_Inference_Script_Image_Only.py</code> script. If you simply cloned the repo and have not moved anything around, this will in the <code>scripts</code> subdirectory in the cloned repository.</p>
-<p>Run the model as described in the <a href="../../index.html#usage">usage instructions</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Image_Only.py <span class="op">&lt;</span>img_dir<span class="op">&gt;</span> <span class="op">&lt;</span>csv_dir<span class="op">&gt;</span> <span class="op">&lt;</span>model_dir<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>where <code>&lt;img_dir&gt;</code> is the full path to the directory containing the scale images to process (#1 above), <code>&lt;csv_dir&gt;</code> is the full path to desired directory to which the CSV output will be written (#2 above), and <code>&lt;model_dir&gt;</code> is the full path to the directory containing the <code>best_model.pth</code> model weights (#3 above).</p>
-<section id="an-example" class="level3">
-<h3 class="anchored" data-anchor-id="an-example">An Example</h3>
-<p>Directories are handled slightly differently in DOS (Windows Command Prompt, Powershell) than UNIX (Git Bash). For example, running on the Advanced Technology GPU machine might to process 2024 menhaden data might look like this:</p>
-<section id="git-bash" class="level4">
-<h4 class="anchored" data-anchor-id="git-bash">Git Bash</h4>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Image_Only.py <span class="st">"G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/Atlantic menhaden to be tested w active learning/subset"</span> <span class="st">"G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/Atlantic menhaden to be tested w active learning/model_age_predictions"</span> <span class="st">"C:/Users/user.name/Documents/GitHubRepos/FATES-BLH-ScaleAgeing/scripts"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Much of the following is carried out using command line. In the instructions below, “command line terminal” or “terminal” refer to any command line application for the given operating system. For Windows, this is commonly Command Prompt or Windows Powershell. These use DOS commands. For UNIX users, Git Bash is a good alternative; it is included in <a href="#git">Git for Windows</a> and allows UNIX commands to be used instead of DOS.</p>
+<section id="software-installation" class="level3">
+<h3 class="anchored" data-anchor-id="software-installation">Software Installation</h3>
+<section id="git" class="level4">
+<h4 class="anchored" data-anchor-id="git">git</h4>
+<p>If the <a href="https://git-scm.com/downloads">Git CLI</a> is already installed, there should be a Git Bash program in your Applications. If so, open this program and verify everything is working by typing</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This should display the version of git installed on the system.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This should already be installed for all users on the Advanced Technology GPU machine.</p>
+</div>
+</div>
+<p>If needed, download and install the <a href="https://git-scm.com/downloads">Git CLI</a> before continuing. This does not need administrative privileges to install at the user level. Confirm that it has been installed by opening a command line terminal and entering <code>git --version</code>.</p>
 </section>
-<section id="command-prompt" class="level4">
-<h4 class="anchored" data-anchor-id="command-prompt">Command Prompt</h4>
-<div class="sourceCode" id="cb4"><pre class="sourceCode dosbat code-with-copy"><code class="sourceCode dosbat"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>python Scale_Aging_Inference_Script_Image_Only.py “G:\Shared drives\NMFS SEFSC FATES Advanced Technology\BIOLOGY_LIFE_HISTORY_DATA\Atlantic menhaden to be tested w active learning\subset” “C:\Shared drives\NMFS SEFSC FATES Advanced Technology\BIOLOGY_LIFE_HISTORY_DATA\Atlantic menhaden to be tested w active learning\model_age_predictions” “C:\Users\user.name\Documents\GitHubRepos\FATES-BLH-ScaleAgeing\scripts”</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="conda" class="level4">
+<h4 class="anchored" data-anchor-id="conda">conda</h4>
+<p>Download and install <a href="https://www.anaconda.com/">Anaconda</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is already installed on the Advanced Technology GPU machine, but it may need to be set up for each user. Keep reading to learn more.</p>
+</div>
+</div>
+<p>Verify installation and configuration of Anaconda using a command line terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If Anaconda is configured properly, this should print the version of the installed software. If, instead, it returns a “command not found” error, and you know Anaconda has been installed, you most likely need to <a href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">add Conda to your path variables</a> so that your operating system knows where to find it. First, find where it was installed, and then, in Windows:</p>
+<ol type="1">
+<li>In the Windows taskbar, search for “environment” and select “Edit environmental variables for your account”</li>
+<li>In the top panel of the window that opens, click the “Path” user variable, then select “Edit…”.</li>
+<li>You need to add two new paths, one at a time. Click “New” and enter the full path (starting with “C:") of the directory containing Anaconda. This may, for example, be <code>C:\Users\user.name\AppData\Local\anaconda3</code>, if installed at the user level (where <code>user.name</code> is your user name), or <code>C:\ProgramData\anaconda3</code> if installed for all users.</li>
+<li>Repeat step 3 with the same path but with <code>\Scripts\</code> appended to the end. For example, <code>C:\ProgramData\anaconda3\Scripts\</code>.</li>
+<li>Click Ok (twice) to save and exit Settings.</li>
+</ol>
+<p>Close and reopen your command line terminal. Then type <code>conda init</code> to initialize Anaconda. You may need to close and reopen your command line terminal again (it will prompt you if needed.) Finally, try the <code>conda --version</code> command again. It should work now.</p>
+</section>
+</section>
+<section id="clone-the-repository" class="level3">
+<h3 class="anchored" data-anchor-id="clone-the-repository">Clone the Repository</h3>
+<p>The model code and most of its dependencies are <a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing">available on GitHub</a>. To retrieve it, clone the <code>scales</code> branch of this repo, which is currently functioning as the production version of the model:</p>
+<ol type="1">
+<li><p>Open a terminal window and change directories (<code>cd</code>) to wherever you want the code to reside. For example,</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Documents/ageing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make sure the directory exists before trying to navigate into it. You cannot move into a non-existent folder.</p>
+</div>
+</div></li>
+<li><p>Clone the repository into the desired directory</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> scales https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>if you want all of the repo contents in the current directory, or</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> scales https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>if you want the repo contents to be downloaded into a new subdirectory called <code>FATES-BLH-ScaleAgeing</code>. This is just personal preference. (Note the difference between the two commands is the dot <code>.</code> at the end.)</p></li>
+</ol>
+</section>
+<section id="download-segmentation-model" class="level3">
+<h3 class="anchored" data-anchor-id="download-segmentation-model">Download Segmentation Model</h3>
+<p>This model has the option of using a <a href="https://arxiv.org/abs/2408.00714">Segment Anything Model</a> (SAM) to find the scale within each image. To use this method, one must <a href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file#model-checkpoints">download a model checkpoint</a>. The <a href="https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth">ViT-B model</a> is recommended. For convenience, consider saving this file in the same directory as model script, for example <code>~/FATES-BLH-OtolithAgeing/Menhaden Scales Aging/Inference Script</code>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You only need to download this if you intend to use Segment Anything Model method to image preprocessing. See <a href="../content/usage.html#configuration-file">Using the Model</a> for more information.</p>
+</div>
+</div>
+</section>
+<section id="create-a-virtual-environment" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-virtual-environment">Create a Virtual Environment</h3>
+<p>Virtual environments are used to manage Python packages. Create a virtual environment specifically for this model. In a terminal window, navigate (<code>cd</code>) into the directory containing the <code>environment.yml</code> file. This should be the parent directory of the cloned repository. For example,</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"c:/Users/user.name/Documents/ageing/FATES-BLH-OtolithAgeing"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>where <code>user.name</code> is your computer user name.</p>
+<p>Then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--name</span> scaleageing <span class="at">--file</span><span class="op">=</span><span class="st">"environment.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This command creates a virtual environment called <code>scaleageing</code> and downloads and installs all of the package dependencies listed in the <code>environment.yml</code> file contained in the repo.</p>
+<p>Note that this virtual environment can be named anything at all, but remember what you call it – and keep it simple – because it will be invoked by name each time you use the model.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Deleting a virtual environment">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Deleting a virtual environment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the unlikely event you need to delete this virtual environment, such as to troubleshoot or to restart from a clean slate, use the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> remove <span class="at">--name</span> ENV_NAME <span class="at">--all</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>where <code>ENV_NAME</code> is the name of the virtual environment to be deleted (<em>e.g.</em>, <code>scaleageing</code>.)</p>
+</div>
+</div>
+<p><strong>Congratulations! Now that your environment is set up – and this only needs to be done once, the first time – we are ready to start <a href="../content/usage.html">using the model</a>.</strong></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -558,13 +657,14 @@ Tip
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -579,7 +679,7 @@ Tip
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/MattGrossi-NOAA\.github\.io\/FATES-BLH-ScaleAgeing");
+        var filterRegex = new RegExp("https:\/\/mattgrossi-noaa\.github\.io\/FATES-BLH-ScaleAgeing");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -908,13 +1008,13 @@ Tip
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../content/docs/mount.html" class="pagination-link" aria-label="Mounting a Drive">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Mounting a Drive</span>
+      <a href="../content/index.html" class="pagination-link" aria-label="Read the Docs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Read the Docs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../content/docs/suggestions.html" class="pagination-link" aria-label="Next Steps">
-        <span class="nav-page-text">Next Steps</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../content/mount.html" class="pagination-link" aria-label="Mounting a Drive">
+        <span class="nav-page-text">Mounting a Drive</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -926,7 +1026,7 @@ Tip
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MattGrossi-NOAA/FATES-BLH-ScaleAgeing/blob/docs/content/docs/usage.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/MattGrossi-NOAA/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/blob/docs/content/setup.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p><a href="https://noaa.gov">NOAA</a> <br> <a href="https//fisheries.noaa.gov">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center">Southeast Fisheries Science Center</a></p>
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>. © CC-1.0</p>
