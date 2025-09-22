@@ -422,9 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#menhaden-ageing-model" id="toc-menhaden-ageing-model" class="nav-link active" data-scroll-target="#menhaden-ageing-model">“Menhaden Ageing Model”</a>
-  <ul class="collapse">
-  <li><a href="#about" id="toc-about" class="nav-link" data-scroll-target="#about">About</a></li>
+  <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a>
   <ul class="collapse">
@@ -433,7 +431,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
   <li><a href="#release-notes" id="toc-release-notes" class="nav-link" data-scroll-target="#release-notes">Release Notes</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/blob/docs/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -461,8 +458,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="menhaden-ageing-model" class="level1">
-<h1>“Menhaden Ageing Model”</h1>
 <p>This Menhaden Ageing Model provides an innovative method for automatically estimating Menhaden age using scale images and fish length, weight, and month of catch (hereafter, “metadata”.) Built upon state-of-the-art deep learning algorithms, it enables rapid generation of fish age predictions by simply pointing to a directory containing configuration file that instructs the model where to find the data and metadata, how to preprocess the images, and where to write the output.</p>
 <section id="about" class="level2">
 <h2 class="anchored" data-anchor-id="about">About</h2>
@@ -474,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The scale is then cropped out of the original image and padded to make it square.</li>
 <li>The new square image containing just the scale of interest is passed to a trained custom <a href="https://en.wikipedia.org/wiki/Residual_neural_network">residual neural network</a> (resnet) deep learning classification model along with a <a href="metadata.qmd">metadata CSV file</a> described later. Model output is saved to a CSV file.</li>
 </ol>
-<p>Implementation instructions follow. Be sure to <a href="./content/docs/setup.qmd">set up and configure a Python environment</a> before the first use.</p>
+<p>Implementation instructions follow. Be sure to <a href="setup.qmd">set up and configure a Python environment</a> before the first use.</p>
 </section>
 <section id="usage" class="level2">
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
@@ -486,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Multimodal.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>or</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> Scale_Aging_Inference_Script_Multimodal.py <span class="at">-c</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><br> For more information, including an execution example, see <a href="./content/docs/usage.qmd">Using the Model</a> in the docs.</p>
+<p><br> For more information, including an execution example, see <a href="usage.qmd">Using the Model</a> in the docs.</p>
 </section>
 <section id="options" class="level2">
 <h2 class="anchored" data-anchor-id="options">Options</h2>
@@ -657,7 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The directory containing the scale images to process</li>
 <li>The directory containing the accompanying metadata</li>
 <li>The directory where you want the model output file to be written</li>
-<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>best_model_multi.pth</code> file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon <a href="./content/docs/setup.qmd#clone-the-repository">downloading them</a>.</li>
+<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>best_model_multi.pth</code> file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon <a href="setup.qmd#clone-the-repository">downloading them</a>.</li>
 </ol>
 </div>
 </div>
@@ -695,7 +690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>matplotlib (data plotting in Python)</li>
 <li>jupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)</li>
 </ul>
-<p>See <a href="./content/docs/setup.qmd">Getting Started</a> for installation and setup instructions.</p>
+<p>See <a href="setup.qmd">Getting Started</a> for installation and setup instructions.</p>
 </section>
 </section>
 <section id="release-notes" class="level2">
@@ -767,7 +762,6 @@ Now describes the multimodal model (images plus metadata) and how to use it
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
