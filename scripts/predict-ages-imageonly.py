@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # -----------------------------------------------------------------------------
-# Title: Scale_Aging_Inference_Script_Image_Only.py
+# Title: predict-ages-imageonly.py
 #
 # Description: This script predicts the age of fish scale images using a pre-
 #              trained ResNet18 model. Arguments, hyperparameters, and other
@@ -12,7 +12,7 @@
 # Release Date: July 2025
 # Last Updated: August 2025
 #
-# Usage: python Scale_Aging_Inference_Script_Image_Only.py -c path/to/configs.yml
+# Usage: python predict-ages-imageonly.py -c path/to/configurations.yml
 # -----------------------------------------------------------------------------
 
 import argparse

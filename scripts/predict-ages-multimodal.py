@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
 # -----------------------------------------------------------------------------
-# Title: Multimodal_Inference.py
+# Title: predict-ages-multimodal.py
 #
 # Description: This script predicts the age of Menhaden fish samples using
-#              scale images, associated metadata (fish length, weight, and
-#              month of catch), and a pre-trained multimodal model. The model's
-#              architecture and settings are controlled via a configs.yml file.
-#              Predicted ages are written to a CSV file.
+# scale images and associated metadata (fish length, weight, and month of
+# catch). The model's architecture and settings are controlled via a
+#  configurations.yml file. Predicted ages are written to a CSV file.
 #
 # Authors: aotian.zheng@noaa.gov (model development, training, validation,
 #              testing)
@@ -18,7 +17,7 @@
 # Release Date: September 2025
 # Last Updated: September 2025
 #
-# Usage: python Scale_Aging_Inference_Script_Multimodal.py -c path/to/multimodal_configs.yml
+# Usage: python predict-ages-multimodal.py -c path/to/configurations.yml
 # -----------------------------------------------------------------------------
 
 import os
@@ -96,7 +95,8 @@ def conv1x1(in_planes: int, out_planes: int, stride: int = 1) -> nn.Conv2d:
     conv_layer = nn.Conv2d(
         in_channels=in_planes,
         out_channels=out_planes,
-        kernel_size=1, stride=stride,
+        kernel_size=1,
+        stride=stride,
         bias=False,
     )
     return conv_layer
@@ -120,7 +120,7 @@ class BasicBlock(nn.Module):
 
         Attributes
         ----------
-        inplanes : int
+        in_planes : int
             Number of input channels.
         planes : int
             Number of layer output channels.
@@ -495,7 +495,6 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def _forward_impl(self, x: Tensor, metadata: Tensor) -> Tensor:
-        metadata = F.relu(self.fc_meta(metadata))
         """Forward pass of the ResNet model.
 
         Attributes
@@ -510,6 +509,7 @@ class ResNet(nn.Module):
         Tensor
             Output tensor.
         """
+        metadata = F.relu(self.fc_meta(metadata))
 
         # First convolutional layer
         x = self.conv1(x)
@@ -523,7 +523,7 @@ class ResNet(nn.Module):
         x = self.layer3(x)
         x = self.layer4(x)
 
-        # Average pooling and fully connected layers
+        # Average pooling and fully connected layer
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
         x = self.fc_img(x)
@@ -629,7 +629,7 @@ class FishTestDataset(Dataset):
     """
     def __init__(self, image_dir, csv_path, file_extension, transform=None):
         """
-        Parameters
+        Attributes
         ----------
         image_dir : str
             Path to the directory containing images.
@@ -666,9 +666,7 @@ class FishTestDataset(Dataset):
         # Normalize metadata
         metadata = torch.tensor([(self.wt[index] - 163)/(82), (self.length[index] - 211)/ (35.5), (self.month[index]-7.4)/(1.9)]).type(torch.FloatTensor)
         
-        # We don't need the label for inference, but the dataloader expects it.
-        # We'll return a placeholder or the actual label if it's available.
-        # Here we'll just return the original age from the CSV, which is useful for debugging.
+        # Transform the image, if transforms are provided
         if self.transforms:
             image = self.transforms(image)
 
