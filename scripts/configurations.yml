@@ -54,12 +54,12 @@ sam_weights_path: "C:/Users/user.name/Documents/FATES-BLH-ScaleAgeing/scripts/we
 
 # -----Cropping parameters-----
 # Padding for top and sides of cropped image. Defined as a fraction of the original cropped image size. Bottom padding is controlled by `bottom_pad`. Adjust as needed to ensure the there is a margin around the top and sides of the extracted scale. Setting a value low may because the scale to "bleed" when the image is resized for input to the model. Setting a value too high may include too much background and make the scale too small in the image.
-# Default: 0.2
-pad: 0.2
+# Default: 0.05
+pad: 0.05
 
 # Padding for bottom of cropped image. This is defined separately since for scale images, the bottom is usually visually distinct from the body and may be missed in the segmentation. Adjust as needed to ensure the there is a margin at the bottom of the extracted scale. Setting a value low may because the scale to "bleed" when the image is resized for input to the model. Setting a value too high may include too much background and make the scale too small in the image.
-# Default: 0.4
-bottom_pad: 0.4
+# Default: 0.35
+bottom_pad: 0.35
 
 
 # -----Normalization options-----
