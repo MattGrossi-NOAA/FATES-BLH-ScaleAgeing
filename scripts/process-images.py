@@ -361,6 +361,17 @@ args = parser.parse_args()
 with open(args.config_path, 'r') as file:
     config = yaml.safe_load(file)
 
+# Check for file names included in config paths where needed
+if ".pth" not in config["sam_weights_path"]:
+    raise ValueError("The 'sam_weights_path' key in the configuration file must include a file name ending with '.pth'.")
+    return
+
+# Check and fix image type file extensions, if necessary
+if config["input_type"][0] != ".":
+    config["input_type"] = "." + config["input_type"]
+if config["output_type"][0] != ".":
+    config["output_type"] = "." + config["output_type"]
+
 # Run the preprocessing function with parameters from the configuration file
 preprocess_folder(
     image_dir=config["raw_image_path"],
