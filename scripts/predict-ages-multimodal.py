@@ -93,7 +93,12 @@ def conv1x1(in_planes: int, out_planes: int, stride: int = 1) -> nn.Conv2d:
         A 1x1 convolutional layer.
     """
     # Create a 1x1 convolutional layer with the specified parameters
-    conv_layer = nn.Conv2d(in_channels=in_planes, out_channels=out_planes, kernel_size=1, stride=stride, bias=False)
+    conv_layer = nn.Conv2d(
+        in_channels=in_planes,
+        out_channels=out_planes,
+        kernel_size=1, stride=stride,
+        bias=False,
+    )
     return conv_layer
 
 # Module to define a BasicBlock residual block for the ResNet model
@@ -151,7 +156,7 @@ class BasicBlock(nn.Module):
         self.conv1 = conv3x3(in_planes=in_planes, out_planes=planes, stride=stride)
         # Batch normalization
         self.bn1 = norm_layer(planes)
-        #ReLU activation function
+        # ReLU activation function
         self.relu = nn.ReLU(inplace=True)
         # 3x3 convolutional layer
         self.conv2 = conv3x3(in_planes=planes, out_planes=planes)
@@ -549,18 +554,55 @@ class ResNet(nn.Module):
 # Function to create a new ResNet model
 def resnet_merge(block: Type[Union[BasicBlock, Bottleneck]],
                layers: List[int],
+               pretrained: bool = False,
                num_classes: int = 5,
                metadata_size: int = 32,
                img_size: int = 64,
+               progress: bool = True,
                **kwargs: Any) -> ResNet:
     """
     Creates a new ResNet model adapted for multimodal data.
+
+    Attributes
+    ----------
+    block : Type[Union[BasicBlock, Bottleneck]]
+        Type of residual block to use (BasicBlock or Bottleneck).
+    layers : List[int]
+        List specifying the number of blocks in each layer of the network.
+    pretrained : bool, optional
+        If True, returns a model pre-trained on ImageNet. Default is False.
+    num_classes : int, optional
+        Number of output classes. Default is 5 (ages 0, 1, 2, 3, 4+).
+    metadata_size : int, optional
+        Size of the metadata feature vector after processing. Default is 32.
+    img_size : int, optional
+        Size of the image feature vector after processing. Default is 64.
+    progress : bool, optional
+        If True, displays a progress bar when downloading pretrained weights.
+        Default is True.
+    **kwargs : Any
+        Additional keyword arguments for the ResNet class.
+    
+    Returns
+    -------
+    ResNet
+        A ResNet model adapted for multimodal data.
     """
+    # Download pretrained weights, if desired
+    if pretrained:
+        # Load a pretrained ResNet18 model
+        model = resnet.resnet18(pretrained=True, progress=progress)
+        # Update the final fully connected layer for the desired number of classes
+        model.fc = nn.Linear(model.fc.in_features, num_classes)
+        return model
+
+    # Update the kwargs dictionary with the specified parameters
     kwargs['metadata_size'] = metadata_size
     kwargs['img_size'] = img_size
     kwargs['block'] = block
     kwargs['layers'] = layers
 
+    # Create a new ResNet model with modified parameters
     model = ResNet(**kwargs)
     return model
 
@@ -598,6 +640,7 @@ class FishTestDataset(Dataset):
         transform : callable, optional
             A function/transform for image transformations.
         """
+        # Read the CSV file, store the image dataset directory, and store the transformation methods 
         self.data_info = pd.read_csv(csv_path, header=0)
         self.image_dir = image_dir
         self.transforms = transform
@@ -646,6 +689,17 @@ def main():
         print(f"Error: The configuration file was not found at {args.config_path}")
         return
 
+    # Check for file names included in config paths where needed
+    if ".csv" not in config["metadata_path"]:
+        raise ValueError("The 'metadata_path' key in the configuration file must include a file name ending with '.csv'.")
+        return
+    if ".csv" not in config["out_path"]:
+        raise ValueError("The 'out_path' key in the configuration file must include a file name ending with '.csv'.")
+        return
+    if ".pth" not in config["model_path"]:
+        raise ValueError("The 'model_path' key in the configuration file must include a file name ending with '.pth'.")
+        return
+    
     # Image transformations: resizing, cropping, normalization
     data_transforms = transforms.Compose(
         [
