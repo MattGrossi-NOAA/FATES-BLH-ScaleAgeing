@@ -364,7 +364,6 @@ with open(args.config_path, 'r') as file:
 # Check for file names included in config paths where needed
 if ".pth" not in config["sam_weights_path"]:
     raise ValueError("The 'sam_weights_path' key in the configuration file must include a file name ending with '.pth'.")
-    return
 
 # Check and fix image type file extensions, if necessary
 if config["input_type"][0] != ".":

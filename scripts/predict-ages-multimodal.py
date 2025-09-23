@@ -692,13 +692,10 @@ def main():
     # Check for file names included in config paths where needed
     if ".csv" not in config["metadata_path"]:
         raise ValueError("The 'metadata_path' key in the configuration file must include a file name ending with '.csv'.")
-        return
     if ".csv" not in config["out_path"]:
         raise ValueError("The 'out_path' key in the configuration file must include a file name ending with '.csv'.")
-        return
     if ".pth" not in config["model_path"]:
         raise ValueError("The 'model_path' key in the configuration file must include a file name ending with '.pth'.")
-        return
     
     # Image transformations: resizing, cropping, normalization
     data_transforms = transforms.Compose(
