@@ -651,6 +651,7 @@ Caution
 </tr>
 </tbody>
 </table>
+<p><br></p>
 <p>The column headers can be anything, but the model expects these variables <em>in this order</em>. Also notice that each image file has an entry, each entry is on its own line, and that no example is contained in both the training and validation file lists. Generally, the majority of examples (say, 70%) are used for testing and a smaller subset (say, 15%) are used for validation. Any remaining examples are reserved for testing. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the <code>image_type</code> extension provided in <code>training-configs.yml</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Remember!">
 <div class="callout-header d-flex align-content-center">
@@ -676,7 +677,7 @@ Caution
 <section id="multimodal-model" class="level4">
 <h4 class="anchored" data-anchor-id="multimodal-model">Multimodal Model</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> train-multimodal.py <span class="at">--config_path</span> <span class="st">"path/to/training-configs.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Both of these scripts will write out a new model weights file called <code>best_model.pth</code> which corresponds to the best-performing version of the model obtained during the training loop. Simply rename this file something more intuitive and use it as described in <a href="../content/usage.html">Using the Model</a>.</p>
+<p>Both of these scripts will write out a new model weights file called <code>best_model.pth</code>, which corresponds to the best-performing version of the model obtained during the training loop. Simply rename this file something more intuitive and use it as described in <a href="../content/usage.html">Using the Model</a>.</p>
 
 
 </section>
