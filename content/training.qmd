@@ -93,6 +93,8 @@ Similarly, an example validation CSV for a multimodal model would be formatted i
 | 26315.jpg  | 211    | 168    | 5     | 4   |
 : `Sample validation CSV file for a multimodal model`
 
+<br>
+
 The column headers can be anything, but the model expects these variables *in this order*. Also notice that each image file has an entry, each entry is on its own line, and that no example is contained in both the training and validation file lists. Generally, the majority of examples (say, 70%) are used for testing and a smaller subset (say, 15%) are used for validation. Any remaining examples are reserved for testing. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the `image_type` extension provided in `training-configs.yml`.
 
 ::: {.callout-tip title="Remember!"}
@@ -115,4 +117,4 @@ python train-image-only.py --config_path "path/to/training-configs.yml"
 python train-multimodal.py --config_path "path/to/training-configs.yml"
 ```
 
-Both of these scripts will write out a new model weights file called `best_model.pth` which corresponds to the best-performing version of the model obtained during the training loop. Simply rename this file something more intuitive and use it as described in [Using the Model](usage.qmd).
+Both of these scripts will write out a new model weights file called `best_model.pth`, which corresponds to the best-performing version of the model obtained during the training loop. Simply rename this file something more intuitive and use it as described in [Using the Model](usage.qmd).
