@@ -1,6 +1,6 @@
 ---
 title: Training the Model
-subtitle: Developing new menhaden age prediction models
+subtitle: Developing new Menhaden age prediction models
 metadata-files:
   - ../_metadata.yml
 order: 6
@@ -41,13 +41,13 @@ model_out_path: "C:/Users/user.name/Documents/FATES-BLH-ScaleAgeing/scripts/weig
 # Number of epochs of training
 epochs: 50
 
-# Base learning rate
-lr: 0.001
+# Initial learning rate. Generally a small number much less than 1.
+learning_rate: 0.001
 
-# Training scheduler learning rate decay gamma
+# Training scheduler learning rate decay gamma. Should be less than 1.
 gamma: 0.1
 
-# Training scheduler checkpoints (learning rate multiplied by gamma at these epoch)
+# Training scheduler checkpoints (learning rate multiplied by gamma at these epochs)
 scheduler: [15, 35]
 ```
 
@@ -57,19 +57,19 @@ These settings are described as follows:
 |--------------------|-------------------------------------------------|
 | `train_image_path` | Path to processed (*i.e.*, cropped and padded with any normalization applied) training images. Best to include the full path in quotations. Example: "G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/age_testing/cropped" |
 | `image_type`     | File extension of image files to be used for training |
-| `train_csv`      | Path to a single CSV file containing the known age targets for all images in `train_image_path` that are to be used for training. (Validation examples will be indicated in a separate validation CSV, as described below.) If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. More information on formatting can be found [here](metadata.qmd). Best to include the full path in quotations. |
-| `validation_csv` | Path to a single CSV file containting the known age targets for all ages in `train_image_path` that are to be used for *validation*. These should all be separate from those files listed in the training CSV. If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. More information on formatting can be found [here](metadata.qmd). Best to include the full path in quotations. |
+| `train_csv`      | Path to a single CSV file containing the known age targets for all images in `train_image_path` that are to be used for *training*. (Validation examples will be indicated in a separate validation CSV, as described below.) If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. Best to include the full path in quotations. |
+| `validation_csv` | Path to a single CSV file containting the known age targets for all ages in `train_image_path` that are to be used for *validation*. These should all be separate from those files listed in the training CSV. If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. Best to include the full path in quotations. |
 | `model_out_path` | Path where to store model results. Best to include the full path in quotations. It will be created automatically if it does not already exist. |
 | `epochs`         | Number of training epochs |
-| `learning_rate`  | Initial learning rate for training |
-| `gamma`          | Factor by which to decrease learning rate at epoch checkpoints specified in `scheduler` |
-| `scheduler`      | Training epoch number(s) at which the current learning rate is multiplied by `gamma`. Can be or more integer values in increasing order, all less than `epoch`, and enclosed in brackets to indicate a Python list. Example: [15, 35] |
+| `learning_rate`  | Initial learning rate for training. Generally a small number much less than 1. |
+| `gamma`          | Factor by which to decrease the learning rate at epoch checkpoints specified in `scheduler`. Should be less than 1. |
+| `scheduler`      | Training epoch number(s) at which the current learning rate is multiplied by `gamma`. Can be one or more integer values in increasing order, all less than `epoch`, and enclosed in brackets to indicate a Python list. Example: [15, 35] |
 
 :Menhaden age prediction model training configuration settings {tbl-colwidths="[25,75]"}
 
 ### Training and Validation Subsets
 
-The training scripts assume that all training and validation data are in a single directory -- `train_image_path` above. Within this directory, the examples are split into training and validation subsets using two CSV files. An example training CSV for an image-only model would be formatted as follows:
+The training scripts assume that all training and validation data are in a single directory passed to `train_image_path` above. Within this directory, the examples are split into training and validation subsets using two CSV files that each include the image file names to be used for each task. An example training CSV for an image-only model would be formatted as follows:
 
 | image_name | age |
 |:----------:|:---:|
@@ -77,7 +77,10 @@ The training scripts assume that all training and validation data are in a singl
 | 25235.jpg  | 1   |
 | 25349.jpg  | 0   |
 | ...        | ... |
+| 26120.jpg  | 4   |
 : `Sample training CSV file for an image only model`
+
+<br>
 
 Similarly, an example validation CSV for a multimodal model would be formatted identically to the [metadata CSV used to run the model](metadata.qmd) except with a new "age" column appended to the end:
 
@@ -87,9 +90,10 @@ Similarly, an example validation CSV for a multimodal model would be formatted i
 | 25234.jpg  | 219    | 176    | 5     | 2   |
 | 25345.jpg  | 222    | 183    | 6     | 3   |
 | ...        | ...    | ...    | ...   | ... |
+| 26315.jpg  | 211    | 168    | 5     | 4   |
 : `Sample validation CSV file for a multimodal model`
 
-Note that this file is structured the same as the [metadata file](metadata.qmd) used with the multimodal model. The column headers can be anything, but the model expects these variables *in this order*. Also notice that each image file has an entry and each entry is on its own line, and that no example is contained in both the training and validation file lists. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the `image_type` extension provided in `training-configs.yml`.
+The column headers can be anything, but the model expects these variables *in this order*. Also notice that each image file has an entry, each entry is on its own line, and that no example is contained in both the training and validation file lists. Generally, the majority of examples (say, 70%) are used for testing and a smaller subset (say, 15%) are used for validation. Any remaining examples are reserved for testing. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the `image_type` extension provided in `training-configs.yml`.
 
 ::: {.callout-tip title="Remember!"}
 The column headers in `metadata.csv` can be called anything, **but the variables must be provided in the order shown**, especially for multimodal models: image name, length, weight, month of catch, age.
@@ -110,3 +114,5 @@ python train-image-only.py --config_path "path/to/training-configs.yml"
 ```bash
 python train-multimodal.py --config_path "path/to/training-configs.yml"
 ```
+
+Both of these scripts will write out a new model weights file called `best_model.pth` which corresponds to the best-performing version of the model obtained during the training loop. Simply rename this file something more intuitive and use it as described in [Using the Model](usage.qmd).
