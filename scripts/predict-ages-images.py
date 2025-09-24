@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # -----------------------------------------------------------------------------
-# Title: predict-ages-imageonly.py
+# Title: predict-ages-images.py
 #
 # Description: This script predicts the age of fish scale images using a pre-
 #              trained ResNet18 model. Arguments, hyperparameters, and other
@@ -10,9 +10,9 @@
 #
 # Author: aotian.zheng@noaa.gov
 # Release Date: July 2025
-# Last Updated: August 2025
+# Last Updated: September 2025
 #
-# Usage: python predict-ages-imageonly.py -c path/to/configurations.yml
+# Usage: python predict-ages-images.py -c path/to/configurations.yml
 # -----------------------------------------------------------------------------
 
 import argparse
