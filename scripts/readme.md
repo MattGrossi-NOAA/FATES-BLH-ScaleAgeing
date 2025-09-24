@@ -1,14 +1,15 @@
-# Inference Script
-Currently has 2 scripts, one for each of chapter one and chapter two.  
+# Model Scripts
 
-Scale_Raw_Image_Preprocessing.py is the script for preprocessing raw scale images in order to crop and pad around the scale of interest.  There are also options for image normalization after cropping.
+All model scripts are contained here:
 
-Scale_Aging_Inference_Script_Image_Only.py is the script for inferencing on the cropped images based on a pretrained model.
+* `process-images.py`: Process raw scale images (crop, pad, normalize)
+* `predict-ages-multimodal.py`: Model that predicts ages from processed images and accompanying metadata. This is the preferred model as of September 2025.
+* `predict-ages-image-only.py`: Model that predicts ages from processed images only.
 
-All scripts use the same configuration file, configurations.yml.
+All three scripts use the the provided `configurations.yml` file for configuration. Edit this file accordingly.
 
-The scripts can be run with the following console commands:
-```
-python Scale_Raw_Image_Preprocessing.py --config_path configurations.yml
-python Scale_Aging_Inference_Script_Image_Only.py --config_path configurations.yml
-```
+The models themselves, which consist of weights and hyperparameters obtained during training, are stored as `.pth` files in the `models` directory. Be sure to point to the correct model file in `configurations.yml`.
+
+Finally, additional scripts to train new models are provided in the `training-scripts` directory.
+
+Basic instructions for running these scripts are provided in the `README.md` file in the root directory of this repository, wherein a link to the official documentation pages containing more detailed information and instructions is also provided.
