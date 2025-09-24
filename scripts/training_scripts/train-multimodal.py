@@ -18,6 +18,7 @@
 
 import argparse
 import yaml
+import copy
 import cv2 as cv
 import numpy as np
 import pandas as pd
@@ -128,7 +129,7 @@ class FishTestDataset(Dataset):
         if self.transforms:
             image = self.transforms(image)
 
-        return (image,wt_l_m) , self.image_name[index], label_age
+        return (image, wt_l_m) , self.image_name[index], label_age
         
 # Function creating a 3x3 convolutional layer
 def conv3x3(in_planes: int, out_planes: int, stride: int = 1, groups: int = 1, dilation: int = 1) -> nn.Conv2d:
@@ -737,7 +738,7 @@ def main():
     train_loader = DataLoader(train_dataset, batch_size=24, shuffle=True, drop_last=False)
     val_loader = DataLoader(val_dataset, batch_size=24, shuffle=False, drop_last=False)
 
-    # Load the model using GPU, if available, in evaluation mode.
+    # Use GPU, if available
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # Create the multimodal ResNet model
@@ -753,8 +754,8 @@ def main():
     # Load the pre-trained model weights
     loaded_state_dict = torch.hub.load_state_dict_from_url("https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth")
     current_model_dict = model.state_dict()
-    new_state_dict={k:v if v.size()==current_model_dict[k].size()  else  current_model_dict[k] for k,v in zip(current_model_dict.keys(), loaded_state_dict.values())}
-    model.load_state_dict(new_state_dict, strict = False)
+    new_state_dict={k:v if v.size()==current_model_dict[k].size() else current_model_dict[k] for k,v in zip(current_model_dict.keys(), loaded_state_dict.values())}
+    model.load_state_dict(new_state_dict, strict=False)
     model.to(device)
 
     # Model hyperparameters
@@ -767,12 +768,12 @@ def main():
     if(not os.path.exists(config["model_out_path"])):
         os.mkdir(config["model_out_path"])
 
-    import copy
+    # Keep track of model accuracy during training
+    best_acc = 0
 
     # Train the model
-    best_acc = 0
     for epoch in range(num_epochs):
-        # Training phase
+        # TRAINING
         model.train()
         running_res = []
 
@@ -781,7 +782,10 @@ def main():
         running_corrects = 0
         running_corr = [0.0, 0.0, 0.0, 0.0, 0.0]
         running_total = [0.0, 0.0, 0.0, 0.0, 0.0]
-        for (images, meta), imagename, labels in tqdm(train_loader):
+
+        # Loop through each image with metadata
+        for (images, meta), imagename, labels in tqdm(train_loader, desc="Training model"):
+            # Send example to GPU
             images = images.to(device)
             meta = meta.to(device)
             labels = labels.to(device)
@@ -794,11 +798,14 @@ def main():
                 loss.backward()
                 optimizer.step()
                 
-            # Statistics
+            # Predict age (returns certainty for each age class)
             _, preds = torch.max(output, 1)
+
+            # Loss and accuracy
             running_loss += loss.item() * images.size(0)
             running_corrects += torch.sum(preds == labels.data)
 
+            # Loop through each age class
             for i in range(0, len(preds)):
                 if labels.data[i].cpu().detach().numpy() == 3:
                     count_3 += 1
@@ -806,6 +813,8 @@ def main():
                 if preds[i] == labels.data[i]:
                     running_corr[int(labels.data[i].cpu().detach().numpy())] += 1.0
                 running_total[int(labels.data[i].cpu().detach().numpy())] += 1.0
+        
+        # Training loss and accuracy
         scheduler.step()
         epoch_loss = running_loss / len(train_loader.dataset)
         epoch_acc = 100.0 * running_corrects / len(train_loader.dataset)
@@ -813,7 +822,7 @@ def main():
         print(running_res)
         print("{} Loss: {:.4f} Average Accuracy: {:.4f}".format("train", epoch_loss, epoch_acc))
 
-        # Validation phase
+        # VALIDATION
         model.eval()
         running_res = []
 
@@ -822,8 +831,10 @@ def main():
         running_corrects = 0
         running_corr = [0.0, 0.0, 0.0, 0.0, 0.0]
         running_total = [0.0, 0.0, 0.0, 0.0, 0.0]
-        for (images, meta), imagename, labels in tqdm(val_loader):
         
+        # Loop through each image with metadata
+        for (images, meta), imagename, labels in tqdm(val_loader, desc="Validating current model"):
+            # Send example to GPU
             images = images.to(device)
             meta = meta.to(device)
             labels = labels.to(device)
@@ -833,11 +844,15 @@ def main():
             with torch.set_grad_enabled(False):
                 output = model(images, meta)#inputs)
                 
-            # Statistics
+            # Age prediction (returns certainty for each age class)
+            loss = criterion(output, labels)
             _, preds = torch.max(output, 1)
+
+            # Loss and accuracy
             running_loss += loss.item() * images.size(0)
             running_corrects += torch.sum(preds == labels.data)
 
+            # Loop through each age class
             for i in range(0, len(preds)):
                 if labels.data[i].cpu().detach().numpy() == 3:
                     count_3 += 1
@@ -845,12 +860,16 @@ def main():
                 if preds[i] == labels.data[i]:
                     running_corr[int(labels.data[i].cpu().detach().numpy())] += 1.0
                 running_total[int(labels.data[i].cpu().detach().numpy())] += 1.0
+        
+        # Validation loss and accuracy
         scheduler.step()
         epoch_loss = running_loss / len(val_loader.dataset)
         epoch_acc = 100.0 * running_corrects / len(val_loader.dataset)
         running_res = [100.0 * i / max(1,j) for i, j in zip(running_corr, running_total)]
         print(running_res)
         print("{} Loss: {:.4f} Average Accuracy: {:.4f}".format("validation", epoch_loss, epoch_acc))
+        
+        # Save the best model weights
         if(epoch_acc > best_acc):
             print("saving best model")
             best_acc = epoch_acc
