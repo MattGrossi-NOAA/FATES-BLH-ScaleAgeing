@@ -1,49 +1,37 @@
-# Fish Otolith Aging with Multi-Modal Data: Image, Spectra, and Metadata
-This is the repository for our work on automated fish otolith aging using deep learning.  This repo consists of 5 jupyter notebook files split into chapters detailing how we develop and train our deep learning models for fish age prediction using three different data modalities.
+# Menhaden Ageing Model
 
-Our work **Automatic Fish Age Prediction using Deep Machine Learning: Combining Otolith Image, NIR Spectra and Metadata Features** has been accepted to the 3rd Workshop on Maritime Computer Vision (MaCVi) hosted at WACV 2025!
+This Menhaden Ageing Model provides an innovative method for automatically estimating Menhaden age using scale images and fish length, weight, and month of catch (hereafter, “metadata”.) Built upon state-of-the-art deep learning algorithms, the model enables rapid generation of fish age predictions by simply pointing to a directory containing configuration file that instructs the model where to find the data and metadata, how to preprocess the images, and where to write the output. See the [official documentation pages](https://sefsc.github.io/FATES-BLH-ScaleAgeing/) for more thorough instructions.
 
-## Chapter 1 - Data Preprocessing
-We have otolith data collected for two commercially important fish species: Walleye Pollock and Red Snapper.  Our data consists of whole otolith image, otolith FT-NIR spectra, and associated metadata like otolith weight, catch location, etc.
-Before we can use our data for fish aging, we first have to process the otolith images to zoom in and crop around the otolith.
+## Prerequisites
 
-![Alt text](images/pollock_images.jpg "Pollock Otolith Images")
+This model is built using Python 3.8. The recommended way to install the required packages is to use [Conda](https://docs.conda.io/en/latest/) to create a new environment from the provided `environment.yml` file. It also has the option to implement [Segment Anything Model](https://arxiv.org/abs/2408.00714) for image segmentation, which requires downloading a model checkpoint. See the [docs page](https://sefsc.github.io/FATES-BLH-ScaleAgeing/content/setup.html#download-segmentation-model) for more information.
 
-*Pollock Otolith Images*
+## Usage
 
-![Alt text](images/pollock_distribution.jpg "Pollock Data Age Distribution")
+First, create a conda virtual environment using the provided `environment.yml` file, which will install all necessary dependencies, and activate it. Next, edit the `config.yaml` file to specify the paths to your data, metadata, and output directory. See the [docs](https://sefsc.github.io/FATES-BLH-ScaleAgeing/content/configuration.html) for details on each configuration option.
 
-*Pollock Data Age Distribution*
+Raw images need to be processed before passing them to the ageing model:
 
-![Alt text](images/red_snapper_images.jpg "Red Snapper Otolith Images")
+```bash
+python process-images.py --config-path configurations.yml
+```
 
-*Red Snapper Otolith Images*
+This utility takes an image that may contain multiple scales, identifies the center-most scale, crops it out into a square, and resizes it to the dimensions expected by the model. The processed images are saved to a new directory specified in the configuration file.
 
-![Alt text](images/red_snapper_distribution.jpg "Red Snapper Data Age Distribution")
+Finally, run the model to generate age predictions on the processed images:
 
-*Red Snapper Data Age Distribution*
+```bash
+python predict-ages-multimodal.py --config-path configurations.yml
+```
 
-## Chapter 2 - Image Based Aging
-Here we train a simple image based age classification model to predict fish age class based solely on the whole otolith image.  Additionally, we go over how to use different types of image backbones to test which work the best.
+Deactivate the conda environment when done.
 
-## Chapter 3 - Multi-Modal Simple Merge
-In this chapter, we train a multi-modal modal using all three data types as input.  In this simple merge architecture, we have three input branches for feature extraction, one for each data modality.
-After the feature extration, the three different embedding features are concatenated together before being fed to a final classification layer.
+<hr>
 
-![Alt text](images/simple_merge.jpg "Multi-Modal Simple Merge Architecture")
+### Disclaimer
 
-*Simple Merge Architecture*
+This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project content is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
 
-## Chapter 4 - Complex Condition Based Merging
-In this chapter, we try a more complicated way to merge the three data modalities taking inspiration from image generation.  We call this method condition merge, where the spectra and metadata embedding features are used as conditions in the image feature extraction process.
+### License
 
-![Alt text](images/condition_merge.jpg "Multi-Modal Conditon Merge Architecture")
-
-*Condition Merge Architecture*
-
-## Chapter 5 - Image Feature Attribution
-We use various model interpretation algorithm to visualize the per-pixel contributions to the model’s age prediction, presenting this information as a heatmap overlaid on the original otolith image.
-
-![Alt text](images/image_attribution.png "Image Attribution")
-
-*Condition Merge Architecture*
+This content was created by U.S. Government employees as part of their official duties. This content is not subject to copyright in the United States (17 U.S.C. §105) and is in the public domain within the United States of America. Additionally, copyright is waived worldwide through the CC0 1.0 Universal public domain dedication.
