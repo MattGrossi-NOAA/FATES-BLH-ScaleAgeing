@@ -443,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/training.html">Training the Model</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Training the Model</h1>
-<p class="subtitle lead">Developing new menhaden age prediction models</p>
+<p class="subtitle lead">Developing new Menhaden age prediction models</p>
 </div>
 
 
@@ -504,13 +504,13 @@ Caution
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of epochs of training</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">epochs</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Base learning rate</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">lr</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.001</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial learning rate. Generally a small number much less than 1.</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">learning_rate</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.001</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Training scheduler learning rate decay gamma</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Training scheduler learning rate decay gamma. Should be less than 1.</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">gamma</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Training scheduler checkpoints (learning rate multiplied by gamma at these epoch)</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Training scheduler checkpoints (learning rate multiplied by gamma at these epochs)</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">scheduler</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">15</span><span class="kw">,</span><span class="at"> </span><span class="dv">35</span><span class="kw">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>These settings are described as follows:</p>
@@ -537,11 +537,11 @@ Caution
 </tr>
 <tr class="odd">
 <td><code>train_csv</code></td>
-<td>Path to a single CSV file containing the known age targets for all images in <code>train_image_path</code> that are to be used for training. (Validation examples will be indicated in a separate validation CSV, as described below.) If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. More information on formatting can be found <a href="../content/metadata.html">here</a>. Best to include the full path in quotations.</td>
+<td>Path to a single CSV file containing the known age targets for all images in <code>train_image_path</code> that are to be used for <em>training</em>. (Validation examples will be indicated in a separate validation CSV, as described below.) If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. Best to include the full path in quotations.</td>
 </tr>
 <tr class="even">
 <td><code>validation_csv</code></td>
-<td>Path to a single CSV file containting the known age targets for all ages in <code>train_image_path</code> that are to be used for <em>validation</em>. These should all be separate from those files listed in the training CSV. If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. More information on formatting can be found <a href="../content/metadata.html">here</a>. Best to include the full path in quotations.</td>
+<td>Path to a single CSV file containting the known age targets for all ages in <code>train_image_path</code> that are to be used for <em>validation</em>. These should all be separate from those files listed in the training CSV. If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. Best to include the full path in quotations.</td>
 </tr>
 <tr class="odd">
 <td><code>model_out_path</code></td>
@@ -553,22 +553,22 @@ Caution
 </tr>
 <tr class="odd">
 <td><code>learning_rate</code></td>
-<td>Initial learning rate for training</td>
+<td>Initial learning rate for training. Generally a small number much less than 1.</td>
 </tr>
 <tr class="even">
 <td><code>gamma</code></td>
-<td>Factor by which to decrease learning rate at epoch checkpoints specified in <code>scheduler</code></td>
+<td>Factor by which to decrease the learning rate at epoch checkpoints specified in <code>scheduler</code>. Should be less than 1.</td>
 </tr>
 <tr class="odd">
 <td><code>scheduler</code></td>
-<td>Training epoch number(s) at which the current learning rate is multiplied by <code>gamma</code>. Can be or more integer values in increasing order, all less than <code>epoch</code>, and enclosed in brackets to indicate a Python list. Example: [15, 35]</td>
+<td>Training epoch number(s) at which the current learning rate is multiplied by <code>gamma</code>. Can be one or more integer values in increasing order, all less than <code>epoch</code>, and enclosed in brackets to indicate a Python list. Example: [15, 35]</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="training-and-validation-subsets" class="level3">
 <h3 class="anchored" data-anchor-id="training-and-validation-subsets">Training and Validation Subsets</h3>
-<p>The training scripts assume that all training and validation data are in a single directory – <code>train_image_path</code> above. Within this directory, the examples are split into training and validation subsets using two CSV files. An example training CSV for an image-only model would be formatted as follows:</p>
+<p>The training scripts assume that all training and validation data are in a single directory passed to <code>train_image_path</code> above. Within this directory, the examples are split into training and validation subsets using two CSV files that each include the image file names to be used for each task. An example training CSV for an image-only model would be formatted as follows:</p>
 <table class="caption-top table">
 <caption><code>Sample training CSV file for an image only model</code></caption>
 <thead>
@@ -594,8 +594,13 @@ Caution
 <td style="text-align: center;">…</td>
 <td style="text-align: center;">…</td>
 </tr>
+<tr class="odd">
+<td style="text-align: center;">26120.jpg</td>
+<td style="text-align: center;">4</td>
+</tr>
 </tbody>
 </table>
+<p><br></p>
 <p>Similarly, an example validation CSV for a multimodal model would be formatted identically to the <a href="../content/metadata.html">metadata CSV used to run the model</a> except with a new “age” column appended to the end:</p>
 <table class="caption-top table">
 <caption><code>Sample validation CSV file for a multimodal model</code></caption>
@@ -637,9 +642,16 @@ Caution
 <td style="text-align: center;">…</td>
 <td style="text-align: center;">…</td>
 </tr>
+<tr class="odd">
+<td style="text-align: center;">26315.jpg</td>
+<td style="text-align: center;">211</td>
+<td style="text-align: center;">168</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+</tr>
 </tbody>
 </table>
-<p>Note that this file is structured the same as the <a href="../content/metadata.html">metadata file</a> used with the multimodal model. The column headers can be anything, but the model expects these variables <em>in this order</em>. Also notice that each image file has an entry and each entry is on its own line, and that no example is contained in both the training and validation file lists. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the <code>image_type</code> extension provided in <code>training-configs.yml</code>.</p>
+<p>The column headers can be anything, but the model expects these variables <em>in this order</em>. Also notice that each image file has an entry, each entry is on its own line, and that no example is contained in both the training and validation file lists. Generally, the majority of examples (say, 70%) are used for testing and a smaller subset (say, 15%) are used for validation. Any remaining examples are reserved for testing. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the <code>image_type</code> extension provided in <code>training-configs.yml</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Remember!">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -664,6 +676,7 @@ Caution
 <section id="multimodal-model" class="level4">
 <h4 class="anchored" data-anchor-id="multimodal-model">Multimodal Model</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> train-multimodal.py <span class="at">--config_path</span> <span class="st">"path/to/training-configs.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Both of these scripts will write out a new model weights file called <code>best_model.pth</code> which corresponds to the best-performing version of the model obtained during the training loop. Simply rename this file something more intuitive and use it as described in <a href="../content/usage.html">Using the Model</a>.</p>
 
 
 </section>
