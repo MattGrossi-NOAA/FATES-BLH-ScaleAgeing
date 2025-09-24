@@ -17,20 +17,15 @@
 
 import argparse
 import yaml
-import cv2 as cv
-import numpy as np
 import os
 from os import listdir
 from os.path import isfile, join
 from PIL import Image
 import torch
 from torchvision import transforms
-from torchvision.io import read_image
 from torch.utils.data.dataset import Dataset  # For custom datasets
-from torchvision import datasets
-from torchvision.transforms import ToTensor
 from torch.utils.data import DataLoader
-from torchvision.models import resnet18, ResNet18_Weights
+from torchvision.models import resnet18
 from tqdm import tqdm
 
 class FishTestDataset(Dataset):
@@ -141,7 +136,7 @@ def main():
             file.write("Image Name, Predicted Age\n")
 
             # Loop through the dataset and make predictions
-            for images, img_path in tqdm(test_loader):
+            for images, img_path in tqdm(test_loader, desc="Predicting ages"):
                 images = images.to(device)
                 outputs = model(images)
                 outputs = torch.squeeze(outputs)

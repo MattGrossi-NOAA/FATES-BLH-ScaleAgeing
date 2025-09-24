@@ -25,8 +25,6 @@ import yaml
 import argparse
 import numpy as np
 import pandas as pd
-from os import listdir
-from os.path import isfile, join
 from tqdm import tqdm
 from PIL import Image
 import torch
@@ -742,7 +740,7 @@ def main():
             file.write("Image Name, Predicted Age\n")
 
             # Loop through the dataset and make predictions
-            for (images, meta), img_path in tqdm(test_loader, desc="Predicting"):
+            for (images, meta), img_path in tqdm(test_loader, desc="Predicting ages"):
                 images = images.to(device)
                 meta = meta.to(device)
 

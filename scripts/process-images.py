@@ -21,13 +21,12 @@
 import argparse
 import yaml
 import os
-from os import listdir
-from os.path import isfile, join
+from os.path import join
+from tqdm import tqdm
 import numpy as np
 import cv2 as cv
-from PIL import Image
-from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
 import torch
+from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
 
 def combine_masks(annotations):
     """Combine overlapping masks into single masks.
@@ -320,7 +319,7 @@ def preprocess_folder(image_dir, output_dir, seg_opt="binary", extension=".tif",
         os.mkdir(output_dir)
 
     # Loop through all images in the image directory
-    for file in os.listdir(image_dir):
+    for file in tqdm(os.listdir(image_dir), desc="Processing images"):
         if file.endswith(extension):
             # Read in the original image
             image = cv.imread(join(image_dir, file))
