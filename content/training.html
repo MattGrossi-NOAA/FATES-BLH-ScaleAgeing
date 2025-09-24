@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fish Metadata – Menhaden Ageing Model</title>
+<title>Training the Model – Menhaden Ageing Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../content/usage.html" rel="next">
-<link href="../content/configuration.html" rel="prev">
+<link href="../content/acknowledgements.html" rel="next">
+<link href="../content/usage.html" rel="prev">
 <link href="../theme/images/favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -301,7 +336,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/metadata.html">Fish Metadata</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/training.html">Training the Model</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -361,7 +396,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/metadata.html" class="sidebar-item-text sidebar-link active">
+  <a href="../content/metadata.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fish Metadata</span></a>
   </div>
 </li>
@@ -373,7 +408,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/training.html" class="sidebar-item-text sidebar-link">
+  <a href="../content/training.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Training the Model</span></a>
   </div>
 </li>
@@ -390,17 +425,25 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#configuration-settings" id="toc-configuration-settings" class="nav-link active" data-scroll-target="#configuration-settings">Configuration settings</a></li>
+  <li><a href="#training-and-validation-subsets" id="toc-training-and-validation-subsets" class="nav-link" data-scroll-target="#training-and-validation-subsets">Training and Validation Subsets</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/blob/docs/content/training.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/metadata.html">Fish Metadata</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/training.html">Training the Model</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Fish Metadata</h1>
-<p class="subtitle lead">A note on the metadata CSV file</p>
+<h1 class="title">Training the Model</h1>
+<p class="subtitle lead">Developing new menhaden age prediction models</p>
 </div>
 
 
@@ -417,16 +460,152 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This model integrates descriptive metadata for each fish with scale images to predict age. The current version of the model uses fish length, weight, and the month the fish was caught. These variables were found, through trial and error, to be the most helpful attributes for improving age predictions. The model requires this information be stored in a single CSV file with one entry per sample to be processed. This CSV file can be called anything, but for this discussion, we will call it <code>metadata.csv</code> for convenience.</p>
-<p>Consider three images of scales named <code>25123.jpg</code>, <code>25234.jpg</code>, and <code>25345.jpg</code>, stored in a single directory, for which ages are desired. The accompanying <code>metadata.csv</code> file would look like this:</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The training scripts and routines described below remain untested as of September 2025. This page will be updated in the future as needed.</p>
+</div>
+</div>
+<p>New image-only and multimodal age prediction models can be trained using the corresponding executable Python scripts, <code>train-image-only.py</code> and <code>train-multimodal.py</code>, respectively, and an accompanying configuration file, <code>training-configs.yml</code>. As with the <a href="../content/configuration.html">model configuration file</a>, this YAML file can be called anything as long as its internal structure is retained.</p>
+<p>Training scripts and a sample configuration file can be found in <code>FATES-BLH-ScaleAgeing/scripts/training_scripts</code>.</p>
+<section id="configuration-settings" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-settings">Configuration settings</h3>
+<p>The configuration YAML file is structured as <code>key: value</code> pairs. The order in which these entries are presented in the file does not matter, but <a href="../content/index.html#options">all keys need to be included and match exactly</a> as expected. As before, absolute file paths are generally recommended to avoid unintended behavior but will vary from computer to computer. For example:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>training-configs.yml</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="training-configs.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-----------------------------------------------------------------------------------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuration for training scale ageing model</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#-----------------------------------------------------------------------------------------------------</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to processed (cropped, padded, normalized (optional)) training images</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">train_image_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/age_testing/cropped"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Image type to be processed (should not need to be changed)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">image_type</span><span class="kw">:</span><span class="at"> </span><span class="st">".jpg"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to CSV file with metadata with known target ages for the training data</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">train_csv</span><span class="kw">:</span><span class="at"> </span><span class="st">"train.csv"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to CSV file with metadata with known target ages for the validation data</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">validation_csv</span><span class="kw">:</span><span class="at"> </span><span class="st">"validate.csv"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Path where to store model results</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">model_out_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"C:/Users/user.name/Documents/FATES-BLH-ScaleAgeing/scripts/weights"</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of epochs of training</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">epochs</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Base learning rate</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">lr</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.001</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Training scheduler learning rate decay gamma</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">gamma</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Training scheduler checkpoints (learning rate multiplied by gamma at these epoch)</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">scheduler</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">15</span><span class="kw">,</span><span class="at"> </span><span class="dv">35</span><span class="kw">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>These settings are described as follows:</p>
 <table class="caption-top table">
-<caption><code>metadata.csv</code></caption>
+<caption>Menhaden age prediction model training configuration settings</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>train_image_path</code></td>
+<td>Path to processed (<em>i.e.</em>, cropped and padded with any normalization applied) training images. Best to include the full path in quotations. Example: “G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/age_testing/cropped”</td>
+</tr>
+<tr class="even">
+<td><code>image_type</code></td>
+<td>File extension of image files to be used for training</td>
+</tr>
+<tr class="odd">
+<td><code>train_csv</code></td>
+<td>Path to a single CSV file containing the known age targets for all images in <code>train_image_path</code> that are to be used for training. (Validation examples will be indicated in a separate validation CSV, as described below.) If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. More information on formatting can be found <a href="../content/metadata.html">here</a>. Best to include the full path in quotations.</td>
+</tr>
+<tr class="even">
+<td><code>validation_csv</code></td>
+<td>Path to a single CSV file containting the known age targets for all ages in <code>train_image_path</code> that are to be used for <em>validation</em>. These should all be separate from those files listed in the training CSV. If training a multimodal model, this file should also include the necessary metadata (length, weight, month of catch). Known ages must be in the last column, as shown below. More information on formatting can be found <a href="../content/metadata.html">here</a>. Best to include the full path in quotations.</td>
+</tr>
+<tr class="odd">
+<td><code>model_out_path</code></td>
+<td>Path where to store model results. Best to include the full path in quotations. It will be created automatically if it does not already exist.</td>
+</tr>
+<tr class="even">
+<td><code>epochs</code></td>
+<td>Number of training epochs</td>
+</tr>
+<tr class="odd">
+<td><code>learning_rate</code></td>
+<td>Initial learning rate for training</td>
+</tr>
+<tr class="even">
+<td><code>gamma</code></td>
+<td>Factor by which to decrease learning rate at epoch checkpoints specified in <code>scheduler</code></td>
+</tr>
+<tr class="odd">
+<td><code>scheduler</code></td>
+<td>Training epoch number(s) at which the current learning rate is multiplied by <code>gamma</code>. Can be or more integer values in increasing order, all less than <code>epoch</code>, and enclosed in brackets to indicate a Python list. Example: [15, 35]</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="training-and-validation-subsets" class="level3">
+<h3 class="anchored" data-anchor-id="training-and-validation-subsets">Training and Validation Subsets</h3>
+<p>The training scripts assume that all training and validation data are in a single directory – <code>train_image_path</code> above. Within this directory, the examples are split into training and validation subsets using two CSV files. An example training CSV for an image-only model would be formatted as follows:</p>
+<table class="caption-top table">
+<caption><code>Sample training CSV file for an image only model</code></caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">image_name</th>
+<th style="text-align: center;">age</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">25120.jpg</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">25235.jpg</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">25349.jpg</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+</tr>
+</tbody>
+</table>
+<p>Similarly, an example validation CSV for a multimodal model would be formatted identically to the <a href="../content/metadata.html">metadata CSV used to run the model</a> except with a new “age” column appended to the end:</p>
+<table class="caption-top table">
+<caption><code>Sample validation CSV file for a multimodal model</code></caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;">image_name</th>
 <th style="text-align: center;">length</th>
 <th style="text-align: center;">weight</th>
 <th style="text-align: center;">month</th>
+<th style="text-align: center;">age</th>
 </tr>
 </thead>
 <tbody>
@@ -435,37 +614,60 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: center;">208</td>
 <td style="text-align: center;">147</td>
 <td style="text-align: center;">6</td>
+<td style="text-align: center;">2</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">25234.jpg</td>
 <td style="text-align: center;">219</td>
 <td style="text-align: center;">176</td>
 <td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">25345.jpg</td>
 <td style="text-align: center;">222</td>
 <td style="text-align: center;">183</td>
 <td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
 </tr>
 </tbody>
 </table>
-<p>Note that the column headers can be anything, but the model expects these variables <em>in this order</em>. Also notice that each image file has an entry and each entry is on its own line. If an image lacks a metadata entry, or if a metadata entry exists but an image does not, the model will fail to run. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the <code>output_type</code> extension provided in <code>configurations.yml</code>.</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Remember!">
+<p>Note that this file is structured the same as the <a href="../content/metadata.html">metadata file</a> used with the multimodal model. The column headers can be anything, but the model expects these variables <em>in this order</em>. Also notice that each image file has an entry and each entry is on its own line, and that no example is contained in both the training and validation file lists. Finally, the image file names in the first column do not need to include the file extension. If the extensions are missing, they will automatically be added using the <code>image_type</code> extension provided in <code>training-configs.yml</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Remember!">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Remember!
+<span class="screen-reader-only">Tip</span>Remember!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The column headers in <code>metadata.csv</code> can be called anything, <strong>but the variables must be provided in the order shown</strong>: image name, length, weight, month of catch.</p>
+<p>The column headers in <code>metadata.csv</code> can be called anything, <strong>but the variables must be provided in the order shown</strong>, especially for multimodal models: image name, length, weight, month of catch, age.</p>
 </div>
 </div>
+</section>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
+<p>Training new models can be done by running either of the training scripts as follows:</p>
+<section id="image-only-model" class="level4">
+<h4 class="anchored" data-anchor-id="image-only-model">Image-only Model</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> train-image-only.py <span class="at">--config_path</span> <span class="st">"path/to/training-configs.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="multimodal-model" class="level4">
+<h4 class="anchored" data-anchor-id="multimodal-model">Multimodal Model</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> train-multimodal.py <span class="at">--config_path</span> <span class="st">"path/to/training-configs.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -883,13 +1085,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/configuration.html" class="pagination-link" aria-label="Configuring the Model">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Configuring the Model</span>
+      <a href="../content/usage.html" class="pagination-link" aria-label="Using the Model">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using the Model</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../content/usage.html" class="pagination-link" aria-label="Using the Model">
-        <span class="nav-page-text">Using the Model</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../content/acknowledgements.html" class="pagination-link" aria-label="Acknowledgments">
+        <span class="nav-page-text">Acknowledgments</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -901,7 +1103,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/blob/docs/content/metadata.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/blob/docs/content/training.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/mattgrossi-noaa/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p><a href="https://noaa.gov">NOAA</a> <br> <a href="https//fisheries.noaa.gov">NOAA Fisheries</a> <br> <a href="https://www.fisheries.noaa.gov/contact/southeast-fisheries-science-center">Southeast Fisheries Science Center</a></p>
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>. © CC-1.0</p>
