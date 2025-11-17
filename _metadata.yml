@@ -4,3 +4,4 @@ website:
   repo-url: "https://github.com/SEFSC/FATES-BLH-ScaleAgeing"
 repo:
   name: "FATES-BLH-ScaleAgeing"
+  prod-branch: "main"
