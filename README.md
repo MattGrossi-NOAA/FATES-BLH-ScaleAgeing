@@ -8,14 +8,13 @@ This repo consists of four branches:
 - `docs`: A branch dedicated to hosting the documentation for the project. This should be updated as needed whenever changes to the model are made in `main` to ensure the model documentation remains up-to-date.
 - `gh-pages`: A branch used for GitHub Pages to serve the project's documentation website, which happens automatically using GitHub Actions whenever changes are pushed to the `docs` branch. There is no need to modify or even clone this branch.
 
+*This repo consists of four primary branches, each serving a distinct purpose to facilitate development, documentation, and model deployment.*
 | Branch     | Description                                                    |
 |------------|----------------------------------------------------------------|
 | `main`     | Contains the most stable version of the code and a series of Jupyter notebooks demonstrating the workflow. |
 | `dev`      | A development branch where new features and updates are tested before being merged into the main branch. Any modification to and testing of the model or accompanying notebooks should be done here (or a new development branch created from `main`, if desired) and merged into `main` once changes are verified to be stable. |
 | `docs`     | Hosts the documentation for the project. This should be updated as needed whenever changes to the model are made in `main` to ensure the model documentation remains up-to-date. |
 | `gh-pages` | Orphan branch for GitHub Pages to serve the project's documentation website, updated automatically. |
-: This repo consists of four primary branches, each serving a distinct purpose to facilitate development, documentation, and model deployment.
-
 
 ## Prerequisites
 
