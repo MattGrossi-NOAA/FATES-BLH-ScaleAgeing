@@ -4,15 +4,15 @@
 
 # Path to processed (cropped, padded, normalized (optional)) training images. Best to include the full path in quotations.
 # Example: "G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/age_testing/cropped"
-train_img_path: "G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/age_testing/cropped"
+train_image_path: "G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/age_testing/cropped"
 
-# Path to CSV file with metadata with known target ages for the training data. Best to include the full path in in quotations.
+# Path to CSV file with metadata with known target ages for the training data. Best to include the full path in quotations.
 # Example: "G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/2025_Plant10/train.csv"
 train_csv: "train.csv"
 
-# Path to CSV file with metadata with known target ages for the validation data. Best to include the full path in in quotations.
+# Path to CSV file with metadata with known target ages for the validation data. Best to include the full path in quotations.
 # Example: "G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/2025_Plant10/validation.csv"
-validation_csv: "train.csv"
+validation_csv: "validation.csv"
 
 # Path where to store model results. Best to include the full path in quotations.
 model_out_path: "C:/Users/user.name/Documents/FATES-BLH-ScaleAgeing/scripts/weights"
@@ -20,11 +20,11 @@ model_out_path: "C:/Users/user.name/Documents/FATES-BLH-ScaleAgeing/scripts/weig
 # Number of epochs of training
 epochs: 50
 
-# Base learning rate
-lr: 0.001
+# Initial learning rate. Generally a small number much less than 1.
+learning_rate: 0.001
 
-# Training scheduler learning rate decay gamma
+# Training scheduler learning rate decay gamma. Should be less than 1.
 gamma: 0.1
 
-# Training scheduler checkpoints (learning rate multiplied by gamma at these epoch)
+# Training scheduler checkpoints (learning rate multiplied by gamma at these epochs)
 scheduler: [15, 35]

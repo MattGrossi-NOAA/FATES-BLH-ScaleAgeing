@@ -51,7 +51,7 @@ class FishTestDataset(Dataset):
     __len__ : returns the number of images in the dataset.
     __getitem__(index) : returns the image and its filename at the specified index.
     """
-    def __init__(self, image_dir, csv_path, transform=None):
+    def __init__(self, image_dir, csv_path, file_extension, transform=None):
         """
         Parameters
         ----------
@@ -59,6 +59,8 @@ class FishTestDataset(Dataset):
             Path to the directory containing images.
         csv_path : str
             Path to the CSV file containing metadata and known age labels.
+        file_extension: str
+            The expected file extension for images (e.g., ".jpg").
         transform : callable, optional
             A function/transform that takes in a PIL image and returns a transformed version.
         """
@@ -72,8 +74,8 @@ class FishTestDataset(Dataset):
         # Get the transform methods
         self.transforms = transform
 
-        # Image name
-        self.image_name = np.asarray(self.data_info.iloc[:, 0])
+        # Image file names
+        self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.iloc[:, 0]])
         
         # Extract metadata attributes: fish length, weight, month of catch, known age
         self.length = np.asarray(self.data_info.iloc[:, 1])
@@ -128,7 +130,7 @@ def main():
         raise ValueError("The 'validation_csv' key in the configuration file must include a file name ending with '.csv'.")
 
     # Image transformations: resizing, cropping, normalization
-    data_dir = config["train_img_path"]
+    data_dir = config["train_image_path"]
     data_transforms = transforms.Compose(
             [
                 transforms.Resize(224),
@@ -139,8 +141,18 @@ def main():
         )
     
     # Load and shuffle the training and validation datasets
-    train_dataset = FishTestDataset( data_dir, config["train_csv"], data_transforms)
-    val_dataset = FishTestDataset( data_dir, config["validation_csv"], data_transforms)
+    train_dataset = FishTestDataset(
+        image_dir=data_dir,
+        csv_path=config["train_csv"],
+        file_extension=config["image_type"],
+        transform=data_transforms
+    )
+    val_dataset = FishTestDataset(
+        image_dir=data_dir,
+        csv_path=config["validation_csv"],
+        file_extension=config["image_type"],
+        transform=data_transforms
+    )
     train_loader = DataLoader(train_dataset, batch_size=24, shuffle=True, drop_last=False)
     val_loader = DataLoader(val_dataset, batch_size=24, shuffle=False, drop_last=False)
 
@@ -158,7 +170,7 @@ def main():
 
     # Model hyperparameters
     num_epochs = config["epochs"]
-    optimizer = torch.optim.Adam(model.parameters(), lr=config["lr"])
+    optimizer = torch.optim.Adam(model.parameters(), lr=config["learning_rate"])
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, config["scheduler"], gamma=config["gamma"])
     criterion = nn.CrossEntropyLoss()
 
