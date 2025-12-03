@@ -36,6 +36,38 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from typing import Any, Callable, List, Optional, Type, Union, Tuple
 
+# Load configuration file, reluctantly handling Windows directories
+def load_yaml(file):
+    """Load YAML file `file` while reluctantly handling Windows directory
+    backslashes. Tries to load the file normally first. If this fails, the file
+    is read in as a text string, any offending characters are replaced, and the
+    string is then converted to YAML. In this case, a warning advising safer
+    syntax is thrown."""
+    # Try to load YAML normally
+    try:
+        with open(file, 'r') as f:
+            config = yaml.safe_load(f)
+    # Catch, warn about, and handle invalid escape characters that prevent
+    # normal loading
+    except yaml.YAMLError:
+        warnings.warn("One or more file paths in the configuration file contain invalid escape characters. To fix this, enclose directory paths with single quotations ('...') or use all forward slashes (/) or double backslashes (\\\\) in directory paths. We will force-read as-is, but beware that unexpected bad things may happen.", SyntaxWarning)
+        with open(file, 'r') as f:
+            temp = f.read()
+        temp = temp.replace('\\', '/')
+        config = yaml.safe_load(temp)
+    return config
+
+def fix_config(config):
+    """Fix some common problems that may arise with configuration entries"""
+    for k, v in config.items():
+        if '_path' in k:
+            # Fix capitalized file extensions
+            _, ext = os.path.splitext(v)
+            v = v.replace(ext.upper(), ext.lower())
+            # Platform-agnostic directory paths
+            config[k] = os.path.join(v)
+    return config
+
 # Function to create a 3x3 convolutional layer
 def conv3x3(in_planes: int, out_planes: int, stride: int = 1, groups: int = 1, dilation: int = 1) -> nn.Conv2d:
     """Creates a 3x3 convolutional layer with padding. See torch.nn.Conv2d docs for more details.
@@ -679,8 +711,8 @@ def main():
 
     # Open the configuration file and read in the parameters
     try:
-        with open(args.config_path, 'r') as file:
-            config = yaml.safe_load(file)
+        config = load_yaml(file=args.config_path)
+        config = fix_config(config)
     except FileNotFoundError:
         print(f"Error: The configuration file was not found at {args.config_path}")
         return

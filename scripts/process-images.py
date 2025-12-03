@@ -21,12 +21,43 @@
 import argparse
 import yaml
 import os
-from os.path import join
 from tqdm import tqdm
 import numpy as np
 import cv2 as cv
 import torch
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
+
+# Load configuration file, reluctantly handling Windows directories
+def load_yaml(file):
+    """Load YAML file `file` while reluctantly handling Windows directory
+    backslashes. Tries to load the file normally first. If this fails, the file
+    is read in as a text string, any offending characters are replaced, and the
+    string is then converted to YAML. In this case, a warning advising safer
+    syntax is thrown."""
+    # Try to load YAML normally
+    try:
+        with open(file, 'r') as f:
+            config = yaml.safe_load(f)
+    # Catch, warn about, and handle invalid escape characters that prevent
+    # normal loading
+    except yaml.YAMLError:
+        warnings.warn("One or more file paths in the configuration file contain invalid escape characters. To fix this, enclose directory paths with single quotations ('...') or use all forward slashes (/) or double backslashes (\\\\) in directory paths. We will force-read as-is, but beware that unexpected bad things may happen.", SyntaxWarning)
+        with open(file, 'r') as f:
+            temp = f.read()
+        temp = temp.replace('\\', '/')
+        config = yaml.safe_load(temp)
+    return config
+
+def fix_config(config):
+    """Fix some common problems that may arise with configuration entries"""
+    for k, v in config.items():
+        if '_path' in k:
+            # Fix capitalized file extensions
+            _, ext = os.path.splitext(v)
+            v = v.replace(ext.upper(), ext.lower())
+            # Platform-agnostic directory paths
+            config[k] = os.path.join(v)
+    return config
 
 def combine_masks(annotations):
     """Combine overlapping masks into single masks.
@@ -322,7 +353,7 @@ def preprocess_folder(image_dir, output_dir, seg_opt="binary", extension=".tif",
     for file in tqdm(os.listdir(image_dir), desc="Processing images"):
         if file.endswith(extension):
             # Read in the original image
-            image = cv.imread(join(image_dir, file))
+            image = cv.imread(os.path.join(image_dir, file))
 
             # Crop and pad the image, applying segmentation if specified
             if(seg_opt == "binary"):
@@ -349,19 +380,22 @@ def preprocess_folder(image_dir, output_dir, seg_opt="binary", extension=".tif",
                 cropped_image = cv.cvtColor(cropped_image, cv.COLOR_GRAY2BGR)
 
             # Write the new cropped image to the output directory
-            cv.imwrite(join(output_dir, os.path.splitext(file)[0]+out_type), cropped_image)
+            cv.imwrite(os.path.join(output_dir, os.path.splitext(file)[0]+out_type), cropped_image)
 
 # Parse command line arguments. Currently only requires a path to a configuration yaml file.
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config_path", help="path to configuration yaml file")
 args = parser.parse_args()
 
-# Open the configuration file and read in parameters        
-with open(args.config_path, 'r') as file:
-    config = yaml.safe_load(file)
+# Open the configuration file and read in parameters
+try:
+    config = load_yaml(file=args.config_path)
+    config = fix_config(config)
+except FileNotFoundError:
+    raise FileNotFoundError(f"Error: The configuration file was not found at {args.config_path}")
 
 # Check for file names included in config paths where needed
-if ".pth" not in config["sam_weights_path"]:
+if config["segment"].lower() == "sam" and ".pth" not in config["sam_weights_path"]:
     raise ValueError("The 'sam_weights_path' key in the configuration file must include a file name ending with '.pth'.")
 
 # Check and fix image type file extensions, if necessary
