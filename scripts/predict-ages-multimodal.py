@@ -680,7 +680,7 @@ class FishTestDataset(Dataset):
         self.transforms = transform
 
         # Append the file extension to the image names from the CSV, if not already included
-        self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.iloc[:, 0]])
+        self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.loc[:, 'Fish nbr']])
 
         # Extract metadata attributes: fish length, weight, month of catch
         self.length = np.asarray(self.data_info.loc[:, 'Fork length mm'])
