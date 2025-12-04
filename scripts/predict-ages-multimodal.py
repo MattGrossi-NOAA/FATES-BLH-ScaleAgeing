@@ -670,8 +670,12 @@ class FishTestDataset(Dataset):
         transform : callable, optional
             A function/transform for image transformations.
         """
-        # Read the CSV file, store the image dataset directory, and store the transformation methods 
-        self.data_info = pd.read_csv(csv_path, header=0)
+        # Read the metadata CSV file, store the image dataset directory, and store the transformation methods 
+        self.data_info = pd.read_csv(csv_path, header=0,
+            usecols=['Fish nbr', 'Fork length mm', 'Whole wt grams', 'Collection Date'],
+            parse_dates=['Collection Date'], date_format='%d-%b-%y',
+            encoding="iso-8859-1").dropna(axis=0, how='all')
+        self.data_info['Collection Month'] = self.data_info['Collection Date'].dt.month.astype(int)
         self.image_dir = image_dir
         self.transforms = transform
 
@@ -679,9 +683,9 @@ class FishTestDataset(Dataset):
         self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.iloc[:, 0]])
 
         # Extract metadata attributes: fish length, weight, month of catch
-        self.length = np.asarray(self.data_info.iloc[:, 1])
-        self.wt = np.asarray(self.data_info.iloc[:, 2])
-        self.month = np.asarray(self.data_info.iloc[:, 3])
+        self.length = np.asarray(self.data_info.loc[:, 'Fork length mm'])
+        self.wt = np.asarray(self.data_info.loc[:, 'Whole wt grams'])
+        self.month = np.asarray(self.data_info.loc[:, 'Collection Month'])
 
     def __len__(self):
         """Returns the number of samples in the dataset."""
