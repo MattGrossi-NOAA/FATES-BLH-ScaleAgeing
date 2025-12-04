@@ -675,7 +675,7 @@ class FishTestDataset(Dataset):
             usecols=['Fish nbr', 'Fork length mm', 'Whole wt grams', 'Collection Date'],
             parse_dates=['Collection Date'], date_format='%d-%b-%y',
             encoding="iso-8859-1").dropna(axis=0, how='all')
-        data_info['Collection Month'] = self.data_info['Collection Date'].dt.month
+        data_info['Collection Month'] = data_info['Collection Date'].dt.month
         self.data_info = data_info.astype({
             'Fish nbr': 'int64',
             'Fork length mm' :'int64',
