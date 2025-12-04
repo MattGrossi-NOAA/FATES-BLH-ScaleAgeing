@@ -685,9 +685,20 @@ class FishTestDataset(Dataset):
         self.image_dir = image_dir
         self.transforms = transform
 
-        # Append the file extension to the image names from the CSV, if not already included
+        # Append the file extension to the image names from the CSV
         # self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.loc[:, 'Fish nbr']])
         self.image_name = np.asarray([f"{str(nbr)}{file_extension}" for nbr in self.data_info.loc[:, 'Fish nbr']])
+
+        # Check for metadata but missing image
+        available_images = [f for f in os.listdir(self.image_dir) if f.endswith(file_extension)]
+        missing_images = [x for x in self.image_name if x not in set(available_images)]
+        if len(missing_images) > 1:
+            raise FileNotFoundError(f"The following files appear in the metadata but not in `image_path`: {missing_images}")
+
+        # Check for image but missing metadata
+        missing_metadata = [x for x in available_images if x not in set(self.image_name)]
+        if len(missing_metadata) > 1:
+            raise AssertionError(f"The following files present in `image_path` are missing metadata and cannot be aged: {missing_metadata}")
 
         # Extract metadata attributes: fish length, weight, month of catch
         self.length = np.asarray(self.data_info.loc[:, 'Fork length mm'])
