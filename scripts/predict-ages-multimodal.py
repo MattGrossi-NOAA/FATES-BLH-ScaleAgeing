@@ -671,16 +671,23 @@ class FishTestDataset(Dataset):
             A function/transform for image transformations.
         """
         # Read the metadata CSV file, store the image dataset directory, and store the transformation methods 
-        self.data_info = pd.read_csv(csv_path, header=0,
+        data_info = pd.read_csv(csv_path, header=0,
             usecols=['Fish nbr', 'Fork length mm', 'Whole wt grams', 'Collection Date'],
             parse_dates=['Collection Date'], date_format='%d-%b-%y',
             encoding="iso-8859-1").dropna(axis=0, how='all')
-        self.data_info['Collection Month'] = self.data_info['Collection Date'].dt.month.astype(int)
+        data_info['Collection Month'] = self.data_info['Collection Date'].dt.month
+        self.data_info = data_info.astype({
+            'Fish nbr': 'int64',
+            'Fork length mm' :'int64',
+            'Whole wt grams': 'int64',
+            'Collection Month': 'int64'
+        })
         self.image_dir = image_dir
         self.transforms = transform
 
         # Append the file extension to the image names from the CSV, if not already included
-        self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.loc[:, 'Fish nbr']])
+        # self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.loc[:, 'Fish nbr']])
+        self.image_name = np.asarray([f"{str(nbr)}{file_extension}" for nbr in self.data_info.loc[:, 'Fish nbr']])
 
         # Extract metadata attributes: fish length, weight, month of catch
         self.length = np.asarray(self.data_info.loc[:, 'Fork length mm'])
