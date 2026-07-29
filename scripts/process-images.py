@@ -138,8 +138,6 @@ def clean_and_validate_config(config: dict):
         raise ValueError("The 'output_csv_file' key in the configuration file must include a file name ending with '.csv'.")
     if config["model_pth_file"].suffix.lower() != ".pth":
         raise ValueError("The 'model_pth_file' key in the configuration file must include a file name ending with '.pth'.")
-    if config["segment"].lower() == "sam" and ".pth" not in config["sam_weights_path"]:
-        raise ValueError("The 'sam_weights_path' key in the configuration file must include a file name ending with '.pth'.")
 
     value_errors = []
 
@@ -164,6 +162,19 @@ def clean_and_validate_config(config: dict):
     sam_type = config.get('sam_model_type')
     if sam_type is not None and sam_type not in {'vit_b', 'vit_l', 'vit_h'}:
         value_errors.append(f"  - 'sam_model_type' must be 'vit_b', 'vit_l', or 'vit_h' (got: '{sam_type}')")
+
+    # Extract the segment value, defaulting to an empty string if missing, 
+    # and safely convert it to lowercase for comparison.
+    segment_type = str(config.get('segment', '')).lower()
+    if segment_type == 'sam':
+        # If segment is 'sam', ensure 'sam_weights_path' exists in the dictionary
+        # and that it isn't completely empty/None
+        if not config.get('sam_weights_path'):
+            value_errors.append(
+                "  - 'sam_weights_path' is missing or empty, but is required when 'segment' is set to 'sam'."
+            )
+        elif ".pth" not in config["sam_weights_path"]:
+            value_errors.append("  - The 'sam_weights_path' key in the configuration file must include a file name ending with '.pth'.")
 
     # Verify normalization key
     norm = config.get('normalization')
