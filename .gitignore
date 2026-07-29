@@ -4,3 +4,4 @@ scripts/weights/*.pth
 _site/
 
 Dockerfile
+.venv
