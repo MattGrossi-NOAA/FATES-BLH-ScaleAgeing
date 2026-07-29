@@ -1,65 +1,135 @@
 #!/usr/bin/env python
 
-# -----------------------------------------------------------------------------
-# Title: predict-ages-images.py
-#
-# Description: This script predicts the age of fish scale images using a pre-
-#              trained ResNet18 model. Arguments, hyperparameters, and other
-#              settings are included in a configs.yml file. Predicted ages are
-#              written to a CSV file.
-#
-# Author: aotian.zheng@noaa.gov
-# Release Date: July 2025
-# Last Updated: September 2025
-#
-# Usage: python predict-ages-images.py -c path/to/configurations.yml
-# -----------------------------------------------------------------------------
+"""
+Predict Menhaden Ages (from image only)
+---------------------------------------
+This script predicts the age of fish scale images using a pre-trained ResNet18
+model. User settings are included in a configs.yml file. Predicted ages are
+written to a CSV file.
+
+Usage:
+    python predict-ages-images.py --config_path path/to/configurations.yml
+    python predict-ages-images.py -c path/to/configurations.yml
+
+Authors: aotian.zheng@noaa.gov (model development, training, validation, testing)
+         and matt.grossi@noaa.gov (model testing, implementation, code
+         refactoring for user functionality, documentation) with assistance
+         from Google Gemini Coding Partner
+Version: 2026.1.0
+Release Date: September 2025
+Last Updated: July 2026
+"""
 
 import argparse
+import difflib
+import os
+from pathlib import Path
+from PIL import Image
 import warnings
 import yaml
-import os
-from os import listdir
-from os.path import isfile, join
-from PIL import Image
+
 import torch
-from torchvision import transforms
-from torch.utils.data.dataset import Dataset  # For custom datasets
 from torch.utils.data import DataLoader
+from torch.utils.data.dataset import Dataset  # For custom datasets
+from torchvision import transforms
 from torchvision.models import resnet18
 from tqdm import tqdm
 
-# Load configuration file, reluctantly handling Windows directories
-def load_yaml(file):
-    """Load YAML file `file` while reluctantly handling Windows directory
-    backslashes. Tries to load the file normally first. If this fails, the file
-    is read in as a text string, any offending characters are replaced, and the
-    string is then converted to YAML. In this case, a warning advising safer
-    syntax is thrown."""
-    # Try to load YAML normally
-    try:
-        with open(file, 'r') as f:
-            config = yaml.safe_load(f)
-    # Catch, warn about, and handle invalid escape characters that prevent
-    # normal loading
-    except yaml.YAMLError:
-        warnings.warn("One or more file paths in the configuration file contain invalid escape characters. To fix this, enclose directory paths with single quotations ('...') or use all forward slashes (/) or double backslashes (\\\\) in directory paths. We will force-read as-is, but beware that unexpected bad things may happen.", SyntaxWarning)
-        with open(file, 'r') as f:
-            temp = f.read()
-        temp = temp.replace('\\', '/')
-        config = yaml.safe_load(temp)
-    return config
+def load_yaml(file_path: str | Path) -> dict:
+    """Load a YAML configuration file with fallback support for raw Windows
+    backslashes.
 
-def fix_config(config):
-    """Fix some common problems that may arise with configuration entries"""
+    Attributes
+    ----------
+    file_path : str | Path
+        Path to the YAML configuration file.
+    """
+    path = Path(file_path)
+    content = path.read_text(encoding='utf-8')
+
+    try:
+        config = yaml.safe_load(content) or {}
+        clean_and_validate_config(config=config)
+        return config
+    except yaml.YAMLError as exc:
+        # Check if the failure is likely caused by backslash escape codes
+        if '\\' in content:
+            # Convert backslashes to forward slashes and attempt a second parse
+            config = yaml.safe_load(content.replace('\\', '/')) or {}
+            clean_and_validate_config(config=config)
+            return config
+        
+        # If there are no backslashes, raise the actual YAML syntax error
+        raise
+
+def clean_and_validate_config(config: dict):
+    """Checks for missing mandatory keys and typos in the YAML. Suggests the
+    closest-match valid key for any invalid key found. Cleans any string values
+    when Bools are expected and ensures image file extension, if passed, contains
+    a leading ".".
+    
+    Arguments
+    ---------
+    config (dict): dictionary of configuration settings to validate
+    """
+    # Define expected keys
+    REQUIRED_KEYS = {
+        'model_pth_file', 'output_csv_file', 'processed_image_path'
+        }
+    VALID_KEYS = REQUIRED_KEYS | {
+        'binary_threshold', 'bottom_pad', 'downsample', 'input_type', 'invert',
+        'metadata_csv_file', 'normalization', 'output_type', 'pad',
+        'points_per_side', 'raw_image_path', 'sam_weights_path',
+        'sam_model_type', 'segment', 'stability_score_thresh'
+        }
+    
+    # Find the differences using set math
+    config_keys = set(config.keys())
+    missing_keys = REQUIRED_KEYS - config_keys
+    unrecognized_keys = config_keys - VALID_KEYS
+
+    error_blocks = []
+
+    # Check for missing keys
+    if missing_keys:
+        missing_msg = "[!] MISSING REQUIRED SETTINGS:\n" + "\n".join(f"  - '{k}'" for k in missing_keys)
+        error_blocks.append(missing_msg)
+
+    # Check for typos or unrecognized keys
+    if unrecognized_keys:
+        unrecognized_msg_lines = []
+        for key in unrecognized_keys:
+            matches = difflib.get_close_matches(key, list(VALID_KEYS), n=1, cutoff=0.6)
+            suggestion = f" (Did you mean '{matches[0]}'?)" if matches else ""
+            unrecognized_msg_lines.append(f"  - '{key}'{suggestion}")
+        
+        unrecognized_msg = "[!] UNRECOGNIZED SETTINGS FOUND:\n" + "\n".join(unrecognized_msg_lines)
+        error_blocks.append(unrecognized_msg)
+
+    if error_blocks:
+        final_error_message = (
+            "\n\nCONFIGURATION ERROR(S) DETECTED:\n\n" +
+            "\n\n".join(error_blocks) +
+            "\n\nPlease correct your configuration file and restart the utility."
+        )
+        raise ValueError(final_error_message)
+        
+    # Fix capitalized file extensions
     for k, v in config.items():
-        if '_path' in k:
-            # Fix capitalized file extensions
+        if '_file' in k:
             _, ext = os.path.splitext(v)
             v = v.replace(ext.upper(), ext.lower())
-            # Platform-agnostic directory paths
-            config[k] = os.path.join(v)
-    return config
+
+    # Format directories for cross-platform compatibility
+    config.update(
+        {k: Path(i) for k,i in config.items() if 'path' in k or 'file' in k}
+        )
+    
+    # Check for file names included in config paths where needed
+    if config["output_csv_file"].suffix.lower() != ".csv":
+        raise ValueError("The 'output_csv_file' key in the configuration file must include a file name ending with '.csv'.")
+    if config["model_pth_file"].suffix.lower() != ".pth":
+        raise ValueError("The 'model_pth_file' key in the configuration file must include a file name ending with '.pth'.")
 
 class FishTestDataset(Dataset):
     """Custom Dataset for loading fish scale images for age inference.
@@ -71,12 +141,14 @@ class FishTestDataset(Dataset):
     image_name : list
         List of image filenames in the directory.
     transforms : callable, optional
-        A function/transform that takes in a PIL image and returns a transformed version.
+        A function/transform that takes in a PIL image and returns a transformed
+        version.
     
     Methods
     -------
     __len__ : returns the number of images in the dataset.
-    __getitem__(index) : returns the image and its filename at the specified index.
+    __getitem__(index) : returns the image and its filename at the specified
+        index.
     """
     def __init__(self, image_dir, transform=None):
         """
@@ -85,7 +157,8 @@ class FishTestDataset(Dataset):
         image_dir : str
             Path to the directory containing images.
         transform : callable, optional
-            A function/transform that takes in a PIL image and returns a transformed version.
+            A function/transform that takes in a PIL image and returns a
+            transformed version.
         """
 
         # Get the directory of the images to age
@@ -95,7 +168,9 @@ class FishTestDataset(Dataset):
         self.transforms = transform
 
         # Image Name
-        self.image_name = [f for f in listdir(image_dir) if isfile(join(image_dir, f))]
+        self.image_name = [
+            f for f in os.listdir(image_dir) if os.path.isfile(os.path.join(image_dir, f))
+            ]
 
     def __len__(self):
         """Returns the number of images in the dataset."""
@@ -119,27 +194,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config_path", help="path to configuration yaml file")
     args = parser.parse_args()
-    
 
     # Open the configuration file and read in the parameters
     try:
-        config = load_yaml(file=args.config_path)
-        config = fix_config(config)
+        config = load_yaml(file_path=args.config_path)
     except FileNotFoundError:
         print(f"Error: The configuration file was not found at {args.config_path}")
         return
-        
-    # Format directories for cross-platform compatibility
-    config.update({k: os.path.join(i) for k,i in config.items if 'path' in k})
-
-    # Check for file names included in config paths where needed
-    if ".csv" not in config["metadata_path"]:
-        raise ValueError("The 'metadata_path' key in the configuration file must include a file name ending with '.csv'.")
-    if ".csv" not in config["out_path"]:
-        raise ValueError("The 'out_path' key in the configuration file must include a file name ending with '.csv'.")
-    if ".pth" not in config["model_path"]:
-        raise ValueError("The 'model_path' key in the configuration file must include a file name ending with '.pth'.")
-
+    
     # Image transformations: resizing, cropping, normalization
     data_transforms = transforms.Compose(
             [
@@ -149,7 +211,10 @@ def main():
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ]
         )
-    test_dataset = FishTestDataset(image_dir=config["image_path"], transform=data_transforms)
+    test_dataset = FishTestDataset(
+        image_dir=config["processed_image_path"],
+        transform=data_transforms
+    )
     test_loader = DataLoader(test_dataset, batch_size=24, shuffle=False, drop_last=False)
 
     # Load the model using GPU, if available, in evaluation mode.
@@ -159,7 +224,7 @@ def main():
 
     # Load the pre-trained model weights
     try:
-        model.load_state_dict(torch.load(config["model_path"]))
+        model.load_state_dict(torch.load(config["model_pth_file"]))
         print("Model weights loaded successfully.")
     except Exception as e:
         print(f"Error loading model weights: {e}")
@@ -169,7 +234,7 @@ def main():
 
     # Create output file and write header
     try:
-        with open(config["out_path"], 'w') as file:
+        with open(config["output_csv_file"], 'w') as file:
             file.write("Image Name, Predicted Age\n")
 
             # Loop through the dataset and make predictions
@@ -185,7 +250,7 @@ def main():
                     if(preds[i] == 4):
                         age = "4+"
                     file.write("%s,%s\n" % (img_path[i], age))
-        print(f"Inference complete. Results saved to {config['out_path']}")
+        print(f'Inference complete. Results saved to {config["output_csv_file"]}')
     
     except Exception as e:
         print(f"An error occurred during inference: {e}")
