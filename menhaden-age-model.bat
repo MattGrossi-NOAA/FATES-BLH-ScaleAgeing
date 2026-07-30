@@ -150,7 +150,7 @@ IF "%MODEL_CHOICE%"=="process" (
     set "SCRIPT_NAME=predict-ages-images.py"
     echo Selected Action: Predict ages using images only
 ) ELSE IF "%MODEL_CHOICE%"=="metadata" (
-    set "SCRIPT_NAME=predict-ages-metadata.py"
+    set "SCRIPT_NAME=predict-ages-multimodal.py"
     echo Selected Action: Predict ages using images and metadata
 ) ELSE (
     echo.
