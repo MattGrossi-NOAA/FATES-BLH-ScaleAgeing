@@ -10,7 +10,7 @@ This repo consists of four primary branches, each serving a distinct purpose to 
 
 ## Prerequisites
 
-This model is built using Python 3.8 but currently works with versions up to Python 3.10. A Python virtual environment and package dependicies can be managed using either [Conda](https://docs.conda.io/en/latest/) and the provided `environment.yml` file, or [pip](https://pypi.org/project/pip/) with the provided `requirements.txt` file. The model has the option to implement [Segment Anything Model](https://arxiv.org/abs/2408.00714) for image segmentation, which requires downloading a model checkpoint. See the [docs page](https://sefsc.github.io/FATES-BLH-ScaleAgeing/content/setup.html#download-segmentation-model) for more information.
+This model is built using Python 3.8 but currently works with versions up to Python 3.10. A Python virtual environment and package dependencies can be managed using either [Conda](https://docs.conda.io/en/latest/) and the provided `environment.yml` file, or [pip](https://pypi.org/project/pip/) with the provided `requirements.txt` file. The model has the option to implement [Segment Anything Model](https://arxiv.org/abs/2408.00714) for image segmentation, which requires downloading a model checkpoint. See the [docs page](https://sefsc.github.io/FATES-BLH-ScaleAgeing/content/setup.html#download-segmentation-model) for more information.
 
 ## Usage
 
@@ -36,5 +36,4 @@ This repository is a scientific product and is not official communication of the
 
 ### License
 
-This content was created by U.S. Government employees as part of their official duties. This content is not subject to copyright in the United States (17 U.S.C. §105) and is in the public domain within the United States of America. Additionally, copyright is waived worldwide through the CC0 1.0 Universal public domain dedication. The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department 
-of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.
+This content was created by U.S. Government employees as part of their official duties. This content is not subject to copyright in the United States (17 U.S.C. §105) and is in the public domain within the United States of America. Additionally, copyright is waived worldwide through the CC0 1.0 Universal public domain dedication. The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.

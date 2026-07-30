@@ -41,8 +41,10 @@ echo.
 echo Please install Python 3.10 using the website that is 
 echo about to open.
 echo.
-echo NOTE: You do NOT need to check "Add Python to PATH" 
-echo during installation. A standard installation is fine.
+echo NOTE: If this is the first Python installation on your
+echo workstation, checking the "Add Python to PATH" box during
+echo installation is strongly recommended. Otherwise, doing so
+echo is not recquired; a standanrd installation is fine.
 echo ==========================================================
 echo.
 echo Press any key to open the download page and exit...
