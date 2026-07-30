@@ -1,26 +1,28 @@
 ---
-title: Using the Model
+title: Usage
 subtitle: Predicting the ages of a set of menhaden scale images
 metadata-files:
   - ../_metadata.yml
 order: 5
 ---
 
-Running the Menhaden Ageing Model is straightforward and only requires two commands: one to pre-process the images and a second to run the age inference model. You will, however, need to modify a `configurations.yml` file, as [described previously](configuration.qmd). A sample is provided below, while the contents of this file are explained in more detail in the [model options](index.qmd#options).
+Running the Menhaden Ageing Model is straightforward and only requires two steps: processing the raw images and then running the age inference model. You will, however, need to modify a `configurations.yml` file, as [described previously](configuration.qmd).
+
+## Basic Users
+
+The easiest way to launch the model is with the provided `menhaden-age-model` utility, a Windows Batch (`.bat`) file designed to streamline Python environment management and script execution. Behind the scenes, this utility checks the workstation for an existing Python installation, creates and manages a Python virtual environment and necessary package dependencies, and handles launching the necessary Python scripts that contain the ageing model and associated data processing routines. Virtual environment creation and setup (*i.e.*, package installation) only happens the first time this utility is launched. Each time thereafter, the existing virtual environment is automatically detected and activated.
+
+Upon launching `menhaden-age-model`, the user is asked to select a process from the following options:
+
+- **Process raw images (crop, pad, normalize, etc.)**: Process raw scale images prior to passing them through an age prediction model. The image processing routine takes an image that may contain multiple scales, identifies and crops the center-most scale, resizes it to square dimensions expected by the model, adds necessary padding around the cropped scale, and optionally applies image pixel normalization or other image processing techniques.
+- **Predict ages using images only**: Runs the "image-only" ageing model, which predicts ages using only the cropped scale images.
+- **Predict ages using images and metadata**: Runs the so-called "multimodal" ageing model, which combines sample metadata (*e.g.*, fish length, weight, month of catch) with processed scale images to predict age.
+
+Regardless of which pipeline is selected, the user will then be prompted to select the desired configuration `YAML` file. See the [docs](configuration.qmd) for more information.
+
+## Advanced Users
 
 ### Activate the Virtual Environment
-
-First we need to activate the virtual environment we [previously configured](setup.qmd#create-a-virtual-environment). In a terminal window, type:
-
-```bash
-conda activate scaleageing
-```
-
-:::{.callout-tip}
-If you named your virtual environment something other than "scaleageing", invoke that name instead.
-:::
-
-### Running the model
 
 Navigate (`cd`) into the directory containing the `predict-ages-multimodal.py` script. If you simply cloned the repo and have not moved anything around, this will in the `/scripts` subdirectory in the cloned repository. For example:
 
@@ -28,36 +30,67 @@ Navigate (`cd`) into the directory containing the `predict-ages-multimodal.py` s
 cd "c:/Users/user.name/Documents/ageing/{{< meta repo.name >}}/scripts"
 ```
 
-Run the model as described in the [usage instructions](index.qmd#usage):
+Activate the virtual environment we [previously configured](setup.qmd#create-a-virtual-environment). In a terminal window, type:
 
-```bash
-python process-images.py --config_path <config_dir>
-python predict-ages-multimodal.py --config_path <config_dir>
+```{.bash filename="pip environment"}
+.scaleageing\Scripts\activate
 ```
 
-where `<config_dir>` is the path to the configuration file containing model settings presented [above](#configuration-file).
+or 
+
+```{.bash filename="conda environment"}
+conda activate scaleageing
+```
+
+:::{.callout-tip}
+If you named your virtual environment something other than "scaleageing", invoke that name instead.
+:::
+
+### Process Images
+
+All Python scripts are stored in the `/scripts` subdirectory in the repo. To process raw scale images:
+
+```bash
+python scripts/process-images.py --config_path <config_dir>
+```
+
+where `<config_dir>` is the path to the [configuration file containing model settings](configuration.qmd).
+
+### Running the model to predict ages
+
+To predict ages, use one of the following:
+
+```{.bash filename="Image only model"}
+python scripts/predict-ages-images.py --config_path <config_dir>
+```
+
+```{.bash filename="Image and metadata model"}
+python scripts/predict-ages-multimodal.py --config_path <config_dir>
+```
+
+where `<config_dir>` is the path to the [configuration file containing model settings](configuration.qmd).
 
 #### Examples
 
 If your `configurations.yml` file is [stored alongside your model script](configuration.qmd#option-1-alongside-the-model), your execution commands will simply be:
 
 ```bash
-python process-images.py --config_path configurations.yml
-python predict-ages-multimodal.py --config_path configurations.yml
+python scripts/process-images.py --config_path configurations.yml
+python scripts/predict-ages-multimodal.py --config_path configurations.yml
 ```
 
 Or, if you named your configuration file something unique such as `configuration-2024-atl.yml`, it might look like this:
 
 ```bash
-python process-images.py --config_path configuration-2024-atl.yml
-python predict-ages-multimodal.py --config_path configuration-2024-atl.yml
+python scripts/process-images.py --config_path configuration-2024-atl.yml
+python scripts/predict-ages-multimodal.py --config_path configuration-2024-atl.yml
 ```
 
 Alternatively, your `configurations.yml` file is [stored alongside your data](configuration.qmd#option-2-alongside-the-data), you will need to tell the script exactly where that file is located using its full directory path. Be sure to also include the correct file name, if applicable. For example:
 
 ```bash
-python process-images.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
-python predict-ages-multimodal.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
+python scripts/process-images.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
+python scripts/predict-ages-multimodal.py --config_path "c:/Users/user.name/Documents/data/2024/configurations.yml"
 ```
 
 ::: {.callout-tip}
@@ -68,8 +101,12 @@ If you get a "File not found" error when running the script, carefully check you
 
 When you are finished running the model, deactivate the virtual environment to free up resources on your computer:
 
-```bash
-conda deactivate
+```{.bash filename="pip environment"}
+deactivate
 ```
 
-Note that there is no need to specify the environment when deactivating, as conda automatically deactivates the running environment.
+or
+
+```{.bash filename="conda environment"}
+conda deactivate
+```

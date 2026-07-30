@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-subtitle: Creating and configuration a Python virtual environment
+subtitle: Installation and Setup
 metadata-files:
   - ../_metadata.yml
 order: 1
@@ -9,6 +9,18 @@ order: 1
 :::{.callout-note}
 The instructions on this page only need to be carried out once. If you have already installed the required dependencies and created a virtual environment, skip ahead to [Using the Model](usage.qmd).
 :::
+
+Download and install Python [3.10](https://www.python.org/downloads/release/python-31011/) (recommended) or 3.9, if needed. If this is your first installation of Python on your workstation, check the "Add Python to PATH" box during echo installation.
+
+## Basic Users
+
+These instructions assume no working knowledge of command line interface or GitHub.
+
+Download the [FATES-BLH-ScaleAgeing repository](https://github.com/SEFSC/FATES-BLH-ScaleAgeing) from GitHUb: click the green "<> Code" button and select "Download ZIP". Extract to your desired local location.
+
+To use the Segment Anything Model (SAM) for image processing, [download this model](#download-segmentation-model) as well. Otherwise, skip this step and use simple binary segmentation.
+
+## Advanced Users
 
 Much of the following is carried out using command line. In the instructions below, "command line terminal" or "terminal" refer to any command line application for the given operating system. For Windows, this is commonly Command Prompt or Windows Powershell. These use DOS commands. For UNIX users, Git Bash is a good alternative; it is included in [Git for Windows](#git) and allows UNIX commands to be used instead of DOS.
 
@@ -31,6 +43,8 @@ This should already be installed for all users on the Advanced Technology GPU ma
 If needed, download and install the [Git CLI](https://git-scm.com/downloads) before continuing. This does not need administrative privileges to install at the user level. Confirm that it has been installed by opening a command line terminal and entering `git --version`.
 
 #### conda
+
+*This is optional for users who prefer Anaconda over pip.*
 
 Download and install [Anaconda](https://www.anaconda.com/).
 
@@ -92,7 +106,23 @@ You only need to download this if you intend to use Segment Anything Model metho
 
 ### Create a Virtual Environment
 
-Virtual environments are used to manage Python packages. Create a virtual environment specifically for this model. In a terminal window, navigate (`cd`) into the directory containing the `environment.yml` file. This should be the parent directory of the cloned repository. For example,
+Virtual environments are used to manage Python packages. Options exist for either pip or conda environments. Choose one.
+
+### Option 1: pip
+
+Create and activate a new pip virtual environment and install package dependencies using the `requirements.txt` file packaged with the repo:
+
+```bash
+python -m venv .scaleageing
+
+.scaleageing\Scripts\activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+#### Option 2: conda
+
+Create a virtual environment specifically for this model. In a terminal window, navigate (`cd`) into the directory containing the `environment.yml` file. This should be the parent directory of the cloned repository. For example,
 
 ```bash
 cd "c:/Users/user.name/Documents/ageing/{{< meta repo.name >}}"
