@@ -80,7 +80,9 @@ def clean_and_validate_config(config: dict):
     """
     # Define expected keys
     REQUIRED_KEYS = {
-        'metadata_csv_file', 'model_pth_file', 'output_csv_file', 'processed_image_path'
+        'collection_date_colname', 'fish_id_colname', 'fish_length_colname',
+        'fish_weight_colname', 'metadata_csv_file', 'model_pth_file',
+        'output_csv_file', 'processed_image_path'
         }
     VALID_KEYS = REQUIRED_KEYS | {
         'binary_threshold', 'bottom_pad', 'downsample', 'input_type', 'invert',
@@ -728,7 +730,7 @@ class FishTestDataset(Dataset):
     transforms : callable, optional
         A function/transform that takes in a PIL image and returns a transformed version.
     """
-    def __init__(self, image_dir, csv_path, file_extension, transform=None):
+    def __init__(self, image_dir, csv_path, csv_cols, file_extension, transform=None):
         """
         Attributes
         ----------
@@ -736,29 +738,37 @@ class FishTestDataset(Dataset):
             Path to the directory containing images.
         csv_path : str
             Path to the CSV file with age and metadata information.
+        csv_cols : dict
+            Dictionary with keys ['fish_id_colname', 'fish_length_colname',
+            'fish_weight_colname', 'collection_date_colname'] mapped to actual
+            column names in the file passed to `csv_path`.
         file_extension: str
             The expected file extension for images (e.g., ".jpg").
         transform : callable, optional
             A function/transform for image transformations.
         """
         # Read the metadata CSV file, store the image dataset directory, and store the transformation methods 
+        date_col = csv_cols['collection_date_colname']
         data_info = pd.read_csv(csv_path, header=0,
-            usecols=['Fish nbr', 'Fork length mm', 'Whole wt grams', 'Collection Date'],
-            parse_dates=['Collection Date'], date_format='%d-%b-%y',
+            usecols=list(csv_cols.values()),
             encoding="iso-8859-1").dropna(axis=0, how='all')
-        data_info['Collection Month'] = data_info['Collection Date'].dt.month
-        self.data_info = data_info.astype({
-            'Fish nbr': 'int64',
-            'Fork length mm' :'int64',
-            'Whole wt grams': 'int64',
-            'Collection Month': 'int64'
-        })
+        try:
+            # If it's the current format, this will succeed
+            data_info['Collection Month'] = pd.to_datetime(
+                data_info[date_col], 
+                format='%d-%b-%y'
+            ).dt.month
+        except ValueError:
+            # If it throws a ValueError, it's the legacy CSV format
+            data_info['Collection Month'] = data_info[date_col]
+        
+        self.data_info = data_info.astype('int64')
         self.image_dir = image_dir
         self.transforms = transform
 
         # Append the file extension to the image names from the CSV
         # self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.loc[:, 'Fish nbr']])
-        self.image_name = np.asarray([f"{str(nbr)}{file_extension}" for nbr in self.data_info.loc[:, 'Fish nbr']])
+        self.image_name = np.asarray([f"{str(nbr)}{file_extension}" for nbr in self.data_info.loc[:, csv_cols['fish_id_colname']]])
 
         # Check for metadata but missing image
         available_images = [f for f in os.listdir(self.image_dir) if f.endswith(file_extension)]
@@ -772,8 +782,8 @@ class FishTestDataset(Dataset):
             raise AssertionError(f"The following files found in `processed_image_path` are missing metadata and cannot be aged: {missing_metadata}")
 
         # Extract metadata attributes: fish length, weight, month of catch
-        self.length = np.asarray(self.data_info.loc[:, 'Fork length mm'])
-        self.wt = np.asarray(self.data_info.loc[:, 'Whole wt grams'])
+        self.length = np.asarray(self.data_info.loc[:, csv_cols['fish_length_colname']])
+        self.wt = np.asarray(self.data_info.loc[:, csv_cols['fish_weight_colname']])
         self.month = np.asarray(self.data_info.loc[:, 'Collection Month'])
 
     def __len__(self):
@@ -820,9 +830,16 @@ def main():
     )
 
     # Load the dataset for inference
+    csv_cols = [
+        'fish_id_colname',
+        'fish_length_colname',
+        'fish_weight_colname',
+        'collection_date_colname'
+        ]
     test_dataset = FishTestDataset(
         image_dir=config["processed_image_path"],
         csv_path=config["metadata_csv_file"],
+        csv_cols={k:config[k] for k in csv_cols if k in config},
         file_extension=config["output_type"],
         transform=data_transforms
     )
