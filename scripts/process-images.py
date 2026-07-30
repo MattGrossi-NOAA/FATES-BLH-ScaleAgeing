@@ -76,10 +76,11 @@ def clean_and_validate_config(config: dict):
         'processed_image_path', 'raw_image_path', 'input_type'
         }
     VALID_KEYS = REQUIRED_KEYS | {
-        'binary_threshold', 'bottom_pad', 'downsample', 'invert',
-        'metadata_csv_file', 'model_pth_file', 'normalization',
-        'output_csv_file', 'output_type', 'pad', 'points_per_side',
-        'sam_weights_path', 'sam_model_type', 'segment',
+        'binary_threshold', 'bottom_pad', 'collection_date_colname',
+        'downsample', 'fish_id_colname', 'fish_length_colname',
+        'fish_weight_colname', 'invert', 'metadata_csv_file', 'model_pth_file',
+        'normalization', 'output_csv_file', 'output_type', 'pad',
+        'points_per_side', 'sam_weights_path', 'sam_model_type', 'segment',
         'stability_score_thresh'
         }
     
