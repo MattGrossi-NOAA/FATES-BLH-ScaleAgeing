@@ -40,8 +40,8 @@ sam_model_type: "vit_b"
 sam_weights_path: "C:/Users/user.name/Documents/GitHubRepos/{{< meta repo.name >}}/scripts/weights/sam_vit_b_01ec64.pth"
 
 # -----Cropping and padding parameters-----
-pad: 0.2
-bottom_pad: 0.4
+pad: 0.05
+bottom_pad: 0.35
 
 # -----Normalization options-----
 normalization: "none"
@@ -98,8 +98,8 @@ All user options are contained in a config YAML file (called `configurations.yml
 
 |                           |                                                 |
 |---------------------------|-------------------------------------------------|
-| `pad`                     | Padding for top and sides of cropped image. Defined as a fraction of the original cropped image size. Bottom padding is controlled by `bottom_pad`. Default: 0.2 |
-| `bottom_pad`              | Padding for bottom of cropped image. This is defined separately since for scale images, the bottom is usually visually distinct from the body and may be missed in the segmentation. Default: 0.4 |
+| `pad`                     | Padding for top and sides of cropped image. Defined as a fraction of the original cropped image size. Bottom padding is controlled by `bottom_pad`. Default: 0.05 |
+| `bottom_pad`              | Padding for bottom of cropped image. This is defined separately since for scale images, the bottom is usually visually distinct from the body and may be missed in the segmentation. Default: 0.35 |
 :Cropping and padding parameters {tbl-colwidths="[25,75]"}
 
 <br>

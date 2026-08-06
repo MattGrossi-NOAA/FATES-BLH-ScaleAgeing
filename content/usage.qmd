@@ -56,6 +56,13 @@ python scripts/process-images.py --config_path <config_dir>
 
 where `<config_dir>` is the path to the [configuration file containing model settings](configuration.qmd).
 
+::: {.callout-tip}
+## What if cropping fails?
+
+Variations in image coloring, such as different foreground/background contrasts or lighting, can affect how well individual scales are cropped out of the original image. If you encounter issues with this, first try adjusting `binary_threshold` in your configuration file, which adjusts the foreground/background distinction. If that doesn't work, or doesn't work by itself, try adjusting `pad` (left, top, and right side of the scale) and `bottom_pad` to add or remove background space around the individual scale. See [the configuration page](configuration.qmd) for more details.
+
+:::
+
 ### Running the model to predict ages
 
 To predict ages, use one of the following:
