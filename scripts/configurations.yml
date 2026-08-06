@@ -14,6 +14,13 @@ processed_image_path: 'G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIO
 # Input image type
 input_type: '.tif'
 
+# NOTE: If cropping/padding fails, due to, e.g., variations in image coloring,
+# such as foreground/background constrast, try tweaking `binary_threshold` first
+# (default 100), followed by `pad` and `bottom_pad`, as needed (defaults 0.05
+# and 0.35, respectively.) Use trial and error until the processed images turn
+# out as desired.
+
+
 # Path and name of metadata CSV file for age inference with multimodal model.
 # (Ignored if using the 'image only' model.)
 metadata_csv_file: 'G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/2020_Plant_10/metadata/metadata.csv'
