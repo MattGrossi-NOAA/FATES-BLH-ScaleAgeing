@@ -30,7 +30,7 @@ model_pth_file: 'C:\Users\user.name\Documents\gh-repos\FATES-BLH-ScaleAgeing\scr
 # and 0.05, respectively.) Use trial and error until the processed images turn
 # out as desired.
 
-# -----Binary Threshold segmentation parameters-----
+# -----Binary Threshold Segmentation-----
 # Binary threshold pixel value for differentiation between foreground (scale)
 # and background. Tweak this as needed to ensure the scales are properly located
 # within the images. Default: 100.
