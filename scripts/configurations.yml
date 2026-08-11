@@ -14,13 +14,6 @@ processed_image_path: 'G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIO
 # Input image type
 input_type: '.tif'
 
-# NOTE: If cropping/padding fails, due to, e.g., variations in image coloring,
-# such as foreground/background constrast, try tweaking `binary_threshold` first
-# (default 100), followed by `pad` and `bottom_pad`, as needed (defaults 0.05
-# and 0.35, respectively.) Use trial and error until the processed images turn
-# out as desired.
-
-
 # Path and name of metadata CSV file for age inference with multimodal model.
 # (Ignored if using the 'image only' model.)
 metadata_csv_file: 'G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/2020_Plant_10/metadata/metadata.csv'
@@ -30,3 +23,34 @@ output_csv_file: 'G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_
 
 # Path to model weights (directory and file name of weights file)
 model_pth_file: 'C:\Users\user.name\Documents\gh-repos\FATES-BLH-ScaleAgeing\scripts\weights\image-model-v2025.pth'
+
+# If cropping/padding fails, due to, e.g., variations in image coloring, such as
+# foreground/background constrast, try tweaking `binary_threshold` first
+# (default 100), followed by `bottom_pad` and `pad`, as needed (defaults 0.35
+# and 0.05, respectively.) Use trial and error until the processed images turn
+# out as desired.
+
+# -----Binary Threshold segmentation parameters-----
+# Binary threshold pixel value for differentiation between foreground (scale)
+# and background. Tweak this as needed to ensure the scales are properly located
+# within the images. Default: 100.
+# binary_threshold: 100 #Remove comment (#) from the start of this line to edit
+
+# -----Cropping parameters-----
+# Padding for top and sides of cropped image. Defined as a fraction of the
+# original cropped image size. Bottom padding is controlled by bottom_pad.
+# Adjust as needed to ensure the there is a margin around the top and sides of
+# the extracted scale. Setting a value low may because the scale to 'bleed' when
+# the image is resized for input to the model. Setting a value too high may
+# include too much background and make the scale too small in the image.
+# Default: 0.05
+# pad: 0.05 #Remove comment (#) from the start of this line to edit
+
+# Padding for bottom of cropped image. This is defined separately since for
+# scale images, the bottom is usually visually distinct from the body and may be
+# missed in the segmentation. Adjust as needed to ensure the there is a margin
+# at the bottom of the extracted scale. Setting a value low may because the
+# scale to 'bleed' when the image is resized for input to the model. Setting a
+# value too high may include too much background and make the scale too small in
+# the image. Default: 0.35
+# bottom_pad: 0.35 #Remove comment (#) from the start of this line to edit
