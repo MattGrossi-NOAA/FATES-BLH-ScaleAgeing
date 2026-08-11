@@ -1,40 +1,145 @@
 #!/usr/bin/env python
 
-# -----------------------------------------------------------------------------
-# Title: predict-ages-multimodal.py
-#
-# Description: This script predicts the age of Menhaden fish samples using
-# scale images and associated metadata (fish length, weight, and month of
-# catch). The model's architecture and settings are controlled via a
-#  configurations.yml file. Predicted ages are written to a CSV file.
-#
-# Authors: aotian.zheng@noaa.gov (model development, training, validation,
-#              testing)
-#          matt.grossi@noaa.gov (model testing, code refactoring for user
-#              functionality, documentation)
-#          This code to run the model was created with support from Gemini
-#              integrated into NOAA's Google workspace
-# Release Date: September 2025
-# Last Updated: September 2025
-#
-# Usage: python predict-ages-multimodal.py -c path/to/configurations.yml
-# -----------------------------------------------------------------------------
+"""
+Predict Menhaden Ages (from images and metadata)
+------------------------------------------------
+This script predicts the age of Menhaden fish samples using scale images and
+associated metadata (fish length, weight, and month of catch). The model's
+architecture and settings are controlled via a configurations.yml file.
+Predicted ages are written to a CSV file.
 
-import os
-import yaml
+Usage:
+    python predict-ages-multimodal.py --config_path path/to/configurations.yml
+    python predict-ages-multimodal.py -c path/to/configurations.yml
+
+Authors: aotian.zheng@noaa.gov (model development, training, validation, testing)
+         and matt.grossi@noaa.gov (model testing, implementation, code
+         refactoring for user functionality, documentation) with assistance
+         from Google Gemini Coding Partner
+Version: 2026.1.0
+Release Date: September 2025
+Last Updated: July 2026
+"""
+
 import argparse
+import difflib
+import os
+from pathlib import Path
+from PIL import Image
+import warnings
+import yaml
+
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
-from PIL import Image
 import torch
-import torch.nn as nn
 from torch import Tensor
+import torch.nn as nn
 import torch.nn.functional as F
-from torch.utils.data.dataset import Dataset
 from torch.utils.data import DataLoader
+from torch.utils.data.dataset import Dataset
 from torchvision import transforms
+from tqdm import tqdm
 from typing import Any, Callable, List, Optional, Type, Union, Tuple
+
+def load_yaml(file_path: str | Path) -> dict:
+    """Load a YAML configuration file with fallback support for raw Windows
+    backslashes.
+
+    Attributes
+    ----------
+    file_path : str | Path
+        Path to the YAML configuration file.
+    """
+    path = Path(file_path)
+    content = path.read_text(encoding='utf-8')
+
+    try:
+        config = yaml.safe_load(content) or {}
+        clean_and_validate_config(config=config)
+        return config
+    except yaml.YAMLError as exc:
+        # Check if the failure is likely caused by backslash escape codes
+        if '\\' in content:
+            # Convert backslashes to forward slashes and attempt a second parse
+            config = yaml.safe_load(content.replace('\\', '/')) or {}
+            clean_and_validate_config(config=config)
+            return config
+        
+        # If there are no backslashes, raise the actual YAML syntax error
+        raise
+
+def clean_and_validate_config(config: dict):
+    """Checks for missing mandatory keys and typos in the YAML. Suggests the
+    closest-match valid key for any invalid key found. Cleans any string values
+    when Bools are expected and ensures image file extension, if passed, contains
+    a leading ".".
+    
+    Arguments
+    ---------
+    config (dict): dictionary of configuration settings to validate
+    """
+    # Define expected keys
+    REQUIRED_KEYS = {
+        'collection_date_colname', 'fish_id_colname', 'fish_length_colname',
+        'fish_weight_colname', 'metadata_csv_file', 'model_pth_file',
+        'output_csv_file', 'processed_image_path'
+        }
+    VALID_KEYS = REQUIRED_KEYS | {
+        'binary_threshold', 'bottom_pad', 'downsample', 'input_type', 'invert',
+        'normalization', 'output_type', 'pad', 'points_per_side',
+        'raw_image_path', 'sam_weights_path', 'sam_model_type', 'segment',
+        'stability_score_thresh'
+        }
+    
+    # Find the differences using set math
+    config_keys = set(config.keys())
+    missing_keys = REQUIRED_KEYS - config_keys
+    unrecognized_keys = config_keys - VALID_KEYS
+
+    error_blocks = []
+
+    # Check for missing keys
+    if missing_keys:
+        missing_msg = "[!] MISSING REQUIRED SETTINGS:\n" + "\n".join(f"  - '{k}'" for k in missing_keys)
+        error_blocks.append(missing_msg)
+
+    # Check for typos or unrecognized keys
+    if unrecognized_keys:
+        unrecognized_msg_lines = []
+        for key in unrecognized_keys:
+            matches = difflib.get_close_matches(key, list(VALID_KEYS), n=1, cutoff=0.6)
+            suggestion = f" (Did you mean '{matches[0]}'?)" if matches else ""
+            unrecognized_msg_lines.append(f"  - '{key}'{suggestion}")
+        
+        unrecognized_msg = "[!] UNRECOGNIZED SETTINGS FOUND:\n" + "\n".join(unrecognized_msg_lines)
+        error_blocks.append(unrecognized_msg)
+
+    if error_blocks:
+        final_error_message = (
+            "\n\nCONFIGURATION ERROR(S) DETECTED:\n\n" +
+            "\n\n".join(error_blocks) +
+            "\n\nPlease correct your configuration file and restart the utility."
+        )
+        raise ValueError(final_error_message)
+        
+    # Fix capitalized file extensions
+    for k, v in config.items():
+        if '_file' in k:
+            _, ext = os.path.splitext(v)
+            v = v.replace(ext.upper(), ext.lower())
+
+    # Format directories for cross-platform compatibility
+    config.update(
+        {k: Path(i) for k,i in config.items() if 'path' in k or 'file' in k}
+        )
+    
+    # Check for file names included in config paths where needed
+    if config["metadata_csv_file"].suffix.lower() != ".csv":
+        raise ValueError("The 'metadata_csv_file' key in the configuration file must include a file name ending with '.csv'.")
+    if config["output_csv_file"].suffix.lower() != ".csv":
+        raise ValueError("The 'output_csv_file' key in the configuration file must include a file name ending with '.csv'.")
+    if config["model_pth_file"].suffix.lower() != ".pth":
+        raise ValueError("The 'model_pth_file' key in the configuration file must include a file name ending with '.pth'.")
 
 # Function to create a 3x3 convolutional layer
 def conv3x3(in_planes: int, out_planes: int, stride: int = 1, groups: int = 1, dilation: int = 1) -> nn.Conv2d:
@@ -625,7 +730,7 @@ class FishTestDataset(Dataset):
     transforms : callable, optional
         A function/transform that takes in a PIL image and returns a transformed version.
     """
-    def __init__(self, image_dir, csv_path, file_extension, transform=None):
+    def __init__(self, image_dir, csv_path, csv_cols, file_extension, transform=None):
         """
         Attributes
         ----------
@@ -633,23 +738,53 @@ class FishTestDataset(Dataset):
             Path to the directory containing images.
         csv_path : str
             Path to the CSV file with age and metadata information.
+        csv_cols : dict
+            Dictionary with keys ['fish_id_colname', 'fish_length_colname',
+            'fish_weight_colname', 'collection_date_colname'] mapped to actual
+            column names in the file passed to `csv_path`.
         file_extension: str
             The expected file extension for images (e.g., ".jpg").
         transform : callable, optional
             A function/transform for image transformations.
         """
-        # Read the CSV file, store the image dataset directory, and store the transformation methods 
-        self.data_info = pd.read_csv(csv_path, header=0)
+        # Read the metadata CSV file, store the image dataset directory, and store the transformation methods 
+        date_col = csv_cols['collection_date_colname']
+        data_info = pd.read_csv(csv_path, header=0,
+            usecols=list(csv_cols.values()),
+            encoding="iso-8859-1").dropna(axis=0, how='all')
+        try:
+            # If it's the current format, this will succeed
+            data_info['Collection Month'] = pd.to_datetime(
+                data_info[date_col], 
+                format='%d-%b-%y'
+            ).dt.month
+        except ValueError:
+            # If it throws a ValueError, it's the legacy CSV format
+            data_info['Collection Month'] = data_info[date_col]
+        
+        self.data_info = data_info.astype('int64')
         self.image_dir = image_dir
         self.transforms = transform
 
-        # Append the file extension to the image names from the CSV, if not already included
-        self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.iloc[:, 0]])
+        # Append the file extension to the image names from the CSV
+        # self.image_name = np.asarray([f"{name}{file_extension}" if file_extension not in str(name) else str(name) for name in self.data_info.loc[:, 'Fish nbr']])
+        self.image_name = np.asarray([f"{str(nbr)}{file_extension}" for nbr in self.data_info.loc[:, csv_cols['fish_id_colname']]])
+
+        # Check for metadata but missing image
+        available_images = [f for f in os.listdir(self.image_dir) if f.endswith(file_extension)]
+        missing_images = [x for x in self.image_name if x not in set(available_images)]
+        if len(missing_images) > 1:
+            raise FileNotFoundError(f"The following files appear in the metadata but not in `processed_image_path`: {missing_images}")
+
+        # Check for image but missing metadata
+        missing_metadata = [x for x in available_images if x not in set(self.image_name)]
+        if len(missing_metadata) > 1:
+            raise AssertionError(f"The following files found in `processed_image_path` are missing metadata and cannot be aged: {missing_metadata}")
 
         # Extract metadata attributes: fish length, weight, month of catch
-        self.length = np.asarray(self.data_info.iloc[:, 1])
-        self.wt = np.asarray(self.data_info.iloc[:, 2])
-        self.month = np.asarray(self.data_info.iloc[:, 3])
+        self.length = np.asarray(self.data_info.loc[:, csv_cols['fish_length_colname']])
+        self.wt = np.asarray(self.data_info.loc[:, csv_cols['fish_weight_colname']])
+        self.month = np.asarray(self.data_info.loc[:, 'Collection Month'])
 
     def __len__(self):
         """Returns the number of samples in the dataset."""
@@ -679,20 +814,11 @@ def main():
 
     # Open the configuration file and read in the parameters
     try:
-        with open(args.config_path, 'r') as file:
-            config = yaml.safe_load(file)
+        config = load_yaml(file_path=args.config_path)
     except FileNotFoundError:
         print(f"Error: The configuration file was not found at {args.config_path}")
         return
 
-    # Check for file names included in config paths where needed
-    if ".csv" not in config["metadata_path"]:
-        raise ValueError("The 'metadata_path' key in the configuration file must include a file name ending with '.csv'.")
-    if ".csv" not in config["out_path"]:
-        raise ValueError("The 'out_path' key in the configuration file must include a file name ending with '.csv'.")
-    if ".pth" not in config["model_path"]:
-        raise ValueError("The 'model_path' key in the configuration file must include a file name ending with '.pth'.")
-    
     # Image transformations: resizing, cropping, normalization
     data_transforms = transforms.Compose(
         [
@@ -704,9 +830,16 @@ def main():
     )
 
     # Load the dataset for inference
+    csv_cols = [
+        'fish_id_colname',
+        'fish_length_colname',
+        'fish_weight_colname',
+        'collection_date_colname'
+        ]
     test_dataset = FishTestDataset(
-        image_dir=config["image_path"],
-        csv_path=config["metadata_path"],
+        image_dir=config["processed_image_path"],
+        csv_path=config["metadata_csv_file"],
+        csv_cols={k:config[k] for k in csv_cols if k in config},
         file_extension=config["output_type"],
         transform=data_transforms
     )
@@ -726,7 +859,7 @@ def main():
 
     # Load the pre-trained model weights
     try:
-        model.load_state_dict(torch.load(config["model_path"]))
+        model.load_state_dict(torch.load(config["model_pth_file"]))
         print("Model weights loaded successfully.")
     except Exception as e:
         print(f"Error loading model weights: {e}")
@@ -736,7 +869,7 @@ def main():
 
     # Create output file and write header
     try:
-        with open(config["out_path"], 'w') as file:
+        with open(config["output_csv_file"], 'w') as file:
             file.write("Image Name, Predicted Age\n")
 
             # Loop through the dataset and make predictions
@@ -757,7 +890,7 @@ def main():
                     if preds[i] == 4:
                         age = "4+"
                     file.write(f"{img_path[i]},{age}\n")
-        print(f"Inference complete. Results saved to {config['out_path']}")
+        print(f'Inference complete. Results saved to {config["output_csv_file"]}')
 
     except Exception as e:
         print(f"An error occurred during inference: {e}")

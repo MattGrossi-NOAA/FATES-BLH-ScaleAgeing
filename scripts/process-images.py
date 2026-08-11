@@ -1,32 +1,208 @@
 #!/usr/bin/env python
 
-# -----------------------------------------------------------------------------
-# Title: Scale_Raw_Image_Preprocessing.py
-#
-# Description: This script processes raw fish scale images by cropping and
-#              padding them using either simple binary thresholding or a
-#              Segment Anything Model (SAM). Additional options include image
-#              normalization and grey scale color inversion. Arguments,
-#              hyperparameters, and other settings are included in a
-#              configs.yml file. New cropped images are saved to an output
-#              directory specified in configs.yml.
-#
-# Author: aotian.zheng@noaa.gov
-# Release Date: July 2025
-# Last Updated: August 2025
-#
-# Usage: python Scale_Raw_Image_Preprocessing.py -c path/to/configs.yml
-# -----------------------------------------------------------------------------
+"""
+Process Raw Scale Images for Ageing
+-----------------------------------
+This script processes raw fish scale images by cropping and padding them using
+either simple binary thresholding or a Segment Anything Model (SAM). Additional
+options include image normalization and grey scale color inversion. Arguments,
+hyperparameters, and other settings are included in a configs.yml file. New
+cropped images are saved to an output directory specified in configs.yml.
+
+Usage:
+    python Scale_Raw_Image_Preprocessing.py --config_path path/to/configs.yml
+    python Scale_Raw_Image_Preprocessing.py -c path/to/configs.yml
+
+Authors: aotian.zheng@noaa.gov (script development) and matt.grossi@noaa.gov
+         (implementation, user functionality, documentation) with assistance
+         from Google Gemini Coding Partner
+Version: 2026.1.0
+Release Date: July 2025
+Last Updated: July 2026
+"""
 
 import argparse
-import yaml
+import difflib
 import os
-from os.path import join
-from tqdm import tqdm
-import numpy as np
+from pathlib import Path
+import warnings
+import yaml
+
 import cv2 as cv
-import torch
+import numpy as np
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
+import torch
+from tqdm import tqdm
+
+def load_yaml(file_path: str | Path) -> dict:
+    """Load a YAML configuration file with fallback support for raw Windows
+    backslashes.
+
+    Attributes
+    ----------
+    file_path : str | Path
+        Path to the YAML configuration file.
+    """
+    path = Path(file_path)
+    content = path.read_text(encoding='utf-8')
+
+    try:
+        config = yaml.safe_load(content) or {}
+        clean_and_validate_config(config=config)
+        return config
+    except yaml.YAMLError as exc:
+        # Check if the failure is likely caused by backslash escape codes
+        if '\\' in content:
+            # Convert backslashes to forward slashes and attempt a second parse
+            config = yaml.safe_load(content.replace('\\', '/')) or {}
+            clean_and_validate_config(config=config)
+            return config
+        
+        # If there are no backslashes, raise the actual YAML syntax error
+        raise
+
+def clean_and_validate_config(config: dict):
+    """Checks for missing mandatory keys and typos in the YAML. Suggests the
+    closest-match valid key for any invalid key found. Cleans any string values
+    when Bools are expected and ensures image file extension, if passed, contains
+    a leading ".".
+    
+    Arguments
+    ---------
+    config (dict): dictionary of configuration settings to validate
+    """
+    # Define expected keys
+    REQUIRED_KEYS = {
+        'processed_image_path', 'raw_image_path', 'input_type'
+        }
+    VALID_KEYS = REQUIRED_KEYS | {
+        'binary_threshold', 'bottom_pad', 'collection_date_colname',
+        'downsample', 'fish_id_colname', 'fish_length_colname',
+        'fish_weight_colname', 'invert', 'metadata_csv_file', 'model_pth_file',
+        'normalization', 'output_csv_file', 'output_type', 'pad',
+        'points_per_side', 'sam_weights_path', 'sam_model_type', 'segment',
+        'stability_score_thresh'
+        }
+    
+    # Find the differences using set math
+    config_keys = set(config.keys())
+    missing_keys = REQUIRED_KEYS - config_keys
+    unrecognized_keys = config_keys - VALID_KEYS
+
+    error_blocks = []
+
+    # Check for missing keys
+    if missing_keys:
+        missing_msg = "[!] MISSING REQUIRED SETTINGS:\n" + "\n".join(f"  - '{k}'" for k in missing_keys)
+        error_blocks.append(missing_msg)
+
+    # Check for typos or unrecognized keys
+    if unrecognized_keys:
+        unrecognized_msg_lines = []
+        for key in unrecognized_keys:
+            matches = difflib.get_close_matches(key, list(VALID_KEYS), n=1, cutoff=0.6)
+            suggestion = f" (Did you mean '{matches[0]}'?)" if matches else ""
+            unrecognized_msg_lines.append(f"  - '{key}'{suggestion}")
+        
+        unrecognized_msg = "[!] UNRECOGNIZED SETTINGS FOUND:\n" + "\n".join(unrecognized_msg_lines)
+        error_blocks.append(unrecognized_msg)
+
+    if error_blocks:
+        final_error_message = (
+            "\n\nCONFIGURATION ERROR(S) DETECTED:\n\n" +
+            "\n\n".join(error_blocks) +
+            "\n\nPlease correct your configuration file and restart the utility."
+        )
+        raise ValueError(final_error_message)
+        
+    # Fix capitalized file extensions
+    for k, v in config.items():
+        if '_file' in k:
+            _, ext = os.path.splitext(v)
+            v = v.replace(ext.upper(), ext.lower())
+
+    # Check and fix image type file extensions, if necessary
+    if 'input_type' in config and not config['input_type'].startswith('.'):
+        config['input_type'] = '.' + config['input_type']
+    if 'output_type' in config and not config['output_type'].startswith('.'):
+        config['output_type'] = '.' + config['output_type']
+
+    # Format directories for cross-platform compatibility
+    config.update(
+        {k: Path(i) for k,i in config.items() if 'path' in k or 'file' in k}
+        )
+    
+    # Check for file names included in config paths where needed
+    if config["metadata_csv_file"].suffix.lower() != ".csv":
+        raise ValueError("The 'metadata_csv_file' key in the configuration file must include a file name ending with '.csv'.")
+    if config["output_csv_file"].suffix.lower() != ".csv":
+        raise ValueError("The 'output_csv_file' key in the configuration file must include a file name ending with '.csv'.")
+    if config["model_pth_file"].suffix.lower() != ".pth":
+        raise ValueError("The 'model_pth_file' key in the configuration file must include a file name ending with '.pth'.")
+
+    value_errors = []
+
+    # Verify segment key
+    segment = config.get('segment')
+    if segment is not None and segment not in {'binary', 'sam'}:
+        value_errors.append(f"  - 'segment' must be 'binary' or 'sam' (got: '{segment}')")
+
+    # Verify stability score threshold (0 to 1 inclusive)
+    thresh = config.get('stability_score_thresh')
+    if thresh is not None:
+        if not isinstance(thresh, (int, float)) or not (0 <= thresh <= 1):
+            value_errors.append(f"  - 'stability_score_thresh' must be a number between 0 and 1 (got: {thresh})")
+
+    # Verify downsample (< 1)
+    downsample = config.get('downsample')
+    if downsample is not None:
+        if not isinstance(downsample, (int, float)) or downsample >= 1:
+            value_errors.append(f"  - 'downsample' must be a number less than 1 (got: {downsample})")
+
+    # Verify Segment Anything Model (SAM) type
+    sam_type = config.get('sam_model_type')
+    if sam_type is not None and sam_type not in {'vit_b', 'vit_l', 'vit_h'}:
+        value_errors.append(f"  - 'sam_model_type' must be 'vit_b', 'vit_l', or 'vit_h' (got: '{sam_type}')")
+
+    # Extract the segment value, defaulting to an empty string if missing, 
+    # and safely convert it to lowercase for comparison.
+    segment_type = str(config.get('segment', '')).lower()
+    if segment_type == 'sam':
+        # If segment is 'sam', ensure 'sam_weights_path' exists in the dictionary
+        # and that it isn't completely empty/None
+        if not config.get('sam_weights_path'):
+            value_errors.append(
+                "  - 'sam_weights_path' is missing or empty, but is required when 'segment' is set to 'sam'."
+            )
+        elif ".pth" not in config["sam_weights_path"]:
+            value_errors.append("  - The 'sam_weights_path' key in the configuration file must include a file name ending with '.pth'.")
+
+    # Verify normalization key
+    norm = config.get('normalization')
+    if norm is not None and str(norm).lower() not in {'none', 'he', 'clahe'}:
+        value_errors.append(f"  - 'normalization' must be 'none', 'he', or 'clahe' (got: '{norm}')")
+
+    # Verify invert key (handle YAML bools, ints, and case-insensitive strings)
+    invert = config.get('invert')
+    if invert is not None:
+        # If the user put quotes around it, it's a string, so we lowercase it. 
+        # Otherwise, YAML parsed it as a bool or int.
+        invert_check = invert.lower() if isinstance(invert, str) else invert
+        if invert_check not in {True, False, 1, 0, 'true', 'false', '1', '0'}:
+            value_errors.append(f"  - 'invert' must be True, False, 1, or 0 (got: '{invert}')")
+
+    # Add collected value errors to the main error blocks
+    if value_errors:
+        error_blocks.append("[!] INVALID VALUES FOUND:\n" + "\n".join(value_errors))
+
+    # Report config issues in need of fixing
+    if error_blocks:
+        final_error_message = (
+            "\n\nCONFIGURATION ERROR(S) DETECTED:\n\n" +
+            "\n\n".join(error_blocks) +
+            "\n\nPlease correct your configuration file and restart the utility."
+        )
+        raise ValueError(final_error_message)    
 
 def combine_masks(annotations):
     """Combine overlapping masks into single masks.
@@ -322,7 +498,7 @@ def preprocess_folder(image_dir, output_dir, seg_opt="binary", extension=".tif",
     for file in tqdm(os.listdir(image_dir), desc="Processing images"):
         if file.endswith(extension):
             # Read in the original image
-            image = cv.imread(join(image_dir, file))
+            image = cv.imread(os.path.join(image_dir, file))
 
             # Crop and pad the image, applying segmentation if specified
             if(seg_opt == "binary"):
@@ -349,31 +525,44 @@ def preprocess_folder(image_dir, output_dir, seg_opt="binary", extension=".tif",
                 cropped_image = cv.cvtColor(cropped_image, cv.COLOR_GRAY2BGR)
 
             # Write the new cropped image to the output directory
-            cv.imwrite(join(output_dir, os.path.splitext(file)[0]+out_type), cropped_image)
+            cv.imwrite(os.path.join(output_dir, os.path.splitext(file)[0]+out_type), cropped_image)
 
 # Parse command line arguments. Currently only requires a path to a configuration yaml file.
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config_path", help="path to configuration yaml file")
 args = parser.parse_args()
 
-# Open the configuration file and read in parameters        
-with open(args.config_path, 'r') as file:
-    config = yaml.safe_load(file)
+# Open the configuration file and read in parameters
+try:
+    config = load_yaml(file_path=args.config_path)
+except FileNotFoundError:
+    raise FileNotFoundError(f"Error: The configuration file was not found at {args.config_path}")
 
-# Check for file names included in config paths where needed
-if ".pth" not in config["sam_weights_path"]:
-    raise ValueError("The 'sam_weights_path' key in the configuration file must include a file name ending with '.pth'.")
-
-# Check and fix image type file extensions, if necessary
-if config["input_type"][0] != ".":
-    config["input_type"] = "." + config["input_type"]
-if config["output_type"][0] != ".":
-    config["output_type"] = "." + config["output_type"]
+# Set defaults for settings that can also be set in the YAML configuration file
+CONFIG_DEFAULTS = {
+    "binary_threshold": 100,
+    "bottom_pad": 0.35,
+    "downsample": 0.5,
+    "normalization": "none",
+    "output_type": ".jpg",
+    "input_type": ".tif",
+    "invert": False,
+    "pad": 0.05,
+    "points_per_side": 8,
+    "sam_model_type": "vit_h",
+    "sam_weights_path": "",
+    "segment": "binary",
+    "stability_score_thresh": 0.88,
+}
+# Merge default settings into configuration file
+# (If a key exists in both dictionaries, the value from the second dictionary,
+# `config`, replaces the value from the first dictionary, the default value.)
+config = CONFIG_DEFAULTS | config
 
 # Run the preprocessing function with parameters from the configuration file
 preprocess_folder(
     image_dir=config["raw_image_path"],
-    output_dir=config["preprocessed_image_path"],
+    output_dir=config["processed_image_path"],
     seg_opt=config["segment"],
     extension=config["input_type"],
     out_type=config["output_type"],
