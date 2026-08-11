@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Using the Model – Menhaden Ageing Model</title>
+<title>Usage – Menhaden Ageing Model</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -69,19 +75,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../theme/images/favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2c4806eda0bfacdad23d49998e7e0aa4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-627c5b1be44945ad26aa6815881f1038.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-2c4806eda0bfacdad23d49998e7e0aa4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2651a547a7cdce930299f9de7f1afd3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-4f39afa3ed3c71efb1cda8003f6a43f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-2651a547a7cdce930299f9de7f1afd3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -334,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/usage.html">Using the Model</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/setup.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/usage.html">Usage</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -367,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../content/index.html" class="sidebar-item-text sidebar-link">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Read the Docs</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -389,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/configuration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Configuring the Model</span></a>
+ <span class="menu-text">Configuration Settings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -401,7 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/usage.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Using the Model</span></a>
+ <span class="menu-text">Usage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -434,9 +439,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#activate-the-virtual-environment" id="toc-activate-the-virtual-environment" class="nav-link active" data-scroll-target="#activate-the-virtual-environment">Activate the Virtual Environment</a></li>
-  <li><a href="#running-the-model" id="toc-running-the-model" class="nav-link" data-scroll-target="#running-the-model">Running the model</a></li>
+  <li><a href="#basic-users" id="toc-basic-users" class="nav-link active" data-scroll-target="#basic-users">Basic Users</a></li>
+  <li><a href="#advanced-users" id="toc-advanced-users" class="nav-link" data-scroll-target="#advanced-users">Advanced Users</a>
+  <ul class="collapse">
+  <li><a href="#activate-the-virtual-environment" id="toc-activate-the-virtual-environment" class="nav-link" data-scroll-target="#activate-the-virtual-environment">Activate the Virtual Environment</a></li>
+  <li><a href="#process-images" id="toc-process-images" class="nav-link" data-scroll-target="#process-images">Process Images</a></li>
+  <li><a href="#running-the-model-to-predict-ages" id="toc-running-the-model-to-predict-ages" class="nav-link" data-scroll-target="#running-the-model-to-predict-ages">Running the model to predict ages</a></li>
   <li><a href="#when-finished" id="toc-when-finished" class="nav-link" data-scroll-target="#when-finished">When finished</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/SEFSC/FATES-BLH-ScaleAgeing/blob/docs/content/usage.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/SEFSC/FATES-BLH-ScaleAgeing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -444,9 +454,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/index.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/usage.html">Using the Model</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/setup.html">Read the Docs</a></li><li class="breadcrumb-item"><a href="../content/usage.html">Usage</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Using the Model</h1>
+<h1 class="title">Usage</h1>
 <p class="subtitle lead">Predicting the ages of a set of menhaden scale images</p>
 </div>
 
@@ -464,11 +474,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Running the Menhaden Ageing Model is straightforward and only requires two commands: one to pre-process the images and a second to run the age inference model. You will, however, need to modify a <code>configurations.yml</code> file, as <a href="../content/configuration.html">described previously</a>. A sample is provided below, while the contents of this file are explained in more detail in the <a href="../content/index.html#options">model options</a>.</p>
+<p>Running the Menhaden Ageing Model is straightforward and only requires two steps: processing the raw images and then running the age inference model. You will, however, need to modify a <code>configurations.yml</code> file, as <a href="../content/configuration.html">described previously</a>.</p>
+<section id="basic-users" class="level2">
+<h2 class="anchored" data-anchor-id="basic-users">Basic Users</h2>
+<p>The easiest way to launch the model is with the provided <code>menhaden-age-model</code> utility, a Windows Batch (<code>.bat</code>) file designed to streamline Python environment management and script execution. Behind the scenes, this utility checks the workstation for an existing Python installation, creates and manages a Python virtual environment and necessary package dependencies, and handles launching the necessary Python scripts that contain the ageing model and associated data processing routines. Virtual environment creation and setup (<em>i.e.</em>, package installation) only happens the first time this utility is launched. Each time thereafter, the existing virtual environment is automatically detected and activated.</p>
+<p>Upon launching <code>menhaden-age-model</code>, the user is asked to select a process from the following options:</p>
+<ul>
+<li><strong>Process raw images (crop, pad, normalize, etc.)</strong>: Process raw scale images prior to passing them through an age prediction model. The image processing routine takes an image that may contain multiple scales, identifies and crops the center-most scale, resizes it to square dimensions expected by the model, adds necessary padding around the cropped scale, and optionally applies image pixel normalization or other image processing techniques.</li>
+<li><strong>Predict ages using images only</strong>: Runs the “image-only” ageing model, which predicts ages using only the cropped scale images.</li>
+<li><strong>Predict ages using images and metadata</strong>: Runs the so-called “multimodal” ageing model, which combines sample metadata (<em>e.g.</em>, fish length, weight, month of catch) with processed scale images to predict age.</li>
+</ul>
+<p>Regardless of which pipeline is selected, the user will then be prompted to select the desired configuration <code>YAML</code> file. See the <a href="../content/configuration.html">docs</a> for more information.</p>
+</section>
+<section id="advanced-users" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-users">Advanced Users</h2>
 <section id="activate-the-virtual-environment" class="level3">
 <h3 class="anchored" data-anchor-id="activate-the-virtual-environment">Activate the Virtual Environment</h3>
-<p>First we need to activate the virtual environment we <a href="../content/setup.html#create-a-virtual-environment">previously configured</a>. In a terminal window, type:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate scaleageing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Navigate (<code>cd</code>) into the directory containing the <code>predict-ages-multimodal.py</code> script. If you simply cloned the repo and have not moved anything around, this will in the <code>/scripts</code> subdirectory in the cloned repository. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"c:/Users/user.name/Documents/ageing/FATES-BLH-ScaleAgeing/scripts"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Activate the virtual environment we <a href="../content/setup.html#create-a-virtual-environment">previously configured</a>. In a terminal window, type:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>pip environment</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="pip environment"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">.scaleageing\Scripts\activate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>or</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>conda environment</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="conda environment"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate scaleageing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -483,25 +520,52 @@ Tip
 </div>
 </div>
 </section>
-<section id="running-the-model" class="level3">
-<h3 class="anchored" data-anchor-id="running-the-model">Running the model</h3>
-<p>Navigate (<code>cd</code>) into the directory containing the <code>predict-ages-multimodal.py</code> script. If you simply cloned the repo and have not moved anything around, this will in the <code>/scripts</code> subdirectory in the cloned repository. For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"c:/Users/user.name/Documents/ageing/FATES-BLH-ScaleAgeing/scripts"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Run the model as described in the <a href="../content/index.html#usage">usage instructions</a>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> predict-ages-multimodal.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>where <code>&lt;config_dir&gt;</code> is the path to the configuration file containing model settings presented <a href="#configuration-file">above</a>.</p>
+<section id="process-images" class="level3">
+<h3 class="anchored" data-anchor-id="process-images">Process Images</h3>
+<p>All Python scripts are stored in the <code>/scripts</code> subdirectory in the repo. To process raw scale images:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/process-images.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>where <code>&lt;config_dir&gt;</code> is the path to the <a href="../content/configuration.html">configuration file containing model settings</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>What if cropping fails?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Variations in image coloring, such as different foreground/background contrasts or lighting, can affect how well individual scales are cropped out of the original image. If you encounter issues with this, first try adjusting <code>binary_threshold</code> in your configuration file, which adjusts the foreground/background distinction. If that doesn’t work, or doesn’t work by itself, try adjusting <code>pad</code> (left, top, and right side of the scale) and <code>bottom_pad</code> to add or remove background space around the individual scale. See <a href="../content/configuration.html">the configuration page</a> for more details.</p>
+</div>
+</div>
+</section>
+<section id="running-the-model-to-predict-ages" class="level3">
+<h3 class="anchored" data-anchor-id="running-the-model-to-predict-ages">Running the model to predict ages</h3>
+<p>To predict ages, use one of the following:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Image only model</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="Image only model"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/predict-ages-images.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Image and metadata model</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="Image and metadata model"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/predict-ages-multimodal.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>where <code>&lt;config_dir&gt;</code> is the path to the <a href="../content/configuration.html">configuration file containing model settings</a>.</p>
 <section id="examples" class="level4">
 <h4 class="anchored" data-anchor-id="examples">Examples</h4>
 <p>If your <code>configurations.yml</code> file is <a href="../content/configuration.html#option-1-alongside-the-model">stored alongside your model script</a>, your execution commands will simply be:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">--config_path</span> configurations.yml</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> predict-ages-multimodal.py <span class="at">--config_path</span> configurations.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/process-images.py <span class="at">--config_path</span> configurations.yml</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/predict-ages-multimodal.py <span class="at">--config_path</span> configurations.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Or, if you named your configuration file something unique such as <code>configuration-2024-atl.yml</code>, it might look like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">--config_path</span> configuration-2024-atl.yml</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> predict-ages-multimodal.py <span class="at">--config_path</span> configuration-2024-atl.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/process-images.py <span class="at">--config_path</span> configuration-2024-atl.yml</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/predict-ages-multimodal.py <span class="at">--config_path</span> configuration-2024-atl.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Alternatively, your <code>configurations.yml</code> file is <a href="../content/configuration.html#option-2-alongside-the-data">stored alongside your data</a>, you will need to tell the script exactly where that file is located using its full directory path. Be sure to also include the correct file name, if applicable. For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">--config_path</span> <span class="st">"c:/Users/user.name/Documents/data/2024/configurations.yml"</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> predict-ages-multimodal.py <span class="at">--config_path</span> <span class="st">"c:/Users/user.name/Documents/data/2024/configurations.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/process-images.py <span class="at">--config_path</span> <span class="st">"c:/Users/user.name/Documents/data/2024/configurations.yml"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/predict-ages-multimodal.py <span class="at">--config_path</span> <span class="st">"c:/Users/user.name/Documents/data/2024/configurations.yml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -520,10 +584,22 @@ Tip
 <section id="when-finished" class="level3">
 <h3 class="anchored" data-anchor-id="when-finished">When finished</h3>
 <p>When you are finished running the model, deactivate the virtual environment to free up resources on your computer:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Note that there is no need to specify the environment when deactivating, as conda automatically deactivates the running environment.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>pip environment</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="pip environment"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>or</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>conda environment</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="conda environment"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

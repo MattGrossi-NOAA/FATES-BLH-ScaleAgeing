@@ -2,58 +2,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Read the Docs – Menhaden Ageing Model</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -67,19 +38,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./theme/images/favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2c4806eda0bfacdad23d49998e7e0aa4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-627c5b1be44945ad26aa6815881f1038.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-2c4806eda0bfacdad23d49998e7e0aa4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-2651a547a7cdce930299f9de7f1afd3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-4f39afa3ed3c71efb1cda8003f6a43f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-2651a547a7cdce930299f9de7f1afd3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -365,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./content/index.html" class="sidebar-item-text sidebar-link">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Read the Docs</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -387,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./content/configuration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Configuring the Model</span></a>
+ <span class="menu-text">Configuration Settings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -399,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./content/usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using the Model</span></a>
+ <span class="menu-text">Usage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -434,11 +404,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
-  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a>
-  <ul class="collapse">
-  <li><a href="#pre-processing-options" id="toc-pre-processing-options" class="nav-link" data-scroll-target="#pre-processing-options">Pre-Processing Options</a></li>
-  <li><a href="#age-model-options" id="toc-age-model-options" class="nav-link" data-scroll-target="#age-model-options">Age Model Options</a></li>
-  </ul></li>
   <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
   <li><a href="#release-notes" id="toc-release-notes" class="nav-link" data-scroll-target="#release-notes">Release Notes</a>
   <ul class="collapse">
@@ -477,244 +442,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="about">About</h2>
 <p>The internal workflow is as follows:</p>
 <ol type="1">
-<li>Raw images are first converted to grayscale such that every image pixel contains a value [0, 255]. These grayscale images are then processed using <a href="https://en.wikipedia.org/wiki/Thresholding_(image_processing)">binary thresholding</a> image processing techniques by which all pixels whose values are above a certain threshold are set to 1 while the rest are set to 0. This allows the scale itself to be distinguished from the image background. The threshold value used for menhaden, based on trail and error, is 100.</li>
+<li>Raw images are first converted to grayscale such that every image pixel contains a value [0, 255]. These grayscale images are then processed using <a href="https://en.wikipedia.org/wiki/Thresholding_(image_processing)">binary thresholding</a> image processing techniques by which all pixels whose values are above a certain threshold are set to 1 while the rest are set to 0. This allows the fish scale itself to be distinguished from the image background. The threshold value used for menhaden, based on trail and error, is 100.</li>
 <li>Imperfections in the new masked images are cleaned up using <a href="https://en.wikipedia.org/wiki/Opening_(morphology)">morphological opening</a> and <a href="https://en.wikipedia.org/wiki/Closing_(morphology)">closing</a> techniques to remove undesired background noise and capture any missed portions of the scale.</li>
-<li>The contours of the masked shape are identified in order to extract the object of interest (<em>i.e.</em>, the scale).</li>
+<li>The contours of the masked shape are identified in order to extract the fish scale.</li>
 <li>The scale is then cropped out of the original image and padded to make it square.</li>
-<li>The new square image containing just the scale of interest is passed to a trained custom <a href="https://en.wikipedia.org/wiki/Residual_neural_network">residual neural network</a> (resnet) deep learning classification model along with a <a href="./content/metadata.html">metadata CSV file</a> described later. Model output is saved to a CSV file.</li>
+<li>The new square image containing just the scale of interest is passed to a trained custom <a href="https://en.wikipedia.org/wiki/Residual_neural_network">residual neural network</a> (resnet) deep learning classification model along with (optionally) a <a href="./content/metadata.html">metadata CSV file</a> described later. Model output is saved to a CSV file.</li>
 </ol>
 <p>Implementation instructions follow. Be sure to <a href="./content/setup.html">set up and configure a Python environment</a> before the first use.</p>
 </section>
 <section id="usage" class="level2">
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<p>Running the model requires two steps. First, raw images must be pre-processed in order to crop out the scale of interest from the full image, pad the cropped image to ensure the full scale is captured, and (optionally) normalize the cropped image to facilitate ageing. This is all done using the <code>process-images.py</code> Python script. To execute, run the following command in a command line terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> process-images.py <span class="at">-c</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>where <code>&lt;config_dir&gt;</code> is the path to the configuration file containing model settings described <a href="#options">below</a>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In the command snippets above, <code>-c</code> is an abbreviation for the <code>--config_path</code> flag for convenience. For clarity, the full flag <code>--config_path</code> is used throughout these docs, but either option can be used for any of the commands that follow.</p>
-</div>
-</div>
-<p>The ageing model itself is wrapped inside a second Python script called <code>predict-ages-multimodal.py</code>. To execute, run the following command in a command line terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> predict-ages-multimodal.py <span class="at">--config_path</span> <span class="op">&lt;</span>config_dir<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><br> For more information, including an execution example, see <a href="./content/usage.html">Using the Model</a> in the docs.</p>
-</section>
-<section id="options" class="level2">
-<h2 class="anchored" data-anchor-id="options">Options</h2>
-<p>All user options are contained in a config YAML file (called <code>configurations.yml</code> by default, but can be named anything) to allow easier control and greater reproducibility. Settings are entered as <code>key: value</code> pairs as described below. The first set of parameters control the image processing routine while the second set control the age model itself.</p>
-<section id="pre-processing-options" class="level3">
-<h3 class="anchored" data-anchor-id="pre-processing-options">Pre-Processing Options</h3>
-<table class="caption-top table">
-<caption>Paths and general options</caption>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Key</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>raw_image_path</code></td>
-<td>Path to raw images. Best to include the full path in quotations. Example: “G:/Shared drives/NMFS SEFSC FATES Advanced Technology/BIOLOGY_LIFE_HISTORY_DATA/2020_Plant_10/Raw_Images”</td>
-</tr>
-<tr class="even">
-<td><code>preprocessed_image_path</code></td>
-<td>Path to save the processed images. Best to include the full path in quotations and to use a dedicated folder.</td>
-</tr>
-<tr class="odd">
-<td><code>input_type</code></td>
-<td>Input image type</td>
-</tr>
-<tr class="even">
-<td><code>output_type</code></td>
-<td>Output image type. Should not need to be changed.</td>
-</tr>
-<tr class="odd">
-<td><code>segment</code></td>
-<td>Scale segmentation method: “binary” for binary thresholding and “sam” for Segment Anything Model (SAM). Binary thresholding should work fine if images are high contrast with light scales on a dark background. SAM is more robust to variable image conditions but requires more processing time and a GPU.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table class="caption-top table">
-<caption>Binary threshold segmentation parameters</caption>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><code>binary_threshold</code></td>
-<td>Binary threshold pixel value for differentiation between foreground (scale) and background. Default: 100</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table class="caption-top table">
-<caption>Segment Anything Model (SAM) parameters</caption>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><code>points_per_side</code></td>
-<td>Number of points to use for automatic segmentation of scales with SAM. This should be adjusted based on size of object of interest with respect to the entire image. In general, you want number of points to be greater than the ratio of image size/object size for the smallest object of interest. Having too many points though could greatly increase processing time. Default: 16</td>
-</tr>
-<tr class="even">
-<td><code>stability_score_thresh</code></td>
-<td>Threshold for whether to include pixels in object mask. If the mask is too large, increase the score threshold and vice versa if the mask is too small. Default: 0.93</td>
-</tr>
-<tr class="odd">
-<td><code>downsample</code></td>
-<td>Down-sample image size for input to SAM to reduce processing time. Default: 0.5 (<em>i.e.</em> reduce image dimensions to 50% of original size)</td>
-</tr>
-<tr class="even">
-<td><code>sam_model_type</code></td>
-<td>SAM model type. Options are “vit_b”, “vit_l”, and “vit_h” in order of increasing size. Default: “vit_b”</td>
-</tr>
-<tr class="odd">
-<td><code>sam_weights_path</code></td>
-<td>Path to SAM model weights. Make sure this matches the model type. Best to use the full path in quotations.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table class="caption-top table">
-<caption>Cropping and padding parameters</caption>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><code>pad</code></td>
-<td>Padding for top and sides of cropped image. Defined as a fraction of the original cropped image size. Bottom padding is controlled by <code>bottom_pad</code>. Default: 0.2</td>
-</tr>
-<tr class="even">
-<td><code>bottom_pad</code></td>
-<td>Padding for bottom of cropped image. This is defined separately since for scale images, the bottom is usually visually distinct from the body and may be missed in the segmentation. Default: 0.4</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table class="caption-top table">
-<caption>Image normalization options</caption>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><code>normalization</code></td>
-<td>Method for optionally normalizing the image after cropping and padding. Options: “none”, for no normalization, “he” for histogram equalization, and “clahe” for Contrast Limited Adaptive Histogram Equalization.</td>
-</tr>
-<tr class="even">
-<td><code>invert</code></td>
-<td>Option to invert the pixel values in gray scale before normalization. This will make dark regions light and light regions dark.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="age-model-options" class="level3">
-<h3 class="anchored" data-anchor-id="age-model-options">Age Model Options</h3>
-<p>The following options control the age inference model. They are entered into the same configuration file for convenience.</p>
-<table class="caption-top table">
-<caption>Configuration for age inference model</caption>
-<colgroup>
-<col style="width: 27%">
-<col style="width: 74%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Key</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>image_path</code></td>
-<td>Path to preprocessed image folder. Best to include the full path in quotations. This should generally match <code>preprocessed_image_path</code> from the pre-processing step unless you want to age a different set of cropped images.</td>
-</tr>
-<tr class="even">
-<td><code>metadata_path</code></td>
-<td>Path to a single CSV file containing the metadata for all images in <code>image_path</code> (directory and metadata file name). Best to include the full path in quotations.</td>
-</tr>
-<tr class="odd">
-<td><code>model_path</code></td>
-<td>Path to model weights (directory and file name of weights file). Best to include the full path in quotations.</td>
-</tr>
-<tr class="even">
-<td><code>out_path</code></td>
-<td>Path to save results (directory and file name for CSV file). Best to include the full path in quotations.</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-note callout-titled" title="The most important settings in this file to pay attention to are:">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>The most important settings in this file to pay attention to are:
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>The directory containing the scale images to process</li>
-<li>The directory containing the accompanying metadata</li>
-<li>The directory where you want the model output file to be written</li>
-<li>The directory containing the trained model weights (<em>i.e.</em>, the <code>multimodal-model-v2025.pth</code> file) and, if desired, the Segment Anything Model weights. If you simply cloned the repo and have not moved anything around, the trained model weights file will be alongside the model script in the <code>scripts</code> subdirectory in the cloned repository. The SAM weights will be wherever you saved them upon <a href="./content/setup.html#clone-the-repository">downloading them</a>.</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Absolute vs. relative file paths">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Absolute vs.&nbsp;relative file paths
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Absolute file paths are generally recommended to avoid unintended behavior but will vary from computer to computer.</p>
-</div>
-</div>
-</section>
+<p>Predicting menhaden ages requires two steps. First, raw images must be pre-processed in order to crop out the scale of interest from the full image, pad the cropped image to ensure the full scale is captured, and (optionally) normalize the cropped image to facilitate ageing. These new processed images are then passed to an ageing model to generate age inferences. This is all done using the provided <code>menhaden-age-model</code> utility, a Windows Batch (<code>.bat</code>) file designed to streamline Python environment management and script execution. Upon launching <code>menhaden-age-model</code>, the user is asked to select a process from the following options:</p>
+<ul>
+<li><strong>Process raw images (crop, pad, normalize, etc.)</strong>: Process raw scale images prior to passing them through an age prediction model. The image processing routine takes an image that may contain multiple scales, identifies and crops the center-most scale, resizes it to square dimensions expected by the model, adds necessary padding around the cropped scale, and optionally applies image pixel normalization or other image processing techniques.</li>
+<li><strong>Predict ages using images only</strong>: Runs the “image-only” ageing model, which predicts ages using only the cropped scale images.</li>
+<li><strong>Predict ages using images and metadata</strong>: Runs the so-called “multimodal” ageing model, which combines sample metadata (<em>e.g.</em>, fish length, weight, month of catch) with processed scale images to predict age.</li>
+</ul>
+<p>Regardless of which pipeline is selected, the user will then be prompted to select the desired configuration <code>YAML</code> file. See the <a href="./content/configuration.html">docs</a> for more information and details on each configuration option.</p>
+<p>Command line options for using the Menhaden ageing model are also available. See the <a href="./content/usage.html">Using the Model</a> for more information.</p>
 </section>
 <section id="dependencies" class="level2">
 <h2 class="anchored" data-anchor-id="dependencies">Dependencies</h2>
+<p><strong>Python:</strong> This model is built using Python 3.8 but currently works with versions up to Python 3.10. The user is responsible for downloading, installing, and configuring Python on their system.</p>
+<p>The following Python packages are also needed. These will automatically be installed in a virtual environment via the <code>menhaden-age-model</code> utility. Otherwise, they can be retreived manually via command line using the <code>requirements.txt</code> file (pip) or <code>enviornment.yml</code> file (Anaconda).</p>
+<p><strong>PyTorch:</strong></p>
 <ul>
-<li><a href="https://www.anaconda.com/">Anaconda</a> (for virtual environment implementation)</li>
-<li><a href="https://git-scm.com/downloads">Git CLI</a> (for repository cloning)</li>
-<li>Python &gt;= 3.9</li>
-<li>torch ==1.12.1</li>
-<li>torchvision == 0.13.1</li>
-<li>torchaudio == 0.12.1</li>
-<li>opencv-python</li>
-<li>pandas</li>
-<li>tqdm</li>
+<li>torch</li>
+<li>torchaudio</li>
+<li>torchvision</li>
 </ul>
+<p>** Data, vision, and math packages:*</p>
+<ul>
+<li>numpy</li>
+<li>pandas</li>
+<li>opencv-python</li>
+<li>Pillow</li>
+<li>PyYAML</li>
+<li>tqdm</li>
+<li>beautifulsoup4</li>
+<li>requests</li>
+</ul>
+<p>See <code>requirements.txt</code> or <code>environment.yml</code> for version requirements.</p>
+<p><strong>Optional dependencies:</strong> * <a href="https://www.anaconda.com/">Anaconda</a> (for virtual environment implementation) * <a href="https://git-scm.com/downloads">Git CLI</a> (for repository cloning)</p>
 <section id="recommendations" class="level4">
 <h4 class="anchored" data-anchor-id="recommendations">Recommendations</h4>
 <ul>
 <li>matplotlib (data plotting in Python)</li>
-<li>jupyter (viewing Jupyter notebook demonstrations provided in the GitHub repo)</li>
+<li>jupyter or notebook (viewing Jupyter notebook demonstrations provided in the GitHub repo)</li>
 </ul>
 <p>See <a href="./content/setup.html">Getting Started</a> for installation and setup instructions.</p>
 </section>
@@ -736,7 +510,7 @@ Run via command line with image, output, and model directories passed as require
 </li></ul>
 <ul>
 <li>
-<b>2025.0.2 (BETA)</b> (July 2025):
+<b>2025.0.2</b> (July 2025):
 <ul>
 <li>
 Adds optional histogram normalization (simple histogram equalization and Contrast Limited Adaptive Histogram Equalization)
@@ -751,10 +525,34 @@ Model settings and hyperparameters, including input and output file paths, are n
 </li></ul>
 <ul>
 <li>
-<b>2025.0.3 (BETA)</b> (September 2025):
+<b>2025.0.3</b> (September 2025):
 <ul>
 <li>
 Now describes the multimodal model (images plus metadata) and how to use it
+</li>
+</ul>
+</li></ul>
+<ul>
+<li>
+<b>2026.1.0 (BETA)</b> (July 2026):
+<ul>
+<li>
+Streamlined model setup and usage via a new Windows Batch launcher file
+</li>
+<li>
+Consolidated configuration file with clearer key names
+</li>
+<li>
+Default configuration settings set in model scripts to minimize unneeded clutter in user configuration files
+</li>
+<li>
+Support for all directory path formats (Linux forward slashes, Windows back slashes, and double back slashes)
+</li>
+<li>
+Multimodal model now crashes when metadata are not present instead of silently skipping (user requested behavior)
+</li>
+<li>
+Automatically extract required metadata fields from database CSV file
 </li>
 </ul>
 </li></ul>
