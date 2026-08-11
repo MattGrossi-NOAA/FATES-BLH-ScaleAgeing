@@ -543,7 +543,7 @@ CONFIG_DEFAULTS = {
     "binary_threshold": 100,
     "bottom_pad": 0.35,
     "downsample": 0.5,
-    "normalization": "none"
+    "normalization": "none",
     "output_type": ".jpg",
     "input_type": ".tif",
     "invert": False,
